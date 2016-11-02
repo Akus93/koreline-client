@@ -1,10 +1,13 @@
 <div>
   <md-toolbar color="primary">
-    Koreline
+    <a routerLink="/">Koreline</a>
     <md-icon class="logo-icon">explore</md-icon>
-    
+
     <span class="fill-remaining-space"></span>
-    <button md-button>Test</button>
+    <button md-button *ngIf="!authService.isAuth()" routerLink="/login" routerLinkActive="active">Zaloguj się</button>
+    <button md-button *ngIf="authService.isAuth()" (click)="authService.logout()">Wyloguj się</button>
   </md-toolbar>
+
+  <router-outlet></router-outlet>
 </div>
 
