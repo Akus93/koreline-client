@@ -5,6 +5,7 @@
 
     <span class="fill-remaining-space"></span>
     <button md-button *ngIf="!authService.isAuth()" routerLink="/login" routerLinkActive="active">Zaloguj się</button>
+    <button md-button *ngIf="!authService.isAuth()" routerLink="/registration" routerLinkActive="active">Zarejestruj się</button>
     <button md-button *ngIf="authService.isAuth()" (click)="authService.logout()">Wyloguj się</button>
   </md-toolbar>
 

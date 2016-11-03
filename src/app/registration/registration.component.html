@@ -1,0 +1,38 @@
+<md-card>
+  <md-toolbar color="primary">Zarejestruj się</md-toolbar>
+  <md-card-content>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+      <div class="form-field">
+        <md-input formControlName="email" placeholder="Adres email"></md-input>
+        <div *ngIf="errorMessages.email.errors" class="form-error-message">
+          {{ errorMessages.email.errors[0] }}
+        </div>
+      </div>
+      <div class="form-field">
+        <md-input formControlName="password" placeholder="Hasło" type="password"></md-input>
+        <div *ngIf="errorMessages.password.errors" class="form-error-message">
+          {{ errorMessages.password.errors[0] }}
+        </div>
+      </div>
+      <div class="form-field">
+        <md-input formControlName="confirmPassword" placeholder="Powtórz hasło" type="password"></md-input>
+        <div *ngIf="errorMessages.confirmPassword.errors" class="form-error-message">
+          {{ errorMessages.confirmPassword.errors[0] }}
+        </div>
+      </div>
+      <div class="form-field">
+        <md-input formControlName="firstName" placeholder="Imię"></md-input>
+        <div *ngIf="errorMessages.firstName.errors" class="form-error-message">
+          {{ errorMessages.firstName.errors[0] }}
+        </div>
+      </div>
+      <div class="form-field">
+        <md-input formControlName="lastName" placeholder="Nazwisko"></md-input>
+        <div *ngIf="errorMessages.lastName.errors" class="form-error-message">
+          {{ errorMessages.lastName.errors[0] }}
+        </div>
+      </div>
+      <button md-button type="submit">Zarejestruj się</button>
+    </form>
+  </md-card-content>
+</md-card>
