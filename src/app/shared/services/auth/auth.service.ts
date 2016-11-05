@@ -8,14 +8,14 @@ export class AuthService {
 
   constructor(private http: Http) {}
 
-  public login(username, password): Observable<string> {
+  public login(email: string, password: string): Observable<string> {
 
     let options = {
         headers: new Headers({
              'Content-Type': 'application/json',
             })
     };
-    let body = JSON.stringify({ username: username, password: password });
+    let body = JSON.stringify({ email: email, password: password });
     let url = 'http://localhost:8000/auth/login/';
 
     return this.http.post(url, body, options)
@@ -44,16 +44,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  private handleError (error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.log(errMsg);
-    return Observable.throw(errMsg);
+  private handleError (error: Response ) {
+    return Observable.throw(error.json());
   }
 }

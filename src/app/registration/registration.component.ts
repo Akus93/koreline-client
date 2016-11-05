@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 
 import { validateEmail } from '../shared/validators/validateEmail';
-import {validateConfirmPassword} from "../shared/validators/validateConfirmPassword";
+import {validateConfirmPassword} from '../shared/validators/validateConfirmPassword';
+import {UserService} from '../shared/services/user/user.service';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -14,25 +16,23 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
 
     this.registrationForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(6), validateEmail]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
-      firstName: ['', [Validators.required, Validators.maxLength(30)]],
-      lastName: ['', [Validators.required, Validators.maxLength(30)]]
+      email: ['', [Validators.required, validateEmail]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required]]
     });
 
     this.registrationForm.get('confirmPassword')
       .setValidators(validateConfirmPassword.bind(undefined, this.registrationForm.get('password')));
 
-    this.registrationForm.get('email').valueChanges
-      .filter(() => this.registrationForm.get('email').valid)
-      .do(email => console.log(email))
-      .subscribe();
+    // this.registrationForm.get('email').valueChanges
+    //   .filter(() => this.registrationForm.get('email').valid)
+    //   .do(email => console.log(email))
+    //   .subscribe();
 
     this.registrationForm.valueChanges
       .subscribe(data => this.onFormChanged());
@@ -41,8 +41,18 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit(): void {
     let isValid: boolean = this.registrationForm.valid;
-    if (isValid)
-      console.log('Poprawne dane.');
+    if (isValid) {
+      this.userService.createUser(this.registrationForm.get('email').value,
+                                  this.registrationForm.get('password').value,
+                                  this.registrationForm.get('confirmPassword').value)
+                      .subscribe(
+                        token => {
+                          localStorage.setItem('token', token );
+                          this.router.navigate(['/']);
+                        },
+                        error => this.showErrorsFromServer(error)
+                      );
+    }
     else
       for (let field in this.errorMessages) {
         this.errorMessages[field]['errors'] = [];
@@ -56,12 +66,33 @@ export class RegistrationComponent implements OnInit {
       }
   }
 
-  onFormChanged() {
-    for (let field in this.errorMessages) {
+  private translateErrorResponse(error: JSON): {} {
+    const translations = {
+      'email': 'email',
+      'password1': 'password',
+      'password2': 'confirmPassword'
+    };
+    let result = {};
+    for (let field in error){
+      let newName: string = translations[field];
+      result[newName] = error[field];
+    }
+    return result
+  }
+
+  showErrorsFromServer(error: JSON) {
+    const translatedError: {} = this.translateErrorResponse(error);
+    for (let field in translatedError)
+      if (field in this.errorMessages)
+        this.errorMessages[field]['errors'] = translatedError[field];
+  }
+
+  private onFormChanged(): void {
+    for (var field in this.errorMessages) {
       this.errorMessages[field]['errors'] = [];
-      let ctrl = this.registrationForm.get(field);
+      var ctrl = this.registrationForm.get(field);
       if (ctrl.dirty && ctrl.invalid) {
-        let messages = this.errorMessages[field]['messages'];
+        var messages = this.errorMessages[field]['messages'];
         for (let key in ctrl.errors) {
           this.errorMessages[field]['errors'].push(messages[key]);
         }
@@ -73,7 +104,6 @@ export class RegistrationComponent implements OnInit {
     'email': {
       'messages': {
         'required':       'To pole jest wymagane.',
-        'minlength':      'Adres email musi posiadać conajmniej 6 znaków.',
         'validateEmail':  'Niepoprawny adres email.'
       },
       'errors': []
@@ -81,7 +111,7 @@ export class RegistrationComponent implements OnInit {
     'password': {
       'messages': {
         'required':   'To pole jest wymagane.',
-        'minlength':  'Hasło musi posiadać conajmniej 6 znaków.',
+        'minlength':  'Hasło musi posiadać conajmniej 8 znaków.',
       },
       'errors': []
     },
@@ -89,18 +119,6 @@ export class RegistrationComponent implements OnInit {
       'messages': {
         'required':   'To pole jest wymagane.',
         'validateConfirmPassword':  'Hasła muszą być identyczne.',
-      },
-      'errors': []
-    },
-    'firstName': {
-      'messages': {
-        'required':   'To pole jest wymagane.',
-      },
-      'errors': []
-    },
-    'lastName': {
-      'messages': {
-        'required':   'To pole jest wymagane.',
       },
       'errors': []
     }

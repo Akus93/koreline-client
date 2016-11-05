@@ -1,12 +1,15 @@
 <div>
   <md-toolbar color="primary">
-    <a routerLink="/">Koreline</a>
-    <md-icon class="logo-icon">explore</md-icon>
+    <img routerLink="/" src="/assets/logo2.png" height="85%"/>
 
     <span class="fill-remaining-space"></span>
-    <button md-button *ngIf="!authService.isAuth()" routerLink="/login" routerLinkActive="active">Zaloguj się</button>
-    <button md-button *ngIf="!authService.isAuth()" routerLink="/registration" routerLinkActive="active">Zarejestruj się</button>
-    <button md-button *ngIf="authService.isAuth()" (click)="authService.logout()">Wyloguj się</button>
+    <div *ngIf="!authService.isAuth()">
+      <button md-button routerLink="/login" >Zaloguj się</button>
+      <button md-button routerLink="/registration" >Zarejestruj się</button>
+    </div>
+    <div *ngIf="authService.isAuth()">
+      <button md-button (click)="authService.logout()">Wyloguj się</button>
+    </div>
   </md-toolbar>
 
   <router-outlet></router-outlet>

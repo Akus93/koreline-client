@@ -1,19 +1,24 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">Username</label>
-            <input id="username" type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+<md-card>
+  <md-toolbar color="primary">Zaloguj się</md-toolbar>
+  <md-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+      <div class="form-field">
+        <md-input formControlName="email" placeholder="Adres email"></md-input>
+        <div *ngIf="errorMessages.email.errors" class="form-error-message">
+          {{ errorMessages.email.errors[0] }}
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
-            <input id="password" type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+      </div>
+      <div class="form-field">
+        <md-input formControlName="password" placeholder="Hasło" type="password"></md-input>
+        <div *ngIf="errorMessages.password.errors" class="form-error-message">
+          {{ errorMessages.password.errors[0] }}
         </div>
-        <div class="form-group">
-            <button class="btn btn-primary">Login</button>
-        </div>
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+      </div>
+      <div *ngIf="nonFieldError" class="form-error-message">
+        {{ nonFieldError }}
+      </div>
+      <button md-raised-button type="submit">Zaloguj się</button>
     </form>
-</div>
+  </md-card-content>
+</md-card>
+

@@ -20,19 +20,7 @@
           {{ errorMessages.confirmPassword.errors[0] }}
         </div>
       </div>
-      <div class="form-field">
-        <md-input formControlName="firstName" placeholder="Imię"></md-input>
-        <div *ngIf="errorMessages.firstName.errors" class="form-error-message">
-          {{ errorMessages.firstName.errors[0] }}
-        </div>
-      </div>
-      <div class="form-field">
-        <md-input formControlName="lastName" placeholder="Nazwisko"></md-input>
-        <div *ngIf="errorMessages.lastName.errors" class="form-error-message">
-          {{ errorMessages.lastName.errors[0] }}
-        </div>
-      </div>
-      <button md-button type="submit">Zarejestruj się</button>
+      <button md-raised-button type="submit">Zarejestruj się</button>
     </form>
   </md-card-content>
 </md-card>
