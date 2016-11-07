@@ -1,3 +1,5 @@
-<p>
-  home works!
-</p>
+<div *ngFor="let lesson of lessons">
+  <p>Title: {{lesson.title}}</p>
+  <p>Slug: {{lesson.slug}}</p>
+  <p>Teacher: {{lesson.teacher}}</p>
+</div>

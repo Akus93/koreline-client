@@ -3,7 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 
-import { UserProfile } from '../../models/user.model';
+import { UserProfile } from '../../models/userProfile.model';
 
 
 @Injectable()

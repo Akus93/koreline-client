@@ -14,6 +14,7 @@ import { AuthService } from './shared/services/auth/auth.service';
 import { UserService } from './shared/services/user/user.service';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { RegistrationComponent } from './registration/registration.component';
+import {LessonService} from "./shared/services/lesson/lesson.service";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RegistrationComponent } from './registration/registration.component';
   providers: [
     AuthService,
     UserService,
+    LessonService,
     AuthGuard
     ],
   bootstrap: [AppComponent]
