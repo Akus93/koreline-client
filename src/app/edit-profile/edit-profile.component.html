@@ -1,0 +1,17 @@
+<md-card>
+  <md-toolbar color="primary">Edytuj profil</md-toolbar>
+  <md-card-content>
+    <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+      <div class="form-field">
+        <md-input formControlName="firstName" placeholder="Imię"></md-input>
+      </div>
+      <div class="form-field">
+        <md-input formControlName="lastName" placeholder="Nazwisko"></md-input>
+      </div>
+      <div class="form-field">
+        <md-input formControlName="birthDate" placeholder="Data urodzenia"></md-input>
+      </div>
+      <button md-raised-button type="submit">Zapisz</button>
+    </form>
+  </md-card-content>
+</md-card>

@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private router: Router) {}
 
   public login(email: string, password: string): Observable<string> {
 
@@ -32,7 +33,10 @@ export class AuthService {
     };
     this.http.post(url, JSON.stringify({}), options)
              .subscribe(
-               res => localStorage.removeItem('token')
+               res => {
+                 localStorage.removeItem('token');
+                 this.router.navigate(['/']);
+               }
              );
   }
 

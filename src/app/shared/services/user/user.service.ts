@@ -13,7 +13,7 @@ export class UserService {
 
   public getCurrentUser(token: string): Observable<UserProfile> {
 
-    let url = 'http://localhost:8000/api/user/';
+    let url = 'http://localhost:8000/api/user/edit-profile/';
     let options = {
         headers: new Headers({
              'Authorization': 'Token '+ token,
@@ -23,6 +23,21 @@ export class UserService {
     return this.http.get(url, options)
                     .map((res: Response) => res.json())
                     .catch(this.handleError);
+  }
+
+  public patchCurrentUser(token: string, body): Observable<UserProfile> {
+
+    let url = 'http://localhost:8000/api/user/edit-profile/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.patch(url, JSON.stringify(body), options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   public createUser(email: string, password: string, confirmPassword: string): Observable<string> {

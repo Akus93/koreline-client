@@ -1,5 +1,7 @@
-<div *ngFor="let lesson of lessons">
+<div class="lesson-card" *ngFor="let lesson of lessons">
   <p>Title: {{lesson.title}}</p>
   <p>Slug: {{lesson.slug}}</p>
-  <p>Teacher: {{lesson.teacher}}</p>
+  <p>Teacher: {{getTeacherFullName(lesson)}}</p>
 </div>
+
+
