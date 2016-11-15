@@ -4,12 +4,21 @@
     <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
       <div class="form-field">
         <md-input formControlName="firstName" placeholder="Imię"></md-input>
+        <div *ngIf="errorMessages.firstName.errors" class="form-error-message">
+          {{ errorMessages.firstName.errors[0] }}
+        </div>
       </div>
       <div class="form-field">
         <md-input formControlName="lastName" placeholder="Nazwisko"></md-input>
+        <div *ngIf="errorMessages.lastName.errors" class="form-error-message">
+          {{ errorMessages.lastName.errors[0] }}
+        </div>
       </div>
       <div class="form-field">
         <md-input formControlName="birthDate" placeholder="Data urodzenia"></md-input>
+        <div *ngIf="errorMessages.birthDate.errors" class="form-error-message">
+          {{ errorMessages.birthDate.errors[0] }}
+        </div>
       </div>
       <button md-raised-button type="submit">Zapisz</button>
     </form>

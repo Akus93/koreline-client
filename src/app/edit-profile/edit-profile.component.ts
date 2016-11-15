@@ -18,24 +18,26 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userService.getCurrentUser(this.authService.getToken())
+    this.userService.getCurrentUserProfile(this.authService.getToken())
                     .subscribe(
                       user => {
                         this.editProfileForm.patchValue(user);
                         this.editProfileForm.patchValue(user.user);
                       },
-                          error => {}
+                          error => this.showErrorsFromServer(error)
                     );
 
     this.editProfileForm = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      birthDate: ['']
+      firstName: ['', [Validators.maxLength(30)]],
+      lastName: ['', [Validators.maxLength(30)]],
+      birthDate: ['', [Validators.pattern('([0-9]{4})-([0-9]{2})-([0-9]{2})')]]
     });
 
   }
 
   onSubmit(): void {
+    for (let field in this.errorMessages)
+      this.errorMessages[field]['errors'] = [];
     if (this.editProfileForm.valid) {
       let body = {
         birthDate: this.editProfileForm.get('birthDate').value,
@@ -44,7 +46,7 @@ export class EditProfileComponent implements OnInit {
           lastName: this.editProfileForm.get('lastName').value
         }
       };
-      this.userService.patchCurrentUser(this.authService.getToken(), body)
+      this.userService.patchCurrentUserProfile(this.authService.getToken(), body)
         .subscribe(
           user => {
             this.editProfileForm.patchValue(user);
@@ -53,10 +55,44 @@ export class EditProfileComponent implements OnInit {
           error => {}
         );
     } else {
-      console.log('Cos poszlo nie tak...');
-      // TODO walidacja
+      for (let field in this.errorMessages) {
+        this.errorMessages[field]['errors'] = [];
+        let ctrl = this.editProfileForm.get(field);
+        if (ctrl.invalid) {
+          let messages = this.errorMessages[field]['messages'];
+          for (let key in ctrl.errors) {
+            this.errorMessages[field]['errors'].push(messages[key]);
+          }
+        }
+      }
     }
-
   }
+
+  private showErrorsFromServer(error: JSON) {
+    for (let field in error)
+      if (field in this.errorMessages)
+        this.errorMessages[field]['errors'] = error[field];
+  }
+
+  errorMessages = {
+    'firstName': {
+      'messages': {
+        'maxlength': 'Imię może posiadać maksymalnie 30 znaków.'
+      },
+      'errors': []
+    },
+    'lastName': {
+      'messages': {
+        'maxlength': 'Nazwisko może posiadać maksymalnie 30 znaków.'
+      },
+      'errors': []
+    },
+    'birthDate': {
+      'messages': {
+        'pattern': 'Data urodzenia ma niepoprawny format. Użyj formatu \'yyyy-mm-dd\''
+      },
+      'errors': []
+    },
+  };
 
 }

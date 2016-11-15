@@ -16,6 +16,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { RegistrationComponent } from './registration/registration.component';
 import {LessonService} from "./shared/services/lesson/lesson.service";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ViewProfileComponent } from './view-profile/view-profile.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     HomeComponent,
     RegistrationComponent,
     EditProfileComponent,
+    ViewProfileComponent,
   ],
   imports: [
     BrowserModule,

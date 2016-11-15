@@ -80,7 +80,7 @@ export class RegistrationComponent implements OnInit {
     return result
   }
 
-  showErrorsFromServer(error: JSON) {
+  private showErrorsFromServer(error: JSON) {
     const translatedError: {} = this.translateErrorResponse(error);
     for (let field in translatedError)
       if (field in this.errorMessages)

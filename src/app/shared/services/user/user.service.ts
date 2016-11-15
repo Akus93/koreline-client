@@ -11,7 +11,7 @@ export class UserService {
 
   constructor(private http: Http) { }
 
-  public getCurrentUser(token: string): Observable<UserProfile> {
+  public getCurrentUserProfile(token: string): Observable<UserProfile> {
 
     let url = 'http://localhost:8000/api/user/edit-profile/';
     let options = {
@@ -25,7 +25,7 @@ export class UserService {
                     .catch(this.handleError);
   }
 
-  public patchCurrentUser(token: string, body): Observable<UserProfile> {
+  public patchCurrentUserProfile(token: string, body): Observable<UserProfile> {
 
     let url = 'http://localhost:8000/api/user/edit-profile/';
     let options = {
@@ -40,6 +40,14 @@ export class UserService {
       .catch(this.handleError);
   }
 
+  public getUserProfile(username: string): Observable<UserProfile> {
+
+    let url = 'http://localhost:8000/api/users/' + username;
+    return this.http.get(url)
+                    .map(res => res.json())
+                    .catch(this.handleError);
+  }
+
   public createUser(email: string, password: string, confirmPassword: string): Observable<string> {
 
     let url = 'http://localhost:8000/auth/registration/';
@@ -52,22 +60,6 @@ export class UserService {
 
     return this.http.post(url, body, options)
       .map((res: Response) => res.json().key)
-      .catch(this.handleError);
-  }
-
-  public updateUser(token: string, userProfile: UserProfile): Observable<JSON> {
-    var body = {};
-    for (const field in userProfile) {
-      body[field] = userProfile[field];
-    }
-    let url = 'http://localhost:8000/api/user/update/';
-    let options = {
-      headers: new Headers({
-        'Authorization': 'Token '+ token,
-      })
-    };
-    return this.http.post(url, body, options)
-      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
