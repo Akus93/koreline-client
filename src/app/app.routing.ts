@@ -6,6 +6,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {ViewProfileComponent} from "./view-profile/view-profile.component";
+import {ViewLessonComponent} from "./view-lesson/view-lesson.component";
 
 
 export const routes: Routes = [
@@ -25,6 +26,10 @@ export const routes: Routes = [
     {
       path: 'user/:username',
       component: ViewProfileComponent,
+    },
+    {
+      path: 'lesson/:slug',
+      component: ViewLessonComponent,
     },
     {
         path: '',

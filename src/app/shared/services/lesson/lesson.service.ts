@@ -26,6 +26,15 @@ export class LessonService {
                .catch(this.handleError)
   }
 
+  getLesson(slug: string): Observable<Lesson> {
+
+    let url = 'http://localhost:8000/api/lessons/' + slug;
+
+    return this.http.get(url)
+      .map((response: Response) => response.json())
+      .catch(this.handleError)
+  }
+
   private handleError (error: Response) {
     return Observable.throw(error.json());
   }

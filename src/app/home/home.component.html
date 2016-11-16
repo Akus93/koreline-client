@@ -5,7 +5,7 @@
       <md-grid-tile-footer>
         <h3 md-line>{{lesson.title}}</h3>
         <span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>
-        <button md-icon-button>
+        <button md-icon-button [routerLink]="['/lesson', lesson.slug]">
           <md-icon>info</md-icon>
         </button>
       </md-grid-tile-footer>
