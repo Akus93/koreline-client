@@ -17,6 +17,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import {LessonService} from "./shared/services/lesson/lesson.service";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { ViewLessonComponent } from './view-lesson/view-lesson.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
     RegistrationComponent,
     EditProfileComponent,
     ViewProfileComponent,
+    ViewLessonComponent,
   ],
   imports: [
     BrowserModule,

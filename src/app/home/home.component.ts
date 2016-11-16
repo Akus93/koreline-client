@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private lessonService: LessonService) { }
 
   ngOnInit() {
-    this.lessonService.getLessons()
+    this.lessonService.getLessonsList({})
                       .subscribe(
                         lessons => this.lessons = lessons,
                         error => {}

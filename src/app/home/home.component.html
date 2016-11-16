@@ -4,7 +4,7 @@
       <img src="/assets/sowa2.jpg" alt="zdjecie sowy">
       <md-grid-tile-footer>
         <h3 md-line>{{lesson.title}}</h3>
-        <span md-line>Nauczyciel: {{getTeacherFullName(lesson)}}</span>
+        <span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>
         <button md-icon-button>
           <md-icon>info</md-icon>
         </button>

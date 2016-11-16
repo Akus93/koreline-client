@@ -8,9 +8,18 @@ export class LessonService {
 
   constructor(private http: Http ) { }
 
-  getLessons(): Observable<Lesson[]> {
+  getLessonsList(params): Observable<Lesson[]> {
 
-    let url = 'http://localhost:8000/api/lessons/';
+    let query = '';
+    if (params) {
+      query = '?';
+      for (let param in params) {
+        query = query + param + '=' + params[param] + '&';
+      }
+      query = query.slice(0, -1);
+    }
+
+    let url = 'http://localhost:8000/api/lessons/' + query;
 
     return this.http.get(url)
                .map((response: Response) => response.json())
