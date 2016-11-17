@@ -4,6 +4,8 @@ export class Lesson {
   teacher: UserProfile;
   title: string;
   slug: string;
+  subject: string;
+  price: number;
 
   // constructor(teacher: UserProfile, title: string, slug: string) {
   //   this.teacher = teacher;

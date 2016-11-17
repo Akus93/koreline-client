@@ -18,6 +18,7 @@ import {LessonService} from "./shared/services/lesson/lesson.service";
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { ViewLessonComponent } from './view-lesson/view-lesson.component';
+import {SubjectService} from "./shared/services/subject/subject.service";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ViewLessonComponent } from './view-lesson/view-lesson.component';
     AuthService,
     UserService,
     LessonService,
+    SubjectService,
     AuthGuard
     ],
   bootstrap: [AppComponent]

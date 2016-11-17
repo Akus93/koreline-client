@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import {LessonService} from "../shared/services/lesson/lesson.service";
 import {Lesson} from "../shared/models/lesson.model";
+import {SubjectService} from "../shared/services/subject/subject.service";
+import {FormControl} from "@angular/forms";
+import {isUndefined} from "util";
+import {isNull} from "util";
 
 @Component({
   selector: 'app-home',
@@ -11,8 +15,10 @@ import {Lesson} from "../shared/models/lesson.model";
 export class HomeComponent implements OnInit {
 
   lessons: Lesson[];
+  subjects: string[];
 
-  constructor(private lessonService: LessonService) { }
+
+  constructor(private lessonService: LessonService, private subjectService: SubjectService) { }
 
   ngOnInit() {
     this.lessonService.getLessonsList({})
@@ -20,6 +26,11 @@ export class HomeComponent implements OnInit {
                         lessons => this.lessons = lessons,
                         error => {}
                       );
+    this.subjectService.getSubjects()
+                       .subscribe(
+                         subjects => this.subjects = subjects,
+                         error => {}
+                       );
   }
 
   private getTeacherFullName(lesson: Lesson): string {
@@ -29,4 +40,14 @@ export class HomeComponent implements OnInit {
         return lesson.teacher.user.username;
     }
 
+    changeSubject(subject: string): void {
+      let query = {};
+      if (!(subject === 'null'))
+        query['subject'] = subject;
+      this.lessonService.getLessonsList(query)
+        .subscribe(
+          lessons => this.lessons = lessons,
+          error => {}
+        );
+    }
 }

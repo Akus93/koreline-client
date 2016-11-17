@@ -1,4 +1,8 @@
 <div style="margin:4em">
+  <select placeholder="Przedmiot" #s (change)="changeSubject(s.value)">
+    <option [value]="undefined"> Wszystkie przedmioty </option>
+    <option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </option>
+  </select>
   <md-grid-list cols="4" rowHeight="4:3" gutterSize="25px">
     <md-grid-tile *ngFor="let lesson of lessons" [rowspan]="1">
       <img src="/assets/sowa2.jpg" alt="zdjecie sowy">
