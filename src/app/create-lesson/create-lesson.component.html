@@ -1,0 +1,29 @@
+<md-card>
+  <md-toolbar color="primary">Dodaj ofertę nauczania</md-toolbar>
+  <md-card-content>
+    <form [formGroup]="lessonCreateForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+      <div class="form-field">
+        <md-input formControlName="title" placeholder="Tytuł"></md-input>
+        <div *ngIf="errorMessages.title.errors" class="form-error-message">
+          {{ errorMessages.title.errors[0] }}
+        </div>
+      </div>
+      <div class="form-field">
+        <select formControlName="subject">
+          <option value="" disabled selected>Wybierz przedmiot</option>
+          <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
+        </select>
+        <div *ngIf="errorMessages.subject.errors" class="form-error-message">
+          {{ errorMessages.subject.errors[0] }}
+        </div>
+      </div>
+      <div class="form-field">
+        <md-input formControlName="price" placeholder="Cena za 15 minut" type="number"></md-input>
+        <div *ngIf="errorMessages.price.errors" class="form-error-message">
+          {{ errorMessages.price.errors[0] }}
+        </div>
+      </div>
+      <button md-raised-button type="submit">Dodaj ofertę</button>
+    </form>
+  </md-card-content>
+</md-card>

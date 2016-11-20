@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {ViewProfileComponent} from "./view-profile/view-profile.component";
 import {ViewLessonComponent} from "./view-lesson/view-lesson.component";
+import {CreateLessonComponent} from "./create-lesson/create-lesson.component";
 
 
 export const routes: Routes = [
@@ -26,6 +27,11 @@ export const routes: Routes = [
     {
       path: 'user/:username',
       component: ViewProfileComponent,
+    },
+    {
+      path: 'lesson/create',
+      component: CreateLessonComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: 'lesson/:slug',

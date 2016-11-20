@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth/auth.service';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {validateEmail} from "../shared/validators/validateEmail";
+import {UserService} from "../shared/services/user/user.service";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   nonFieldError: string;
 
-  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder,
+              private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -50,6 +52,10 @@ export class LoginComponent implements OnInit {
         .subscribe(
           token => {
             localStorage.setItem('token', token );
+            this.userService.getCurrentUserProfile(token)
+                            .subscribe(
+                              user => localStorage.setItem('isTeacher', user.isTeacher.toString())
+                            );
             this.router.navigate(['/']);
           },
           error => this.showErrorsFromServer(error)

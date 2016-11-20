@@ -17,6 +17,7 @@ export class UserService {
     let options = {
         headers: new Headers({
              'Authorization': 'Token '+ token,
+             'Accept': 'application/json'
             })
     };
 
@@ -31,7 +32,8 @@ export class UserService {
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       })
     };
 
@@ -43,7 +45,13 @@ export class UserService {
   public getUserProfile(username: string): Observable<UserProfile> {
 
     let url = 'http://localhost:8000/api/users/' + username;
-    return this.http.get(url)
+    let options = {
+      headers: new Headers({
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.get(url, options)
                     .map(res => res.json())
                     .catch(this.handleError);
   }
@@ -54,7 +62,8 @@ export class UserService {
     let body = JSON.stringify({ email: email, password1: password, password2: confirmPassword });
     let options = {
       headers: new Headers({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       })
     };
 

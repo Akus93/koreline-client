@@ -25,6 +25,7 @@ class User {
 export class UserProfile {
     user: User;
     birthDate: string;
+    isTeacher: boolean;
 
   constructor() {
     this.user = new User();

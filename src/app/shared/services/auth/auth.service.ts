@@ -13,7 +13,8 @@ export class AuthService {
 
     let options = {
         headers: new Headers({
-             'Content-Type': 'application/json',
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
             })
     };
     let body = JSON.stringify({ email: email, password: password });
@@ -40,8 +41,12 @@ export class AuthService {
              );
   }
 
-  public isAuth(): boolean{
+  public isAuth(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  public isTeacher(): boolean {
+    return localStorage.getItem('isTeacher') == 'true';
   }
 
   public getToken(): string {

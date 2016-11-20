@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from "@angular/http";
+import {Http, Response, Headers} from "@angular/http";
 import {Observable} from "rxjs";
-import {error} from "util";
 
 
 @Injectable()
@@ -13,8 +12,13 @@ export class SubjectService {
   getSubjects(): Observable<Array<string>> {
 
     let url = 'http://localhost:8000/api/subjects/';
+    let options = {
+      headers: new Headers({
+        'Accept': 'application/json'
+      })
+    };
 
-    return this.http.get(url)
+    return this.http.get(url, options)
                     .map((response: Response) => response.json())
                     .catch(this.handleError);
   }

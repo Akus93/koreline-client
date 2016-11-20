@@ -8,6 +8,9 @@
       <button md-button routerLink="/registration" >Zarejestruj się</button>
     </div>
     <div *ngIf="authService.isAuth()">
+      <span *ngIf="!authService.isTeacher()">
+        <button md-button routerLink="/lesson/create" >Zostań nauczycielem</button>
+      </span>
       <button md-button routerLink="/user/edit-profile" >Mój profil</button>
       <button md-button (click)="authService.logout()">Wyloguj się</button>
     </div>
