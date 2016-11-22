@@ -3,6 +3,7 @@ import {UserService} from "../shared/services/user/user.service";
 import {AuthService} from "../shared/services/auth/auth.service";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {UserProfile} from "../shared/models/userProfile.model";
+import {ToastyService} from "ng2-toasty";
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,7 +15,7 @@ export class EditProfileComponent implements OnInit {
   editProfileForm: FormGroup;
 
   constructor(private authService: AuthService, private userService: UserService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder, private toastyService: ToastyService) { }
 
   ngOnInit(): void {
 
@@ -51,8 +52,15 @@ export class EditProfileComponent implements OnInit {
           user => {
             this.editProfileForm.patchValue(user);
             this.editProfileForm.patchValue(user.user);
+            this.toastyService.success({
+              title: "Sukces",
+              msg: "Twoje dane zostały zmienione",
+              showClose: true,
+              timeout: 7000,
+              theme: 'default',
+            });
           },
-          error => {}
+          error => this.showErrorsFromServer(error)
         );
     } else {
       for (let field in this.errorMessages) {

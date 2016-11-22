@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {LessonService} from "../shared/services/lesson/lesson.service";
 import {Lesson} from "../shared/models/lesson.model";
 import {SubjectService} from "../shared/services/subject/subject.service";
-import {FormControl} from "@angular/forms";
-import {isUndefined} from "util";
-import {isNull} from "util";
+
 
 @Component({
   selector: 'app-home',
@@ -18,7 +16,7 @@ export class HomeComponent implements OnInit {
   subjects: string[];
 
 
-  constructor(private lessonService: LessonService, private subjectService: SubjectService) { }
+  constructor(private lessonService: LessonService, private subjectService: SubjectService) {}
 
   ngOnInit() {
     this.lessonService.getLessonsList({})

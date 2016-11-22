@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
+import { ToastyModule } from 'ng2-toasty';
+import { ImageCropperComponent } from 'ng2-img-cropper';
 
 import { routes } from './app.routing';
 import { AppComponent } from './app.component';
@@ -20,6 +22,7 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { ViewLessonComponent } from './view-lesson/view-lesson.component';
 import {SubjectService} from "./shared/services/subject/subject.service";
 import { CreateLessonComponent } from './create-lesson/create-lesson.component';
+import { EditPhotoComponent } from './edit-photo/edit-photo.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import { CreateLessonComponent } from './create-lesson/create-lesson.component';
     ViewProfileComponent,
     ViewLessonComponent,
     CreateLessonComponent,
+    EditPhotoComponent,
+    ImageCropperComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,8 @@ import { CreateLessonComponent } from './create-lesson/create-lesson.component';
     HttpModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastyModule.forRoot()
   ],
   providers: [
     AuthService,

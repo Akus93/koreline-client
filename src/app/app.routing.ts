@@ -8,6 +8,7 @@ import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {ViewProfileComponent} from "./view-profile/view-profile.component";
 import {ViewLessonComponent} from "./view-lesson/view-lesson.component";
 import {CreateLessonComponent} from "./create-lesson/create-lesson.component";
+import {EditPhotoComponent} from "./edit-photo/edit-photo.component";
 
 
 export const routes: Routes = [
@@ -22,6 +23,11 @@ export const routes: Routes = [
     {
       path: 'user/edit-profile',
       component: EditProfileComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'user/edit-photo',
+      component: EditPhotoComponent,
       canActivate: [AuthGuard]
     },
     {
