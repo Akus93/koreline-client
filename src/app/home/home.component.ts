@@ -14,11 +14,14 @@ export class HomeComponent implements OnInit {
 
   lessons: Lesson[];
   subjects: string[];
+  filter: {};
+  minPrice: number;
 
 
   constructor(private lessonService: LessonService, private subjectService: SubjectService) {}
 
   ngOnInit() {
+    this.filter = {};
     this.lessonService.getLessonsList({})
                       .subscribe(
                         lessons => this.lessons = lessons,
@@ -36,6 +39,10 @@ export class HomeComponent implements OnInit {
         return lesson.teacher.user.firstName + ' ' + lesson.teacher.user.lastName;
       else
         return lesson.teacher.user.username;
+    }
+
+    filtration() {
+    console.log(this.minPrice);
     }
 
     changeSubject(subject: string): void {

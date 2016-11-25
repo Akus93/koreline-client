@@ -1,4 +1,4 @@
-<div>
+<header>
   <md-toolbar color="primary">
     <img routerLink="/" src="/assets/logo2.png" height="85%"/>
 
@@ -15,7 +15,25 @@
       <button md-button (click)="authService.logout()">Wyloguj się</button>
     </div>
   </md-toolbar>
+</header>
 
-  <router-outlet></router-outlet>
-</div>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-content">
+        <ul>
+          <li><a href="#">First</a></li>
+          <li><a href="#">Secound</a></li>
+          <li><a href="#">Third</a></li>
+        </ul>
+        <div class="author-info">
+          Copyright © 2016 Dawid Rdzanek
+        </div>
+      </div>
+    </div>
+
+  </footer>
 

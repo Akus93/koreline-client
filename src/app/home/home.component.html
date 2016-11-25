@@ -1,20 +1,27 @@
-<div style="margin:4em">
-  <select placeholder="Przedmiot" #s (change)="changeSubject(s.value)">
-    <option [value]="undefined"> Wszystkie przedmioty </option>
-    <option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </option>
-  </select>
-  <md-grid-list cols="4" rowHeight="4:3" gutterSize="25px">
-    <md-grid-tile *ngFor="let lesson of lessons" [rowspan]="1">
-      <img src="/assets/sowa2.jpg" alt="zdjecie sowy">
-      <md-grid-tile-footer>
-        <h3 md-line>{{lesson.title}}</h3>
-        <span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>
-        <button md-icon-button [routerLink]="['/lesson', lesson.slug]">
-          <md-icon>info</md-icon>
-        </button>
-      </md-grid-tile-footer>
-    </md-grid-tile>
-  </md-grid-list>
+<div class="container">
+  <div style="margin:4em">
+    <!--FILTROWANIE-->
+    <select placeholder="Przedmiot" ([ngModel])="filter.subject" ><!--(change)="changeSubject(s.value)">-->
+      <option [value]="undefined"> Wszystkie przedmioty </option>
+      <option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </option>
+    </select>
+    <md-input placeholder="Maksymalna cena" ([ngModel])="filter.maxPrice" type="number"></md-input>
+    <input ([ngModel])="minPrice">
+    <button md-raised-button (click)="filtration()">Filtruj</button>
+    <!--END FILTROWANIE-->
+    <md-grid-list cols="4" rowHeight="4:3" gutterSize="25px">
+      <md-grid-tile *ngFor="let lesson of lessons" [rowspan]="1">
+        <img src="/assets/sowa2.jpg" alt="zdjecie sowy">
+        <md-grid-tile-footer>
+          <h3 md-line>{{lesson.title}}</h3>
+          <span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>
+          <button md-icon-button [routerLink]="['/lesson', lesson.slug]">
+            <md-icon>info</md-icon>
+          </button>
+        </md-grid-tile-footer>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
 </div>
 
 

@@ -1,9 +1,11 @@
-<input type="file" (change)="fileChangeListener($event)">
-<img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+<div class="container">
+  <input type="file" (change)="fileChangeListener($event)">
+  <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
 
-<span *ngIf="data.image">
-    <button md-raised-button (click)="savePhoto()">Zapisz</button>
-</span>
+  <span *ngIf="data.image">
+      <button md-raised-button (click)="savePhoto()">Zapisz</button>
+  </span>
+</div>
 
 <ng2-toasty></ng2-toasty>
 

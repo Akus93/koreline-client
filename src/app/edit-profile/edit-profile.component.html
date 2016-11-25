@@ -1,28 +1,30 @@
-<md-card>
-  <md-toolbar color="primary">Edytuj profil</md-toolbar>
-  <md-card-content>
-    <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
-      <div class="form-field">
-        <md-input formControlName="firstName" placeholder="Imię"></md-input>
-        <div *ngIf="errorMessages.firstName.errors" class="form-error-message">
-          {{ errorMessages.firstName.errors[0] }}
+<div class="container">
+  <md-card>
+    <md-toolbar color="primary">Edytuj profil</md-toolbar>
+    <md-card-content>
+      <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+        <div class="form-field">
+          <md-input formControlName="firstName" placeholder="Imię"></md-input>
+          <div *ngIf="errorMessages.firstName.errors" class="form-error-message">
+            {{ errorMessages.firstName.errors[0] }}
+          </div>
         </div>
-      </div>
-      <div class="form-field">
-        <md-input formControlName="lastName" placeholder="Nazwisko"></md-input>
-        <div *ngIf="errorMessages.lastName.errors" class="form-error-message">
-          {{ errorMessages.lastName.errors[0] }}
+        <div class="form-field">
+          <md-input formControlName="lastName" placeholder="Nazwisko"></md-input>
+          <div *ngIf="errorMessages.lastName.errors" class="form-error-message">
+            {{ errorMessages.lastName.errors[0] }}
+          </div>
         </div>
-      </div>
-      <div class="form-field">
-        <md-input formControlName="birthDate" placeholder="Data urodzenia"></md-input>
-        <div *ngIf="errorMessages.birthDate.errors" class="form-error-message">
-          {{ errorMessages.birthDate.errors[0] }}
+        <div class="form-field">
+          <md-input formControlName="birthDate" placeholder="Data urodzenia"></md-input>
+          <div *ngIf="errorMessages.birthDate.errors" class="form-error-message">
+            {{ errorMessages.birthDate.errors[0] }}
+          </div>
         </div>
-      </div>
-      <button md-raised-button type="submit">Zapisz</button>
-    </form>
-  </md-card-content>
-</md-card>
+        <button md-raised-button type="submit">Zapisz</button>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>
 
 <ng2-toasty></ng2-toasty>

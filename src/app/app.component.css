@@ -1,0 +1,12 @@
+.footer-content {
+  margin-top: 1.5em;
+}
+
+.footer-container {
+  height: 100%;
+}
+
+.author-info {
+  color: antiquewhite;
+  float: right !important;
+}

@@ -11,6 +11,7 @@ export class UserProfile {
     birthDate: string;
     isTeacher: boolean;
     photo: string;
+    tokens: number;
 
   constructor() {
     this.user = new User();
