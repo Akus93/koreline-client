@@ -11,6 +11,9 @@
       <span *ngIf="!authService.isTeacher()">
         <button md-button routerLink="/lesson/create" >Zostań nauczycielem</button>
       </span>
+      <span *ngIf="authService.isTeacher()">
+        <button md-button routerLink="/lesson/create" >Dodaj nową ofertę</button>
+      </span>
       <button md-button routerLink="/user/edit-profile" >Mój profil</button>
       <button md-button (click)="authService.logout()">Wyloguj się</button>
     </div>

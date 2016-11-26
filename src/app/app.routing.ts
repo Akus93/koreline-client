@@ -9,6 +9,7 @@ import {ViewProfileComponent} from "./view-profile/view-profile.component";
 import {ViewLessonComponent} from "./view-lesson/view-lesson.component";
 import {CreateLessonComponent} from "./create-lesson/create-lesson.component";
 import {EditPhotoComponent} from "./edit-photo/edit-photo.component";
+import {TeacherGuard} from "./shared/guards/teacher.guard";
 
 
 export const routes: Routes = [
@@ -37,7 +38,7 @@ export const routes: Routes = [
     {
       path: 'lesson/create',
       component: CreateLessonComponent,
-      canActivate: [AuthGuard]
+      canActivate: [AuthGuard, TeacherGuard]
     },
     {
       path: 'lesson/:slug',

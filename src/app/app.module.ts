@@ -23,6 +23,8 @@ import { ViewLessonComponent } from './view-lesson/view-lesson.component';
 import {SubjectService} from "./shared/services/subject/subject.service";
 import { CreateLessonComponent } from './create-lesson/create-lesson.component';
 import { EditPhotoComponent } from './edit-photo/edit-photo.component';
+import {TeacherGuard} from "./shared/guards/teacher.guard";
+import {StageService} from "./shared/services/stage/stage.service";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { EditPhotoComponent } from './edit-photo/edit-photo.component';
     UserService,
     LessonService,
     SubjectService,
-    AuthGuard
+    StageService,
+    AuthGuard,
+    TeacherGuard
     ],
   bootstrap: [AppComponent]
 })

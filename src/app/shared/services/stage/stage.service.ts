@@ -4,18 +4,19 @@ import {Observable} from "rxjs";
 
 
 @Injectable()
-export class SubjectService {
+export class StageService {
 
-  private cachedSubjects: string[];
+  private cachedStages: string[];
 
   constructor(private http: Http) { }
 
-  getSubjects(): Observable<string[]> {
 
-    if (this.cachedSubjects) {
-      return Observable.of(this.cachedSubjects);
+  getStages(): Observable<string[]> {
+
+    if (this.cachedStages) {
+      return Observable.of(this.cachedStages);
     } else {
-      let url = 'http://localhost:8000/api/subjects/';
+      let url = 'http://localhost:8000/api/stages/';
       let options = {
         headers: new Headers({
           'Accept': 'application/json'
@@ -24,9 +25,10 @@ export class SubjectService {
 
       return this.http.get(url, options)
         .map((response: Response) => response.json())
-        .do(subjects => this.cachedSubjects = subjects)
+        .do(stages => this.cachedStages = stages)
         .catch(this.handleError);
     }
+
   }
 
   private handleError (error: Response) {

@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {LessonService} from "../shared/services/lesson/lesson.service";
 import {SubjectService} from "../shared/services/subject/subject.service";
 import {AuthService} from "../shared/services/auth/auth.service";
+import {StageService} from "../shared/services/stage/stage.service";
 
 @Component({
   selector: 'app-create-lesson',
@@ -13,12 +14,17 @@ import {AuthService} from "../shared/services/auth/auth.service";
 export class CreateLessonComponent implements OnInit {
 
   lessonCreateForm: FormGroup;
-  subjects: Array<string>;
+  subjects: string[];
+  stages: string[];
 
   constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder,
-              private lessonService: LessonService, private subjectService: SubjectService) { }
+              private lessonService: LessonService, private subjectService: SubjectService, private stageService: StageService) { }
 
   ngOnInit() {
+    this.stageService.getStages().subscribe(
+      stages => this.stages = stages,
+      error => {}
+    );
     this.subjectService.getSubjects().subscribe(
       subjects => this.subjects = subjects,
       error => {}
@@ -26,6 +32,7 @@ export class CreateLessonComponent implements OnInit {
     this.lessonCreateForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       subject: ['', [Validators.required]],
+      stage: ['', [Validators.required]],
       price: ['', [Validators.required]]
     });
 
@@ -73,6 +80,12 @@ export class CreateLessonComponent implements OnInit {
       'errors': []
     },
     'subject': {
+      'messages': {
+        'required':   'To pole jest wymagane.',
+      },
+      'errors': []
+    },
+    'stage': {
       'messages': {
         'required':   'To pole jest wymagane.',
       },

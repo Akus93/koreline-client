@@ -19,6 +19,15 @@
           </div>
         </div>
         <div class="form-field">
+          <select formControlName="stage">
+            <option value="" disabled selected>Wybierz poziom</option>
+            <option *ngFor="let stage of stages" [value]="stage">{{stage}}</option>
+          </select>
+          <div *ngIf="errorMessages.stage.errors" class="form-error-message">
+            {{ errorMessages.stage.errors[0] }}
+          </div>
+        </div>
+        <div class="form-field">
           <md-input formControlName="price" placeholder="Cena za 15 minut" type="number"></md-input>
           <div *ngIf="errorMessages.price.errors" class="form-error-message">
             {{ errorMessages.price.errors[0] }}

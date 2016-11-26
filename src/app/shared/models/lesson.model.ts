@@ -5,6 +5,7 @@ export class Lesson {
   title: string;
   slug: string;
   subject: string;
+  stage: string;
   price: number;
 
   // constructor(teacher: UserProfile, title: string, slug: string) {
