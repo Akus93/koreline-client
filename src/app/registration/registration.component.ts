@@ -29,11 +29,6 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm.get('confirmPassword')
       .setValidators(validateConfirmPassword.bind(undefined, this.registrationForm.get('password')));
 
-    // this.registrationForm.get('email').valueChanges
-    //   .filter(() => this.registrationForm.get('email').valid)
-    //   .do(email => console.log(email))
-    //   .subscribe();
-
     this.registrationForm.valueChanges
       .subscribe(data => this.onFormChanged());
 
@@ -88,11 +83,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   private onFormChanged(): void {
-    for (var field in this.errorMessages) {
+    for (let field in this.errorMessages) {
       this.errorMessages[field]['errors'] = [];
-      var ctrl = this.registrationForm.get(field);
+      let ctrl = this.registrationForm.get(field);
       if (ctrl.dirty && ctrl.invalid) {
-        var messages = this.errorMessages[field]['messages'];
+        let messages = this.errorMessages[field]['messages'];
         for (let key in ctrl.errors) {
           this.errorMessages[field]['errors'].push(messages[key]);
         }

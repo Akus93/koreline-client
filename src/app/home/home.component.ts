@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {LessonService} from "../shared/services/lesson/lesson.service";
 import {Lesson} from "../shared/models/lesson.model";
 import {SubjectService} from "../shared/services/subject/subject.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -14,14 +15,12 @@ export class HomeComponent implements OnInit {
 
   lessons: Lesson[];
   subjects: string[];
-  filter: {};
-  minPrice: number;
+  filterForm: FormGroup;
 
-
-  constructor(private lessonService: LessonService, private subjectService: SubjectService) {}
+  constructor(private lessonService: LessonService, private subjectService: SubjectService,
+              private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.filter = {};
     this.lessonService.getLessonsList({})
                       .subscribe(
                         lessons => this.lessons = lessons,
@@ -32,6 +31,11 @@ export class HomeComponent implements OnInit {
                          subjects => this.subjects = subjects,
                          error => {}
                        );
+    this.filterForm = this.formBuilder.group({
+      subject: [''],
+      maxPrice: [''],
+      minPrice: ['']
+    });
   }
 
   private getTeacherFullName(lesson: Lesson): string {
@@ -42,17 +46,30 @@ export class HomeComponent implements OnInit {
     }
 
     filtration() {
-    console.log(this.minPrice);
+      if (this.filterForm.valid) {
+      let query = {};
+      for (let control in this.filterForm.controls) {
+        let ctrl = this.filterForm.get(control.toString());
+        if (ctrl.value)
+          query[control.toString()] = ctrl.value;
+      }
+        this.lessonService.getLessonsList(query)
+          .subscribe(
+            lessons => this.lessons = lessons,
+            error => {}
+          );
+      } else {
+        console.log('Błąd filtrowania...');
+      }
     }
 
-    changeSubject(subject: string): void {
-      let query = {};
-      if (!(subject === 'null'))
-        query['subject'] = subject;
-      this.lessonService.getLessonsList(query)
-        .subscribe(
-          lessons => this.lessons = lessons,
-          error => {}
-        );
-    }
+  resetFiltration() {
+    this.filterForm.reset();
+    this.lessonService.getLessonsList({})
+      .subscribe(
+        lessons => this.lessons = lessons,
+        error => {}
+      );
+  }
+
 }

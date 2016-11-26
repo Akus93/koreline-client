@@ -1,13 +1,25 @@
 <div class="container">
   <div style="margin:4em">
+
     <!--FILTROWANIE-->
-    <select placeholder="Przedmiot" ([ngModel])="filter.subject" ><!--(change)="changeSubject(s.value)">-->
-      <option [value]="undefined"> Wszystkie przedmioty </option>
-      <option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </option>
-    </select>
-    <md-input placeholder="Maksymalna cena" ([ngModel])="filter.maxPrice" type="number"></md-input>
-    <input ([ngModel])="minPrice">
-    <button md-raised-button (click)="filtration()">Filtruj</button>
+    <form [formGroup]="filterForm" (ngSubmit)="filtration()" autocomplete="off" novalidate>
+      <div class="form-field">
+        <select placeholder="Przedmiot" formControlName="subject"><!--(change)="changeSubject(s.value)">-->
+          <option [value]="undefined"> Wszystkie przedmioty </option>
+          <option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </option>
+        </select>
+      </div>
+      <div class="form-field">
+        <md-input placeholder="Maksymalna cena" formControlName="maxPrice" type="number"></md-input>
+      </div>
+      <div class="form-field">
+        <md-input placeholder="Minimalna cena" formControlName="minPrice" type="number"></md-input>
+      </div>
+      <div class="form-field">
+        <button md-raised-button type="submit">Filtruj</button>
+        <button md-raised-button (click)="resetFiltration()">Wyczyść</button>
+      </div>
+    </form>
     <!--END FILTROWANIE-->
     <md-grid-list cols="4" rowHeight="4:3" gutterSize="25px">
       <md-grid-tile *ngFor="let lesson of lessons" [rowspan]="1">
