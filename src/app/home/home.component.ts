@@ -4,6 +4,7 @@ import {LessonService} from "../shared/services/lesson/lesson.service";
 import {Lesson} from "../shared/models/lesson.model";
 import {SubjectService} from "../shared/services/subject/subject.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {StageService} from "../shared/services/stage/stage.service";
 
 
 @Component({
@@ -15,10 +16,11 @@ export class HomeComponent implements OnInit {
 
   lessons: Lesson[];
   subjects: string[];
+  stages: string[];
   filterForm: FormGroup;
 
   constructor(private lessonService: LessonService, private subjectService: SubjectService,
-              private formBuilder: FormBuilder) {}
+              private formBuilder: FormBuilder, private stageService: StageService) {}
 
   ngOnInit() {
     this.lessonService.getLessonsList({})
@@ -31,8 +33,14 @@ export class HomeComponent implements OnInit {
                          subjects => this.subjects = subjects,
                          error => {}
                        );
+    this.stageService.getStages()
+                     .subscribe(
+                       stages => this.stages = stages,
+                       error => {}
+                     );
     this.filterForm = this.formBuilder.group({
       subject: [''],
+      stage: [''],
       maxPrice: [''],
       minPrice: ['']
     });

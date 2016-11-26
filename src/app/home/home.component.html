@@ -4,9 +4,15 @@
     <!--FILTROWANIE-->
     <form [formGroup]="filterForm" (ngSubmit)="filtration()" autocomplete="off" novalidate>
       <div class="form-field">
-        <select placeholder="Przedmiot" formControlName="subject"><!--(change)="changeSubject(s.value)">-->
-          <option [value]="undefined"> Wszystkie przedmioty </option>
+        <select placeholder="Przedmiot" formControlName="subject">
+          <option value="" selected> Wszystkie przedmioty </option>
           <option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </option>
+        </select>
+      </div>
+      <div class="form-field">
+        <select placeholder="Poziom" formControlName="stage">
+          <option value="" selected> Wszystkie poziomy </option>
+          <option *ngFor="let stage of stages" [value]="stage"> {{stage}} </option>
         </select>
       </div>
       <div class="form-field">
