@@ -39,11 +39,13 @@ export class CreateLessonComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.lessonCreateForm.controls);
     if (this.lessonCreateForm.valid) {
       this.lessonService.createLesson(
         this.authService.getToken(),
         this.lessonCreateForm.get('title').value,
         this.lessonCreateForm.get('subject').value,
+        this.lessonCreateForm.get('stage').value,
         this.lessonCreateForm.get('price').value
       ).subscribe(
           lesson => {

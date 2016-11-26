@@ -46,10 +46,26 @@ export class LessonService {
       .catch(this.handleError)
   }
 
-  public createLesson(token: string, title: string, subject: string, price: number): Observable<Lesson> {
+  getCurrentUserLessons(token: string): Observable<Lesson[]> {
+
+    let url = 'http://localhost:8000/api/user/my-lessons/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.get(url, options)
+      .map((response: Response) => response.json().map(item => item.lesson))
+      .catch(this.handleError)
+  }
+
+  public createLesson(token: string, title: string, subject: string, stage: string, price: number): Observable<Lesson> {
 
     let url = 'http://localhost:8000/api/lessons/';
-    let body = JSON.stringify({ title: title, subject: subject, price: price });
+    let body = JSON.stringify({ title: title, subject: subject, stage: stage, price: price });
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -60,6 +76,40 @@ export class LessonService {
 
     return this.http.post(url, body, options)
       .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
+
+  public joinLesson(token: string, slug: string): Observable<Lesson> {
+
+    let url = 'http://localhost:8000/api/lessons/join/';
+    let body = JSON.stringify({ lesson: slug });
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.post(url, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
+  public leaveLesson(token: string, slug: string): Observable<Response> {
+
+    let url = 'http://localhost:8000/api/lessons/leave/';
+    let body = JSON.stringify({ lesson: slug });
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.post(url, body, options)
       .catch(this.handleError);
   }
 

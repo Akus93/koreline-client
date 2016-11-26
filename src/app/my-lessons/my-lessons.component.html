@@ -1,0 +1,8 @@
+<div class="container">
+  <h2>Moje lekcje:</h2>
+  <div *ngFor="let lesson of myLessons" style="margin:2em; border: 2px solid black">
+      <div>Tytuł: {{lesson?.title}}</div>
+      <div>Nauczyciel: {{lesson?.teacher?.user?.username}}</div>
+      <button md-raised-button (click)="leaveLesson(lesson)">Wypisz się</button>
+  </div>
+</div>

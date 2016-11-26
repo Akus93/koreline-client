@@ -10,6 +10,7 @@ import {ViewLessonComponent} from "./view-lesson/view-lesson.component";
 import {CreateLessonComponent} from "./create-lesson/create-lesson.component";
 import {EditPhotoComponent} from "./edit-photo/edit-photo.component";
 import {TeacherGuard} from "./shared/guards/teacher.guard";
+import {MyLessonsComponent} from "./my-lessons/my-lessons.component";
 
 
 export const routes: Routes = [
@@ -29,6 +30,11 @@ export const routes: Routes = [
     {
       path: 'user/edit-photo',
       component: EditPhotoComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'user/my-lessons',
+      component: MyLessonsComponent,
       canActivate: [AuthGuard]
     },
     {

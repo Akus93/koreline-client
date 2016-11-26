@@ -1,6 +1,14 @@
 <div class="container">
-  <h2>{{lesson?.title}}</h2>
-  <h3>{{lesson?.teacher.user.username}}</h3>
-  <p>{{lesson?.subject}}</p>
+  <h2>Tytuł: {{lesson?.title}}</h2>
+  <h3>Nauczyciel: {{lesson?.teacher.user.username}}</h3>
+  <p>Przedmiot: {{lesson?.subject}}</p>
+  <p>Poziom: {{lesson?.stage}}</p>
   <p>Cena za 15 min: {{lesson?.price}}</p>
+
+  <div *ngIf="authService.isAuth()">
+    <button md-raised-button (click)="joinLesson()">Zapisz się na lekcję</button>
+  </div>
+
 </div>
+
+<ng2-toasty></ng2-toasty>
