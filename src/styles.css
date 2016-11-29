@@ -45,11 +45,19 @@ li {
 }
 
 a {
-  color: antiquewhite;
+  color: darkblue;
 }
 
 a:hover, a:focus {
   text-shadow: white;
   color: white;
   text-decoration: none;
+}
+
+.profile-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {Lesson} from "../../models/lesson.model";
+import {UserProfile} from "../../models/userProfile.model";
 
 
 @Injectable()
@@ -34,7 +35,7 @@ export class LessonService {
 
   getLesson(slug: string): Observable<Lesson> {
 
-    let url = 'http://localhost:8000/api/lessons/' + slug;
+    let url = 'http://localhost:8000/api/lessons/' + slug + '/';
     let options = {
       headers: new Headers({
         'Accept': 'application/json'
@@ -43,6 +44,35 @@ export class LessonService {
 
     return this.http.get(url, options)
       .map((response: Response) => response.json())
+      .catch(this.handleError)
+  }
+
+  getLessonMembers(token: string, slug: string): Observable<UserProfile[]> {
+
+    let url = 'http://localhost:8000/api/lessons/' + slug + '/members/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.get(url, options)
+      .map((response: Response) => response.json())
+      .catch(this.handleError)
+  }
+
+  deleteLesson(token: string, slug: string): Observable<Lesson> {
+
+    let url = 'http://localhost:8000/api/lessons/' + slug + '/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.delete(url, options)
       .catch(this.handleError)
   }
 
@@ -58,7 +88,7 @@ export class LessonService {
     };
 
     return this.http.get(url, options)
-      .map((response: Response) => response.json().map(item => item.lesson))
+      .map((response: Response) => response.json())
       .catch(this.handleError)
   }
 
@@ -101,6 +131,22 @@ export class LessonService {
 
     let url = 'http://localhost:8000/api/lessons/leave/';
     let body = JSON.stringify({ lesson: slug });
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.post(url, body, options)
+      .catch(this.handleError);
+  }
+
+  public unsubscribeStudent(token: string, slug: string, username: string): Observable<Response> {
+
+    let url = 'http://localhost:8000/api/teacher/lessons/unsubscribe/';
+    let body = JSON.stringify({ lesson: slug, username: username });
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,

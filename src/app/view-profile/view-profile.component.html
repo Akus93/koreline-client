@@ -1,5 +1,8 @@
 <div class="container">
   <h3>{{user?.user.username}}</h3>
+  <div *ngIf="user?.photo">
+    <img class="profile-photo" src="{{ user?.photo }}">
+  </div>
   <h5>{{user?.user.email}}</h5>
   <p>Imię: {{user?.user.firstName}}</p>
   <p>Nazwisko: {{user?.user.lastName}}</p>
@@ -7,6 +10,6 @@
   <h2>Lista lekcji</h2>
   <div *ngFor="let lesson of userLessons" style="border: 1px blue solid; margin: 2em;">
     <h4>{{lesson.title}}</h4>
-    <p>{{lesson.slug}}</p>
+    <a [routerLink]="['/lesson', lesson.slug]">{{lesson.slug}}</a>
   </div>
 </div>

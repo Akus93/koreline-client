@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Zajecia prowadzone przez mnie:</h2>
+  <div *ngFor="let lesson of lessons" style="margin:2em; border: 2px solid black">
+    <div>Tytuł: {{lesson?.title}}</div>
+    <h3>Uczniowie:</h3>
+    <div *ngFor="let student of lesson.students" style="margin:1em; border: 1px solid darkslateblue">
+      <p><a style="color: #3c3c3c" [routerLink]="['/user', student.user.username]">{{ student.user.username }}</a></p>
+      <button md-raised-button (click)="unsubscribeStudent(lesson, student)">Wypisz ucznia</button>
+    </div>
+    <button md-raised-button (click)="deleteLesson(lesson)">Usuń lekcje</button>
+  </div>
+</div>
+
+<ng2-toasty></ng2-toasty>

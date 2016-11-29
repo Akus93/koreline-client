@@ -54,7 +54,10 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('token', token );
             this.userService.getCurrentUserProfile(token)
                             .subscribe(
-                              user => localStorage.setItem('isTeacher', user.isTeacher.toString())
+                              user => {
+                                localStorage.setItem('isTeacher', user.isTeacher.toString());
+                                localStorage.setItem('username', user.user.username.toString())
+                              }
                             );
             this.router.navigate(['/']);
           },

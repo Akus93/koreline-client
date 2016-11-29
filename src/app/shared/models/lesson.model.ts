@@ -7,10 +7,6 @@ export class Lesson {
   subject: string;
   stage: string;
   price: number;
+  students: UserProfile[];
 
-  // constructor(teacher: UserProfile, title: string, slug: string) {
-  //   this.teacher = teacher;
-  //   this.title = title;
-  //   this.slug = slug;
-  // }
 }

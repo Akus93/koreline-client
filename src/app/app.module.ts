@@ -26,6 +26,7 @@ import { EditPhotoComponent } from './edit-photo/edit-photo.component';
 import {TeacherGuard} from "./shared/guards/teacher.guard";
 import {StageService} from "./shared/services/stage/stage.service";
 import { MyLessonsComponent } from './my-lessons/my-lessons.component';
+import { TeacherLessonsComponent } from './teacher-lessons/teacher-lessons.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MyLessonsComponent } from './my-lessons/my-lessons.component';
     EditPhotoComponent,
     ImageCropperComponent,
     MyLessonsComponent,
+    TeacherLessonsComponent,
   ],
   imports: [
     BrowserModule,

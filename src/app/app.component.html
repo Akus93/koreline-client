@@ -13,10 +13,17 @@
       </span>
       <span *ngIf="authService.isTeacher()">
         <button md-button routerLink="/lesson/create" >Dodaj nową ofertę</button>
+        <button md-button routerLink="/teacher/my-lessons" >Prowadzone lekcje</button>
       </span>
       <button md-button routerLink="/user/my-lessons" >Moje lekcje</button>
-      <button md-button routerLink="/user/edit-profile" >Mój profil</button>
-      <button md-button (click)="authService.logout()">Wyloguj się</button>
+      <button md-icon-button [md-menu-trigger-for]="menu">
+        <md-icon>account_circle</md-icon>
+      </button>
+      <md-menu x-position="before" #menu="mdMenu">
+        <button md-menu-item routerLink="/user/edit-profile">Edytuj profil</button>
+        <button md-menu-item routerLink="/user/edit-photo">Zmień zdjęcie</button>
+        <button md-menu-item (click)="authService.logout()">Wyloguj się</button>
+      </md-menu>
     </div>
   </md-toolbar>
 </header>

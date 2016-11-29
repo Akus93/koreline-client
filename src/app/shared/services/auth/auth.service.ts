@@ -53,6 +53,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  public getUsername(): string {
+    return localStorage.getItem('username');
+  }
+
   private handleError (error: Response ) {
     return Observable.throw(error.json());
   }
