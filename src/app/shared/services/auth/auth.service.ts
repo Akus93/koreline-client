@@ -35,7 +35,7 @@ export class AuthService {
     this.http.post(url, JSON.stringify({}), options)
              .subscribe(
                res => {
-                 localStorage.removeItem('token');
+                 localStorage.clear();
                  this.router.navigate(['/']);
                }
              );
@@ -51,6 +51,14 @@ export class AuthService {
 
   public getToken(): string {
     return localStorage.getItem('token');
+  }
+
+  public hasPhoto(): boolean {
+    return !!localStorage.getItem('photo');
+  }
+
+  public getPhoto(): string {
+    return localStorage.getItem('photo');
   }
 
   public getUsername(): string {

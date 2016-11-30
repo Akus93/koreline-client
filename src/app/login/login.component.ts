@@ -56,7 +56,9 @@ export class LoginComponent implements OnInit {
                             .subscribe(
                               user => {
                                 localStorage.setItem('isTeacher', user.isTeacher.toString());
-                                localStorage.setItem('username', user.user.username.toString())
+                                localStorage.setItem('username', user.user.username.toString());
+                                if (user.photo)
+                                  localStorage.setItem('photo', user.photo.toString());
                               }
                             );
             this.router.navigate(['/']);

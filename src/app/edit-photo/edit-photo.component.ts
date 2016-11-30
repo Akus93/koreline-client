@@ -61,6 +61,7 @@ export class EditPhotoComponent implements OnInit {
     this.userService.patchCurrentUserProfile(token, {'photo': this.data.image})
       .subscribe(
         res => {
+          localStorage.setItem('photo', this.data.image.toString());
           this.toastyService.success({
             title: "Sukces",
             msg: "Twoje zdjęcie zostało zapisane",
