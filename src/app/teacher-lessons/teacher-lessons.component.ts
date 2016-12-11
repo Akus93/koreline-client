@@ -4,6 +4,8 @@ import {LessonService} from "../shared/services/lesson/lesson.service";
 import {AuthService} from "../shared/services/auth/auth.service";
 import {ToastyService} from "ng2-toasty";
 import {error} from "util";
+import {ConversationService} from "../shared/services/conversation/conversation.service";
+import {Conversation} from "../shared/models/conversation.model";
 
 @Component({
   selector: 'app-teacher-lessons',
@@ -14,7 +16,8 @@ export class TeacherLessonsComponent implements OnInit {
 
   lessons: Lesson[];
 
-  constructor(private authService: AuthService, private lessonService: LessonService, private toastyService: ToastyService) { }
+  constructor(private authService: AuthService, private lessonService: LessonService, private conversationService: ConversationService,
+              private toastyService: ToastyService) { }
 
   ngOnInit() {
     this.getMyLessons();
@@ -70,6 +73,14 @@ export class TeacherLessonsComponent implements OnInit {
                         error => {},
                       );
 
+  }
+
+  createConversation(lesson, student) {
+    this.conversationService.createConversation(this.authService.getToken(), lesson.slug, student.user.username)
+        .subscribe(
+          conversation => console.log(conversation),
+          error => {}
+        );
   }
 
 }

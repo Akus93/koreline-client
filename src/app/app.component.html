@@ -17,6 +17,8 @@
       </span>
       <button md-button routerLink="/user/my-lessons" >Moje lekcje</button>
 
+      <button md-button routerLink="/conversation" >Konwersacja</button>
+
       <span *ngIf="!authService.hasPhoto()">
         <button md-icon-button [md-menu-trigger-for]="menu">
           <span><md-icon>account_circle</md-icon></span>

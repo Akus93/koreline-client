@@ -6,6 +6,7 @@
     <div *ngFor="let student of lesson.students" style="margin:1em; border: 1px solid darkslateblue">
       <p><a style="color: #3c3c3c" [routerLink]="['/user', student.user.username]">{{ student.user.username }}</a></p>
       <button md-raised-button (click)="unsubscribeStudent(lesson, student)">Wypisz ucznia</button>
+      <button md-raised-button (click)="createConversation(lesson, student)">Rozpocznij konwersacje</button>
     </div>
     <button md-raised-button (click)="deleteLesson(lesson)">Usuń lekcje</button>
   </div>

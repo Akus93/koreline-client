@@ -27,6 +27,8 @@ import {TeacherGuard} from "./shared/guards/teacher.guard";
 import {StageService} from "./shared/services/stage/stage.service";
 import { MyLessonsComponent } from './my-lessons/my-lessons.component';
 import { TeacherLessonsComponent } from './teacher-lessons/teacher-lessons.component';
+import { ConversationRoomComponent } from './conversation-room/conversation-room.component';
+import {ConversationService} from "./shared/services/conversation/conversation.service";
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { TeacherLessonsComponent } from './teacher-lessons/teacher-lessons.compo
     ImageCropperComponent,
     MyLessonsComponent,
     TeacherLessonsComponent,
+    ConversationRoomComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { TeacherLessonsComponent } from './teacher-lessons/teacher-lessons.compo
     LessonService,
     SubjectService,
     StageService,
+    ConversationService,
     AuthGuard,
     TeacherGuard
     ],
