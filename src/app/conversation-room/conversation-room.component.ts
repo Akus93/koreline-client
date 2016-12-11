@@ -3,6 +3,9 @@
 import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {Conversation} from "../shared/models/conversation.model";
 import {AuthService} from "../shared/services/auth/auth.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ConversationService} from "../shared/services/conversation/conversation.service";
+
 
 @Component({
   selector: 'app-conversation-room',
@@ -11,17 +14,22 @@ import {AuthService} from "../shared/services/auth/auth.service";
 })
 export class ConversationRoomComponent implements OnInit {
 
-  activeconversation: Conversation;
+  conversation: Conversation;
 
-  token: string;
-  username: string;
-
-  constructor(private cdr: ChangeDetectorRef, private authService: AuthService) {
-    this.token = this.authService.getToken();
-    this.username = this.authService.getUsername();
-  }
+  constructor(private route: ActivatedRoute, private router: Router, private cdr: ChangeDetectorRef,
+              private authService: AuthService, private conversationService: ConversationService) {}
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.conversationService.getConversation(this.authService.getToken(), params['room'])
+          .subscribe(
+            conversation => {
+                this.conversation = conversation;
+                this.connect();
+            },
+            error => this.router.navigate(['/'])
+          );
+    });
   }
 
   myId:string = '';
@@ -33,8 +41,8 @@ export class ConversationRoomComponent implements OnInit {
   }
 
   performCall(clientEasyrtcId:string):void {
-    let successCB = function(a:string, b:string):void {};
-    let failureCB = function(a:string, b:string):void {};
+    let successCB = function(a: string, b: string):void {};
+    let failureCB = function(a: string, b: string):void {};
     easyrtc.call(clientEasyrtcId, successCB, failureCB, undefined, undefined);
   }
 
@@ -45,6 +53,7 @@ export class ConversationRoomComponent implements OnInit {
   }
 
   convertListToButtons (roomName:string, data:Easyrtc_PerRoomData, isPrimary:boolean):void {
+    console.log('Polaczono z pokojem: '+roomName);
     this.clearConnectList();
     for(let easyrtcid in data) {
       this.connectedClientsList.push(easyrtc.idToName(easyrtcid));
@@ -68,19 +77,22 @@ export class ConversationRoomComponent implements OnInit {
   connect():void {
     easyrtc.setSocketUrl("//localhost:8080", {'connect timeout': 10000,'force new connection': true });
     easyrtc.setVideoDims(320,240,undefined);
-    easyrtc.enableDataChannels(true);
 
-    easyrtc.setCredential({token: '12345'});
-    //easyrtc.setUsername('Akus');
+    //easyrtc.enableDataChannels(true);
+
+    easyrtc.setCredential({token: this.authService.getToken()});
+    //easyrtc.setUsername(this.authService.getUsername());
+    console.log('Lącze sie z pokojem: '+ this.conversation.key);
+    easyrtc.joinRoom(this.conversation.key, null, this.loginSuccess.bind(this), this.loginFailure.bind(this));
 
     let convertListToButtonShim = (roomName:string, data:Easyrtc_PerRoomData, isPrimary:boolean):void => {
       this.convertListToButtons(roomName, data, isPrimary);
     };
     easyrtc.setRoomOccupantListener(convertListToButtonShim);
-    easyrtc.easyApp("easyrtc.audioVideoSimple", "videoSelf", ["videoCaller"], this.loginSuccess.bind(this), this.loginFailure.bind(this));
+    easyrtc.easyApp("koreline.AudioVideo", "videoSelf", ["videoCaller"], this.loginSuccess.bind(this), this.loginFailure.bind(this));
   }
 
-  ngAfterViewInit() {
-    this.connect();
-  }
+  // ngAfterContentChecked() {
+  //   this.connect();
+  // }
 }

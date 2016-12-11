@@ -24,7 +24,7 @@
       ],
       "scripts": [
         "../node_modules/hammerjs/hammer.min.js",
-        "assets/socket.io-1.4.5.js",
+        "assets/socket.io.js",
         "assets/easyrtc.js",
         "assets/easyrtc_ft.js"
       ],

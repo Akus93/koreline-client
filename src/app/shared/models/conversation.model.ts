@@ -5,4 +5,5 @@ export class Conversation {
   lesson: Lesson;
   student: UserProfile;
   create_date: string;
+  key: string;
 }
