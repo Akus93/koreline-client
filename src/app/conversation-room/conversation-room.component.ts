@@ -3,9 +3,9 @@
 import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {Conversation} from "../shared/models/conversation.model";
 import {AuthService} from "../shared/services/auth/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {ConversationService} from "../shared/services/conversation/conversation.service";
-
+import {SharedService} from "../shared/services/shared/shared.service";
 
 @Component({
   selector: 'app-conversation-room',
@@ -16,20 +16,26 @@ export class ConversationRoomComponent implements OnInit {
 
   conversation: Conversation;
 
-  constructor(private route: ActivatedRoute, private router: Router, private cdr: ChangeDetectorRef,
+  constructor(private router: Router, private cdr: ChangeDetectorRef, private sharedService: SharedService,
               private authService: AuthService, private conversationService: ConversationService) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.conversationService.getConversation(this.authService.getToken(), params['room'])
-          .subscribe(
-            conversation => {
+    this.sharedService.getCurrentConversation().subscribe(
+      key => {
+        if (key) {
+          this.conversationService.getConversation(this.authService.getToken(), key)
+            .subscribe(
+              conversation => {
                 this.conversation = conversation;
                 this.connect();
-            },
-            error => this.router.navigate(['/'])
-          );
-    });
+              },
+              error => this.router.navigate(['/'])
+            );
+        } else {
+          this.router.navigate(['/']);
+        }
+      }
+    );
   }
 
   myId:string = '';

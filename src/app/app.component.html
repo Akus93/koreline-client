@@ -15,7 +15,36 @@
         <button md-button routerLink="/lesson/create" >Dodaj nową ofertę</button>
         <button md-button routerLink="/teacher/my-lessons" >Prowadzone lekcje</button>
       </span>
+
       <button md-button routerLink="/user/my-lessons" >Moje lekcje</button>
+
+      <span *ngIf="notifications?.length">
+        <button md-icon-button [md-menu-trigger-for]="notificationsMenu">
+          <md-icon>notifications_active</md-icon> {{notifications?.length}}
+        </button>
+
+        <md-menu x-position="before" y-position="below" #notificationsMenu="mdMenu" style="width: 500px;">
+        <div *ngFor="let notification of notifications">
+          <div>
+            <div><b>{{notification.title}}</b></div>
+            <div>{{notification.text}}</div>
+            <div><i>{{timeAgo(notification.createDate)}}</i></div>
+          </div>
+
+          <hr>
+        </div>
+        </md-menu>
+
+      </span>
+
+      <span *ngIf="!notifications">
+        <button md-icon-button>
+          <md-icon>notifications_off</md-icon>
+        </button>
+      </span>
+
+
+
 
       <span *ngIf="!authService.hasPhoto()">
         <button md-icon-button [md-menu-trigger-for]="menu">
@@ -30,7 +59,7 @@
       <md-menu x-position="before" #menu="mdMenu">
         <button md-menu-item routerLink="/user/edit-profile">Edytuj profil</button>
         <button md-menu-item routerLink="/user/edit-photo">Zmień zdjęcie</button>
-        <button md-menu-item (click)="authService.logout()">Wyloguj się</button>
+        <button md-menu-item (click)="logout()">Wyloguj się</button>
       </md-menu>
 
     </div>
@@ -56,4 +85,6 @@
     </div>
 
   </footer>
+
+<ng2-toasty></ng2-toasty>
 

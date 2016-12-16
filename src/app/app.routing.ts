@@ -58,7 +58,7 @@ export const routes: Routes = [
       component: ViewLessonComponent,
     },
     {
-      path: 'conversation/:room',
+      path: 'conversation',
       component: ConversationRoomComponent,
       canActivate: [AuthGuard]
     },

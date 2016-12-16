@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../shared/services/user/user.service";
 import {AuthService} from "../shared/services/auth/auth.service";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
-import {UserProfile} from "../shared/models/userProfile.model";
 import {ToastyService} from "ng2-toasty";
 
 @Component({

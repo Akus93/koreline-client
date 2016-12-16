@@ -29,6 +29,16 @@ import { MyLessonsComponent } from './my-lessons/my-lessons.component';
 import { TeacherLessonsComponent } from './teacher-lessons/teacher-lessons.component';
 import { ConversationRoomComponent } from './conversation-room/conversation-room.component';
 import {ConversationService} from "./shared/services/conversation/conversation.service";
+import {SharedService} from "./shared/services/shared/shared.service";
+import {ToastModule, ToastOptions} from "ng2-toastr";
+import {NotificationService} from "./shared/services/notification/notification.service";
+
+let toastOptions: ToastOptions = new ToastOptions({
+  animate: 'flyRight',
+  positionClass: 'toast-bottom-right',
+  toastLife: 15000,
+  showCloseButton: true,
+});
 
 @NgModule({
   declarations: [
@@ -53,7 +63,8 @@ import {ConversationService} from "./shared/services/conversation/conversation.s
     MaterialModule.forRoot(),
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    ToastModule.forRoot(toastOptions),
   ],
   providers: [
     AuthService,
@@ -62,6 +73,8 @@ import {ConversationService} from "./shared/services/conversation/conversation.s
     SubjectService,
     StageService,
     ConversationService,
+    SharedService,
+    NotificationService,
     AuthGuard,
     TeacherGuard
     ],

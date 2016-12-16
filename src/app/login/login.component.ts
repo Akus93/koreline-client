@@ -6,6 +6,11 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {validateEmail} from "../shared/validators/validateEmail";
 import {UserService} from "../shared/services/user/user.service";
 
+import * as Pusher from 'pusher-js';
+import {SharedService} from "../shared/services/shared/shared.service";
+import {ToastyService, ToastData} from "ng2-toasty";
+import {ToastsManager, Toast, ToastOptions} from "ng2-toastr";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,11 +19,18 @@ import {UserService} from "../shared/services/user/user.service";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   nonFieldError: string;
+  pusher: any;
+  channel: any;
 
   constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder,
-              private userService: UserService) { }
+              private userService: UserService, private sharedService: SharedService, private toastyService: ToastyService,
+              private toastr: ToastsManager) { }
 
   ngOnInit(): void {
+    this.pusher = new Pusher('15b5a30c14857f14b7a3',{
+      cluster: 'eu',
+      encrypted: true
+    });
 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, validateEmail]],
@@ -47,7 +59,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private login() {
+  private login(): void {
     this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
         .subscribe(
           token => {
@@ -59,6 +71,21 @@ export class LoginComponent implements OnInit {
                                 localStorage.setItem('username', user.user.username.toString());
                                 if (user.photo)
                                   localStorage.setItem('photo', user.photo.toString());
+                                this.sharedService.setPusherChannel(this.pusher.subscribe(user.user.username + '-room-invite-channel'));
+                                this.sharedService.getPusherChannel().subscribe(
+                                      channel => channel.bind('room-invite-event', (data) => {
+                                        this.toastr.onClickToast().subscribe(
+                                          toast => {
+                                            if (toast.data && toast.data.hasOwnProperty('navigate'))
+                                              this.sharedService.setCurrentConversation(toast.data['navigate']);
+                                              this.router.navigate(['/conversation']);
+                                          }
+                                        );
+                                        this.toastr.info(data.message, 'Nowe zaproszenie', {data: {navigate: data.room}})
+                                          .then((toast: Toast) => {
+                                          });
+                                      })
+                                    );
                               }
                             );
             this.router.navigate(['/']);
