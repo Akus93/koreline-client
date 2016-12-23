@@ -8,7 +8,7 @@ export class NotificationService {
 
   constructor(private http: Http) { }
 
-  getNotifications(token: string): Observable<Notification> {
+  getNotifications(token: string): Observable<Notification[]> {
 
     let url = 'http://localhost:8000/api/notifications/';
     let options = {

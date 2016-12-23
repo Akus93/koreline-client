@@ -36,7 +36,7 @@ export class AppComponent implements OnInit{
 
   timeAgo(date: string): string {
     let time = new Date(date);
-    let seconds = Math.floor((new Date() - time) / 1000);
+    let seconds = Math.floor((new Date().getDate() - time.getDate()) / 1000);
     let minutes = Math.floor(seconds/60);
     let hours = Math.floor(minutes/60);
     if (seconds < 60)

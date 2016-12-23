@@ -30,15 +30,8 @@ import { TeacherLessonsComponent } from './teacher-lessons/teacher-lessons.compo
 import { ConversationRoomComponent } from './conversation-room/conversation-room.component';
 import {ConversationService} from "./shared/services/conversation/conversation.service";
 import {SharedService} from "./shared/services/shared/shared.service";
-import {ToastModule, ToastOptions} from "ng2-toastr";
 import {NotificationService} from "./shared/services/notification/notification.service";
 
-let toastOptions: ToastOptions = new ToastOptions({
-  animate: 'flyRight',
-  positionClass: 'toast-bottom-right',
-  toastLife: 15000,
-  showCloseButton: true,
-});
 
 @NgModule({
   declarations: [
@@ -64,7 +57,6 @@ let toastOptions: ToastOptions = new ToastOptions({
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     ToastyModule.forRoot(),
-    ToastModule.forRoot(toastOptions),
   ],
   providers: [
     AuthService,

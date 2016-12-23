@@ -8,8 +8,8 @@ import {UserService} from "../shared/services/user/user.service";
 
 import * as Pusher from 'pusher-js';
 import {SharedService} from "../shared/services/shared/shared.service";
-import {ToastyService, ToastData} from "ng2-toasty";
-import {ToastsManager, Toast, ToastOptions} from "ng2-toastr";
+
+import {MdSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
   channel: any;
 
   constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder,
-              private userService: UserService, private sharedService: SharedService, private toastyService: ToastyService,
-              private toastr: ToastsManager) { }
+              private userService: UserService, private sharedService: SharedService, private snackBar: MdSnackBar) {}
 
   ngOnInit(): void {
     this.pusher = new Pusher('15b5a30c14857f14b7a3',{
@@ -74,16 +73,17 @@ export class LoginComponent implements OnInit {
                                 this.sharedService.setPusherChannel(this.pusher.subscribe(user.user.username + '-room-invite-channel'));
                                 this.sharedService.getPusherChannel().subscribe(
                                       channel => channel.bind('room-invite-event', (data) => {
-                                        this.toastr.onClickToast().subscribe(
-                                          toast => {
-                                            if (toast.data && toast.data.hasOwnProperty('navigate'))
-                                              this.sharedService.setCurrentConversation(toast.data['navigate']);
-                                              this.router.navigate(['/conversation']);
+                                        console.log('Jest: ' + data.message);
+                                        let snackBarRef = this.snackBar.open(data.message, 'Wejdz do rozmowy', {
+                                          duration: 15000,
+                                        });
+                                        snackBarRef.onAction().subscribe(
+                                          () => {
+                                            this.sharedService.setCurrentConversation(data.room);
+                                            this.router.navigate(['/conversation']);
                                           }
                                         );
-                                        this.toastr.info(data.message, 'Nowe zaproszenie', {data: {navigate: data.room}})
-                                          .then((toast: Toast) => {
-                                          });
+
                                       })
                                     );
                               }
