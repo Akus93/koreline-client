@@ -1,25 +1,24 @@
-<div class="container">
-  <md-card>
-    <md-toolbar color="primary">Zaloguj się</md-toolbar>
-    <md-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
-        <div class="form-field">
-          <md-input formControlName="email" placeholder="Adres email"></md-input>
-          <div *ngIf="errorMessages.email.errors" class="form-error-message">
-            {{ errorMessages.email.errors[0] }}
-          </div>
-        </div>
-        <div class="form-field">
-          <md-input formControlName="password" placeholder="Hasło" type="password"></md-input>
-          <div *ngIf="errorMessages.password.errors" class="form-error-message">
-            {{ errorMessages.password.errors[0] }}
-          </div>
-        </div>
-        <div *ngIf="nonFieldError" class="form-error-message">
-          {{ nonFieldError }}
-        </div>
-        <button md-raised-button type="submit">Zaloguj się</button>
-      </form>
-    </md-card-content>
-  </md-card>
+<div class="login-component">
+  <md-toolbar color="primary">Zaloguj się</md-toolbar>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+    <div class="form-field">
+      <md-input formControlName="email" placeholder="Adres email"></md-input>
+      <div *ngIf="errorMessages.email.errors" class="form-error-message">
+        {{ errorMessages.email.errors[0] }}
+      </div>
+    </div>
+    <div class="form-field">
+      <md-input formControlName="password" placeholder="Hasło" type="password"></md-input>
+      <div *ngIf="errorMessages.password.errors" class="form-error-message">
+        {{ errorMessages.password.errors[0] }}
+      </div>
+    </div>
+    <div *ngIf="nonFieldError" class="form-error-message">
+      {{ nonFieldError }}
+    </div>
+    <button md-raised-button type="submit">Zaloguj się</button>
+  </form>
 </div>
+
+
+

@@ -4,6 +4,9 @@ import {SharedService} from "./shared/services/shared/shared.service";
 import {Notification} from "./shared/models/notification.model";
 import {NotificationService} from "./shared/services/notification/notification.service";
 import {Observable} from "rxjs";
+import {MdDialog} from '@angular/material';
+import {LoginComponent} from "./login/login.component";
+import {RegistrationComponent} from "./registration/registration.component";
 
 @Component({
   selector: 'app-root',
@@ -14,13 +17,16 @@ export class AppComponent implements OnInit{
 
   notifications: Notification[];
 
-  constructor(public authService: AuthService, private sharedService: SharedService, private notificationService: NotificationService) {}
+  constructor(private authService: AuthService, private sharedService: SharedService,
+              private notificationService: NotificationService, private dialog: MdDialog) {}
 
   ngOnInit(): void {
 
     let notify$ = Observable.interval(30000).flatMap(() => {
         if (this.authService.isAuth())
           return this.notificationService.getNotifications(this.authService.getToken());
+        else
+          return Observable.of(null);
       });
     notify$.subscribe(
       notifications => this.notifications = notifications
@@ -32,6 +38,14 @@ export class AppComponent implements OnInit{
     this.sharedService.getPusherChannel().subscribe(
       channel => {if(channel) channel.unbind_all()},
     );
+  }
+
+  openLoginDialog() {
+    this.dialog.open(LoginComponent);
+  }
+
+  openRegistrationDialog() {
+    this.dialog.open(RegistrationComponent);
   }
 
   timeAgo(date: string): string {

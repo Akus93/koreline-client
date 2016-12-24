@@ -9,7 +9,7 @@ import {UserService} from "../shared/services/user/user.service";
 import * as Pusher from 'pusher-js';
 import {SharedService} from "../shared/services/shared/shared.service";
 
-import {MdSnackBar} from '@angular/material';
+import {MdSnackBar, MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
   channel: any;
 
   constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder,
-              private userService: UserService, private sharedService: SharedService, private snackBar: MdSnackBar) {}
+              private userService: UserService, private sharedService: SharedService, private snackBar: MdSnackBar,
+              public dialogRef: MdDialogRef<LoginComponent>) {}
 
   ngOnInit(): void {
     this.pusher = new Pusher('15b5a30c14857f14b7a3',{
@@ -88,6 +89,7 @@ export class LoginComponent implements OnInit {
                                     );
                               }
                             );
+            this.dialogRef.close();
             this.router.navigate(['/']);
           },
           error => this.showErrorsFromServer(error)

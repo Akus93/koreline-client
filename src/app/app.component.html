@@ -4,8 +4,10 @@
 
     <span class="fill-remaining-space"></span>
     <div *ngIf="!authService.isAuth()">
-      <button md-button routerLink="/login" >Zaloguj się</button>
-      <button md-button routerLink="/registration" >Zarejestruj się</button>
+      <!--<button md-button routerLink="/login" >Zaloguj się</button>-->
+      <button md-button (click)="openLoginDialog()" >Zaloguj się</button>
+      <!--<button md-button routerLink="/registration" >Zarejestruj się</button>-->
+      <button md-button (click)="openRegistrationDialog()" >Zarejestruj się</button>
     </div>
     <div *ngIf="authService.isAuth()">
       <span *ngIf="!authService.isTeacher()">

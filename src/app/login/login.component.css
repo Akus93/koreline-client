@@ -7,5 +7,9 @@
 }
 
 md-input {
-  width: 14em;
+  width: 100%;
+}
+
+.login-component {
+  width: 400px;
 }

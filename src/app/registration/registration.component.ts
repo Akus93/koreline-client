@@ -5,7 +5,7 @@ import { validateEmail } from '../shared/validators/validateEmail';
 import {validateConfirmPassword} from '../shared/validators/validateConfirmPassword';
 import {UserService} from '../shared/services/user/user.service';
 import {Router} from "@angular/router";
-
+import {MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-registration',
@@ -16,7 +16,8 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService,
+              public dialogRef: MdDialogRef<RegistrationComponent>) { }
 
   ngOnInit(): void {
 
@@ -44,6 +45,7 @@ export class RegistrationComponent implements OnInit {
                         token => {
                           localStorage.setItem('token', token );
                           this.router.navigate(['/']);
+                          this.dialogRef.close();
                         },
                         error => this.showErrorsFromServer(error)
                       );

@@ -6,3 +6,8 @@
 img {
   height: 100%;
 }
+
+.form-field {
+  margin: 2em;
+  display: inline-block;
+}

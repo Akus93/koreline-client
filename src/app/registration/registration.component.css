@@ -11,5 +11,9 @@
 }
 
 md-input {
-  width: 14em;
+  width: 100%;
+}
+
+.registration-component {
+  width: 400px;
 }

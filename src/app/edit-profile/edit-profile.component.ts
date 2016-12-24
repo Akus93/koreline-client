@@ -23,6 +23,9 @@ export class EditProfileComponent implements OnInit {
                       user => {
                         this.editProfileForm.patchValue(user);
                         this.editProfileForm.patchValue(user.user);
+                        this.editProfileForm.get('lastName').markAsTouched();
+                        this.editProfileForm.get('lastName').markAsDirty();
+                        this.editProfileForm.get('lastName').markAsPending();
                       },
                           error => this.showErrorsFromServer(error)
                     );
@@ -30,7 +33,9 @@ export class EditProfileComponent implements OnInit {
     this.editProfileForm = this.formBuilder.group({
       firstName: ['', [Validators.maxLength(30)]],
       lastName: ['', [Validators.maxLength(30)]],
-      birthDate: ['', [Validators.pattern('([0-9]{4})-([0-9]{2})-([0-9]{2})')]]
+      birthDate: ['', [Validators.pattern('([0-9]{4})-([0-9]{2})-([0-9]{2})')]],
+      headline: ['', [Validators.maxLength(70)]],
+      biography: ['', [Validators.maxLength(2048)]]
     });
 
   }
@@ -41,6 +46,8 @@ export class EditProfileComponent implements OnInit {
     if (this.editProfileForm.valid) {
       let body = {
         birthDate: this.editProfileForm.get('birthDate').value,
+        headline: this.editProfileForm.get('headline').value,
+        biography: this.editProfileForm.get('biography').value,
         user: {
           firstName: this.editProfileForm.get('firstName').value,
           lastName: this.editProfileForm.get('lastName').value
@@ -97,6 +104,18 @@ export class EditProfileComponent implements OnInit {
     'birthDate': {
       'messages': {
         'pattern': 'Data urodzenia ma niepoprawny format. Użyj formatu \'yyyy-mm-dd\''
+      },
+      'errors': []
+    },
+    'headline': {
+      'messages': {
+        'maxlength': 'Nagłówek może posiadać maksymalnie 30 znaków.'
+      },
+      'errors': []
+    },
+    'biography': {
+      'messages': {
+        'maxlength': 'Biografia może posiadać maksymalnie 2048 znaków.'
       },
       'errors': []
     },

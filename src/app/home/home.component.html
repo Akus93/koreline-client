@@ -1,19 +1,15 @@
 <div class="container">
-  <div style="margin:4em">
-
     <!--FILTROWANIE-->
     <form [formGroup]="filterForm" (ngSubmit)="filtration()" autocomplete="off" novalidate>
       <div class="form-field">
-        <select placeholder="Przedmiot" formControlName="subject">
-          <option value="" selected> Wszystkie przedmioty </option>
-          <option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </option>
-        </select>
+        <md-select placeholder="Przedmiot" formControlName="subject">
+          <md-option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </md-option>
+        </md-select>
       </div>
       <div class="form-field">
-        <select placeholder="Poziom" formControlName="stage">
-          <option value="" selected> Wszystkie poziomy </option>
-          <option *ngFor="let stage of stages" [value]="stage"> {{stage}} </option>
-        </select>
+        <md-select placeholder="Poziom" formControlName="stage">
+          <md-option *ngFor="let stage of stages" [value]="stage"> {{stage}} </md-option>
+        </md-select>
       </div>
       <div class="form-field">
         <md-input placeholder="Maksymalna cena" formControlName="maxPrice" type="number"></md-input>
@@ -39,7 +35,7 @@
         </md-grid-tile-footer>
       </md-grid-tile>
     </md-grid-list>
-  </div>
+
 </div>
 
 

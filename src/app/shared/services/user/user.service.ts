@@ -44,7 +44,7 @@ export class UserService {
 
   public getUserProfile(username: string): Observable<UserProfile> {
 
-    let url = 'http://localhost:8000/api/users/' + username;
+    let url = 'http://localhost:8000/api/users/' + username +'/';
     let options = {
       headers: new Headers({
         'Accept': 'application/json'

@@ -11,6 +11,8 @@ export class UserProfile {
     birthDate: string;
     isTeacher: boolean;
     photo: string;
+    headline: string;
+    biography: string;
     tokens: number;
 
   constructor() {

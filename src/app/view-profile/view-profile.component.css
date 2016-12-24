@@ -1,0 +1,50 @@
+.header-bar {
+  height: 140px;
+  background-color: #d9534f;
+  width: 100%;
+  border-top: 1px solid #265a88;
+  position: relative;
+  color: #ffffff;
+}
+
+.user-header-info {
+  position: absolute;
+  top: 25%;
+}
+
+.user-header-info h1 {
+  font-size: 35px;
+  font-weight: 400;
+  margin-bottom: 7px;
+  margin-top: 0;
+}
+
+.user-header-info h2 {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: -10px;
+}
+
+.profile-info {
+  margin-top: 30px;
+}
+
+.biography {
+  font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  line-height: 1.43;
+  color: #333;
+}
+
+.user-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  -webkit-border-radius: 80px;
+  -moz-border-radius: 80px;
+}
+
+.profile-lessons {
+  margin-top: 30px;
+  background-color: #f4f4f4;
+}
