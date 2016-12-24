@@ -4,9 +4,7 @@
 
     <span class="fill-remaining-space"></span>
     <div *ngIf="!authService.isAuth()">
-      <!--<button md-button routerLink="/login" >Zaloguj się</button>-->
       <button md-button (click)="openLoginDialog()" >Zaloguj się</button>
-      <!--<button md-button routerLink="/registration" >Zarejestruj się</button>-->
       <button md-button (click)="openRegistrationDialog()" >Zarejestruj się</button>
     </div>
     <div *ngIf="authService.isAuth()">
@@ -25,37 +23,44 @@
           <md-icon>notifications_active</md-icon> {{notifications?.length}}
         </button>
 
-        <md-menu x-position="before" y-position="below" #notificationsMenu="mdMenu" style="width: 500px;">
-        <div *ngFor="let notification of notifications">
-          <div>
-            <div><b>{{notification.title}}</b></div>
-            <div>{{notification.text}}</div>
-            <div><i>{{timeAgo(notification.createDate)}}</i></div>
+        <md-menu x-position="before" y-position="below" #notificationsMenu="mdMenu">
+          <div class="menu-content">
+            <div *ngFor="let notification of notifications">
+                <div>
+                  <div><b>{{notification.title}}</b></div>
+                  <div>{{notification.text}}</div>
+                  <div>
+                    <i>{{timeAgo(notification.createDate)}}</i>
+                    <span class="pull-right notify-read" (click)="markAsRead(notification)" mdTooltip="Przeczytane">
+                      <md-icon>done</md-icon>
+                    </span>
+                  </div>
+                </div>
+            </div>
+            <hr>
+            <div>
+              <!--<span class="notify-link">Zobacz wszystkie</span> TODO strona ze wszystkimi powiadomieniami-->
+              <span class="notify-link" (click)="markAllAsRead()">Przeczytaj wszystkie</span>
+            </div>
           </div>
-
-          <hr>
-        </div>
         </md-menu>
 
       </span>
 
-      <span *ngIf="!notifications">
+      <span *ngIf="notifications?.length == 0">
         <button md-icon-button>
           <md-icon>notifications_off</md-icon>
         </button>
       </span>
 
-
-
-
       <span *ngIf="!authService.hasPhoto()">
         <button md-icon-button [md-menu-trigger-for]="menu">
-          <span><md-icon>account_circle</md-icon></span>
+          <span class="account-circle-img"><md-icon>account_circle</md-icon></span>
         </button>
       </span>
 
       <span *ngIf="authService.hasPhoto()">
-        <img class="profile-photo" src="{{ authService.getPhoto() }}" [md-menu-trigger-for]="menu">
+        <img class="profile-photo account-circle-img" src="{{ authService.getPhoto() }}" [md-menu-trigger-for]="menu">
       </span>
 
       <md-menu x-position="before" #menu="mdMenu">
@@ -69,24 +74,25 @@
 </header>
 
   <main>
-    <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
   </main>
 
-  <footer>
-    <div class="container footer-container">
-      <div class="footer-content">
-        <ul>
-          <li><a href="#">First</a></li>
-          <li><a href="#">Secound</a></li>
-          <li><a href="#">Third</a></li>
-        </ul>
-        <div class="author-info">
-          Copyright © 2016 Dawid Rdzanek
-        </div>
+<footer>
+  <div class="container footer-container">
+    <div class="footer-content">
+      <ul>
+        <li><a href="#">First</a></li>
+        <li><a href="#">Secound</a></li>
+        <li><a href="#">Third</a></li>
+      </ul>
+      <div class="author-info">
+        Copyright © 2016 Dawid Rdzanek
       </div>
     </div>
+  </div>
 
-  </footer>
+</footer>
 
 <ng2-toasty></ng2-toasty>
+
 

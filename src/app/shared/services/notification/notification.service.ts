@@ -23,6 +23,24 @@ export class NotificationService {
       .catch(this.handleError)
   }
 
+  markAsRead(token: string, notification: Notification): Observable<Notification> {
+
+    let url = 'http://localhost:8000/api/notifications/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Accept': 'application/json'
+      })
+    };
+    let body = {
+      id: notification.id
+    };
+
+    return this.http.put(url, body, options)
+      .map((response: Response) => response.json())
+      .catch(this.handleError)
+  }
+
   private handleError (error: Response) {
     return Observable.throw(error.json());
   }

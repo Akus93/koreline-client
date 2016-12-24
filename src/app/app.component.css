@@ -14,3 +14,26 @@
 a {
   color: antiquewhite;
 }
+
+.notify-link {
+  color: #1376d7;
+  cursor: pointer;
+}
+
+.notify-link:hover {
+  color: #1350a0;
+}
+
+.menu-content {
+  margin-left: 5px;
+  margin-right:5px;
+  margin-top: 2px;
+}
+
+.notify-read {
+  cursor: pointer;
+}
+
+.account-circle-img {
+  cursor: pointer;
+}
