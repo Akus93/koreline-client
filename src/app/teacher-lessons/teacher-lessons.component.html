@@ -2,6 +2,7 @@
   <h2>Zajecia prowadzone przez mnie:</h2>
   <div *ngFor="let lesson of lessons" style="margin:2em; border: 2px solid black">
     <div>Tytuł: {{lesson?.title}}</div>
+    <button md-raised-button [routerLink]="['/lesson/edit', lesson.slug]" >Edytuj</button>
     <h3>Uczniowie:</h3>
     <div *ngFor="let student of lesson.students" style="margin:1em; border: 1px solid darkslateblue">
       <p><a style="color: #3c3c3c" [routerLink]="['/user', student.user.username]">{{ student.user.username }}</a></p>

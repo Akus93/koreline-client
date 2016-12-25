@@ -18,18 +18,6 @@ export class EditProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userService.getCurrentUserProfile(this.authService.getToken())
-                    .subscribe(
-                      user => {
-                        this.editProfileForm.patchValue(user);
-                        this.editProfileForm.patchValue(user.user);
-                        this.editProfileForm.get('lastName').markAsTouched();
-                        this.editProfileForm.get('lastName').markAsDirty();
-                        this.editProfileForm.get('lastName').markAsPending();
-                      },
-                          error => this.showErrorsFromServer(error)
-                    );
-
     this.editProfileForm = this.formBuilder.group({
       firstName: ['', [Validators.maxLength(30)]],
       lastName: ['', [Validators.maxLength(30)]],
@@ -38,6 +26,14 @@ export class EditProfileComponent implements OnInit {
       biography: ['', [Validators.maxLength(2048)]]
     });
 
+    this.userService.getCurrentUserProfile(this.authService.getToken())
+                    .subscribe(
+                      user => {
+                        this.editProfileForm.patchValue(user);
+                        this.editProfileForm.patchValue(user.user);
+                      },
+                          error => this.showErrorsFromServer(error)
+                    );
   }
 
   onSubmit(): void {

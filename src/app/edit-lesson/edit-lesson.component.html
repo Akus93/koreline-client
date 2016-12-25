@@ -1,0 +1,34 @@
+<div class="container">
+  <md-card>
+    <md-toolbar color="primary">Dodaj ofertę nauczania</md-toolbar>
+    <md-card-content>
+      <form [formGroup]="editLessonForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+        <div class="form-field">
+          <md-input formControlName="title" placeholder="Tytuł"></md-input>
+          <div *ngIf="errorMessages.title.errors" class="form-error-message">
+            {{ errorMessages.title.errors[0] }}
+          </div>
+        </div>
+        <div class="form-field">
+          <md-input-container>
+            <textarea md-input #shortDesc maxlength="255" formControlName="shortDescription" placeholder="Krótki opis"></textarea>
+            <md-hint align="end">{{shortDesc.value.length}} / 255</md-hint>
+          </md-input-container>
+          <div *ngIf="errorMessages.shortDescription.errors" class="form-error-message">
+            {{ errorMessages.shortDescription.errors[0] }}
+          </div>
+        </div>
+        <div class="form-field">
+          <md-input-container>
+            <textarea md-input #longDesc maxlength="2048" formControlName="longDescription" placeholder="Długi opis"></textarea>
+            <md-hint align="end">{{longDesc.value.length}} / 2048</md-hint>
+          </md-input-container>
+          <div *ngIf="errorMessages.longDescription.errors" class="form-error-message">
+            {{ errorMessages.longDescription.errors[0] }}
+          </div>
+        </div>
+        <button md-raised-button type="submit">Zapisz zmiany</button>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>

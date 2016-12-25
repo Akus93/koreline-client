@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.notifications = [];
 
-    let notify$ = Observable.interval(5000).flatMap(() => {
+    let notify$ = Observable.interval(30000).flatMap(() => {
         if (this.authService.isAuth())
           return this.notificationService.getNotifications(this.authService.getToken());
         else

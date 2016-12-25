@@ -13,6 +13,7 @@ import {TeacherGuard} from "./shared/guards/teacher.guard";
 import {MyLessonsComponent} from "./my-lessons/my-lessons.component";
 import {TeacherLessonsComponent} from "./teacher-lessons/teacher-lessons.component";
 import {ConversationRoomComponent} from "./conversation-room/conversation-room.component";
+import {EditLessonComponent} from "./edit-lesson/edit-lesson.component";
 
 
 export const routes: Routes = [
@@ -51,6 +52,11 @@ export const routes: Routes = [
     {
       path: 'lesson/create',
       component: CreateLessonComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'lesson/edit/:slug',
+      component: EditLessonComponent,
       canActivate: [AuthGuard, TeacherGuard]
     },
     {

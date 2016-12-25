@@ -32,6 +32,7 @@ import {ConversationService} from "./shared/services/conversation/conversation.s
 import {SharedService} from "./shared/services/shared/shared.service";
 import {NotificationService} from "./shared/services/notification/notification.service";
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MyLessonsComponent,
     TeacherLessonsComponent,
     ConversationRoomComponent,
+    EditLessonComponent,
   ],
   imports: [
     BrowserModule,

@@ -50,25 +50,25 @@ export class HomeComponent implements OnInit {
         return lesson.teacher.user.firstName + ' ' + lesson.teacher.user.lastName;
       else
         return lesson.teacher.user.username;
-    }
+  }
 
-    filtration() {
-      if (this.filterForm.valid) {
-      let query = {};
-      for (let control in this.filterForm.controls) {
-        let ctrl = this.filterForm.get(control.toString());
-        if (ctrl.value)
-          query[control.toString()] = ctrl.value;
-      }
-        this.lessonService.getLessonsList(query)
-          .subscribe(
-            lessons => this.lessons = lessons,
-            error => {}
-          );
-      } else {
-        console.log('Błąd filtrowania...');
-      }
+  filtration() {
+    if (this.filterForm.valid) {
+    let query = {};
+    for (let control in this.filterForm.controls) {
+      let ctrl = this.filterForm.get(control.toString());
+      if (ctrl.value)
+        query[control.toString()] = ctrl.value;
     }
+      this.lessonService.getLessonsList(query)
+        .subscribe(
+          lessons => this.lessons = lessons,
+          error => {}
+        );
+    } else {
+      console.log('Błąd filtrowania...');
+    }
+  }
 
   resetFiltration() {
     this.filterForm.reset();

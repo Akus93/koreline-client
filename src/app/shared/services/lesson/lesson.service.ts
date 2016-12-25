@@ -111,6 +111,22 @@ export class LessonService {
       .catch(this.handleError);
   }
 
+  public patchLesson(token: string, slug: string, body): Observable<Lesson> {
+
+    let url = 'http://localhost:8000/api/lessons/' + slug + '/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.patch(url, JSON.stringify(body), options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
 
   public joinLesson(token: string, slug: string): Observable<Lesson> {
 
