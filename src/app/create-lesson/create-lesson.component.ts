@@ -33,7 +33,9 @@ export class CreateLessonComponent implements OnInit {
       title: ['', [Validators.required]],
       subject: ['', [Validators.required]],
       stage: ['', [Validators.required]],
-      price: ['', [Validators.required]]
+      price: ['', [Validators.required]],
+      shortDescription: ['', [Validators.required, Validators.maxLength(255)]],
+      longDescription: ['', [Validators.required, Validators.maxLength(2048)]]
     });
 
   }
@@ -46,7 +48,9 @@ export class CreateLessonComponent implements OnInit {
         this.lessonCreateForm.get('title').value,
         this.lessonCreateForm.get('subject').value,
         this.lessonCreateForm.get('stage').value,
-        this.lessonCreateForm.get('price').value
+        this.lessonCreateForm.get('price').value,
+        this.lessonCreateForm.get('shortDescription').value,
+        this.lessonCreateForm.get('longDescription').value
       ).subscribe(
           lesson => {
             localStorage.setItem('isTeacher', true.toString());
@@ -77,7 +81,7 @@ export class CreateLessonComponent implements OnInit {
   errorMessages = {
     'title': {
       'messages': {
-        'required':       'To pole jest wymagane.'
+        'required': 'To pole jest wymagane.'
       },
       'errors': []
     },
@@ -96,6 +100,20 @@ export class CreateLessonComponent implements OnInit {
     'price': {
       'messages': {
         'required':   'To pole jest wymagane.'
+      },
+      'errors': []
+    },
+    'shortDescription': {
+      'messages': {
+        'required':   'To pole jest wymagane.',
+        'maxlength':  'To pole może zawierać maksymalnie 255 znaków.'
+      },
+      'errors': []
+    },
+    'longDescription': {
+      'messages': {
+        'required':   'To pole jest wymagane.',
+        'maxlength':  'To pole może zawierać maksymalnie 2048 znaków.'
       },
       'errors': []
     }

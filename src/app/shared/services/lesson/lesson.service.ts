@@ -92,10 +92,12 @@ export class LessonService {
       .catch(this.handleError)
   }
 
-  public createLesson(token: string, title: string, subject: string, stage: string, price: number): Observable<Lesson> {
+  public createLesson(token: string, title: string, subject: string, stage: string, price: number,
+                      shortDescription: string, longDescription: string): Observable<Lesson> {
 
     let url = 'http://localhost:8000/api/lessons/';
-    let body = JSON.stringify({ title: title, subject: subject, stage: stage, price: price });
+    let body = JSON.stringify({ title: title, subject: subject, stage: stage, price: price,
+                                shortDescription: shortDescription, longDescription: longDescription });
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,

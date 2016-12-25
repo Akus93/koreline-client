@@ -10,19 +10,17 @@
           </div>
         </div>
         <div class="form-field">
-          <select formControlName="subject">
-            <option value="" disabled selected>Wybierz przedmiot</option>
-            <option *ngFor="let subject of subjects" [value]="subject">{{subject}}</option>
-          </select>
+          <md-select placeholder="Przedmiot" formControlName="subject">
+            <md-option *ngFor="let subject of subjects" [value]="subject"> {{subject}} </md-option>
+          </md-select>
           <div *ngIf="errorMessages.subject.errors" class="form-error-message">
             {{ errorMessages.subject.errors[0] }}
           </div>
         </div>
         <div class="form-field">
-          <select formControlName="stage">
-            <option value="" disabled selected>Wybierz poziom</option>
-            <option *ngFor="let stage of stages" [value]="stage">{{stage}}</option>
-          </select>
+          <md-select placeholder="Poziom" formControlName="stage">
+            <md-option *ngFor="let stage of stages" [value]="stage"> {{stage}} </md-option>
+          </md-select>
           <div *ngIf="errorMessages.stage.errors" class="form-error-message">
             {{ errorMessages.stage.errors[0] }}
           </div>
@@ -31,6 +29,24 @@
           <md-input formControlName="price" placeholder="Cena za 15 minut" type="number"></md-input>
           <div *ngIf="errorMessages.price.errors" class="form-error-message">
             {{ errorMessages.price.errors[0] }}
+          </div>
+        </div>
+        <div class="form-field">
+          <md-input-container>
+            <textarea md-input #shortDesc maxlength="255" formControlName="shortDescription" placeholder="Krótki opis"></textarea>
+            <md-hint align="end">{{shortDesc.value.length}} / 255</md-hint>
+          </md-input-container>
+          <div *ngIf="errorMessages.shortDescription.errors" class="form-error-message">
+            {{ errorMessages.shortDescription.errors[0] }}
+          </div>
+        </div>
+        <div class="form-field">
+          <md-input-container>
+            <textarea md-input #longDesc maxlength="2048" formControlName="longDescription" placeholder="Długi opis"></textarea>
+            <md-hint align="end">{{longDesc.value.length}} / 2048</md-hint>
+          </md-input-container>
+          <div *ngIf="errorMessages.longDescription.errors" class="form-error-message">
+            {{ errorMessages.longDescription.errors[0] }}
           </div>
         </div>
         <button md-raised-button type="submit">Dodaj ofertę</button>

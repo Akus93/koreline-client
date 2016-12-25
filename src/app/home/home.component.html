@@ -24,8 +24,6 @@
     </form>
     <!--END FILTROWANIE-->
 
-
-
   <div class="containerX">
     <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
       <md-card class="offer-card center-block" *ngFor="let lesson of lessons"
@@ -38,47 +36,17 @@
           <md-card-title><b>{{lesson.title}}</b></md-card-title>
           <md-card-subtitle>{{lesson.subject}} | {{lesson.stage}}</md-card-subtitle>
         </md-card-header>
-        <!--<img md-card-image src="assets/sowa2.jpg">-->
         <md-card-content>
           <div class="offer-card-description">
-            <p>
-              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-              A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-              bred for hunting. class="offer-card-description" class="offer-card-description" class="offer-card-description" class="offer-card-description"
-              class="offer-card-description" class="offer-card-description" class="offer-card-description"
-              class="offer-card-description"class="offer-card-description" class="offer-card-description" class="offer-card-description"
-            </p>
+            <p>{{lesson.shortDescription}}</p>
           </div>
-
         </md-card-content>
-        <!--<md-card-actions>-->
-          <!--<button md-button>LIKE</button>-->
-          <!--<button md-button>SHARE</button>-->
-        <!--</md-card-actions>-->
       </md-card>
-      <!--<div class="elem" *ngFor="let lesson of lessons" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="50">-->
-        <!--&lt;!&ndash;<img src="/assets/sowa2.jpg" alt="zdjecie sowy">&ndash;&gt;-->
-        <!--<h3>{{lesson.title}}</h3>-->
-        <!--<span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>-->
-        <!--<button md-icon-button [routerLink]="['/lesson', lesson.slug]">-->
-          <!--<md-icon>info</md-icon>-->
-        <!--</button>-->
-      <!--</div>-->
+
     </div>
   </div>
 </div>
-    <!--<md-grid-list #grid cols="4" rowHeight="4:3" gutterSize="25px">-->
-      <!--<md-grid-tile *ngFor="let lesson of lessons" [rowspan]="1">-->
-        <!--<img src="/assets/sowa2.jpg" alt="zdjecie sowy">-->
-        <!--<md-grid-tile-footer>-->
-          <!--<h3 md-line>{{lesson.title}}</h3>-->
-          <!--<span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>-->
-          <!--<button md-icon-button [routerLink]="['/lesson', lesson.slug]">-->
-            <!--<md-icon>info</md-icon>-->
-          <!--</button>-->
-        <!--</md-grid-tile-footer>-->
-      <!--</md-grid-tile>-->
-    <!--</md-grid-list>-->
+
 
 
 

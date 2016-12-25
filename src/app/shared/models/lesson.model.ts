@@ -8,5 +8,6 @@ export class Lesson {
   stage: string;
   price: number;
   students: UserProfile[];
-
+  shortDescription: string;
+  longDesription: string;
 }
