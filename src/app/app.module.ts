@@ -31,6 +31,7 @@ import { ConversationRoomComponent } from './conversation-room/conversation-room
 import {ConversationService} from "./shared/services/conversation/conversation.service";
 import {SharedService} from "./shared/services/shared/shared.service";
 import {NotificationService} from "./shared/services/notification/notification.service";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import {NotificationService} from "./shared/services/notification/notification.s
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     ToastyModule.forRoot(),
+    FlexLayoutModule.forRoot()
   ],
   providers: [
     AuthService,

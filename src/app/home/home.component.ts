@@ -13,7 +13,6 @@ import {StageService} from "../shared/services/stage/stage.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   lessons: Lesson[];
   subjects: string[];
   stages: string[];

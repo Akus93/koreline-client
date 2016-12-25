@@ -23,19 +23,38 @@
       </div>
     </form>
     <!--END FILTROWANIE-->
-    <md-grid-list cols="4" rowHeight="4:3" gutterSize="25px">
-      <md-grid-tile *ngFor="let lesson of lessons" [rowspan]="1">
-        <img src="/assets/sowa2.jpg" alt="zdjecie sowy">
-        <md-grid-tile-footer>
-          <h3 md-line>{{lesson.title}}</h3>
-          <span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>
-          <button md-icon-button [routerLink]="['/lesson', lesson.slug]">
-            <md-icon>info</md-icon>
-          </button>
-        </md-grid-tile-footer>
-      </md-grid-tile>
-    </md-grid-list>
 
 </div>
+
+  <div class="containerX">
+    <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
+      <div class="elem" *ngFor="let lesson of lessons" fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="50">
+        <!--<img src="/assets/sowa2.jpg" alt="zdjecie sowy">-->
+        <h3>{{lesson.title}}</h3>
+        <span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>
+        <button md-icon-button [routerLink]="['/lesson', lesson.slug]">
+          <md-icon>info</md-icon>
+        </button>
+      </div>
+      <!--<div class="elem" fxFlex="30" style="border: 2px black solid"> I'm above on mobile, and to the left on larger devices.   </div>-->
+      <!--<div class="elem" fxFlex="30" style="border: 2px black solid"> I'm below on mobile, and to the right on larger devices.  </div>-->
+      <!--<div class="elem" fxFlex="30" style="border: 2px black solid"> I'm below on mobile, and to the right on larger devices.  </div>-->
+      <!--<div class="elem" fxFlex="30" style="border: 2px black solid"> I'm below on mobile, and to the right on larger devices.  </div>-->
+    </div>
+  </div>
+
+    <!--<md-grid-list #grid cols="4" rowHeight="4:3" gutterSize="25px">-->
+      <!--<md-grid-tile *ngFor="let lesson of lessons" [rowspan]="1">-->
+        <!--<img src="/assets/sowa2.jpg" alt="zdjecie sowy">-->
+        <!--<md-grid-tile-footer>-->
+          <!--<h3 md-line>{{lesson.title}}</h3>-->
+          <!--<span md-line [routerLink]="['/user', lesson.teacher.user.username]">Nauczyciel: {{getTeacherFullName(lesson)}}</span>-->
+          <!--<button md-icon-button [routerLink]="['/lesson', lesson.slug]">-->
+            <!--<md-icon>info</md-icon>-->
+          <!--</button>-->
+        <!--</md-grid-tile-footer>-->
+      <!--</md-grid-tile>-->
+    <!--</md-grid-list>-->
+
 
 

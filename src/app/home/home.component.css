@@ -11,3 +11,10 @@ img {
   margin: 2em;
   display: inline-block;
 }
+
+.elem {
+  margin: 5px;
+  width: 250px;
+  height: 250px;
+  border: 2px black solid;
+}
