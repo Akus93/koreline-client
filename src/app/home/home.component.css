@@ -12,9 +12,26 @@ img {
   display: inline-block;
 }
 
-.elem {
-  margin: 5px;
-  width: 250px;
+.offer-card {
+  width: 350px;
   height: 250px;
-  border: 2px black solid;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.example-header-image {
+  background-image: url('assets/sowa2.jpg');
+  background-size: cover;
+}
+
+.card-avatar {
+  cursor: pointer;
+  z-index: 10;
+}
+
+.offer-card-description {
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+  max-height: 150px;
 }
