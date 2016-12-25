@@ -19,7 +19,7 @@
       </div>
       <div class="form-field">
         <button md-raised-button type="submit">Filtruj</button>
-        <button md-raised-button (click)="resetFiltration()">Wyczyść</button>
+        <button md-raised-button *ngIf="isFiltered" (click)="resetFiltration()">Wyczyść</button>
       </div>
     </form>
     <!--END FILTROWANIE-->

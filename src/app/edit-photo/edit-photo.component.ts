@@ -56,6 +56,10 @@ export class EditPhotoComponent implements OnInit {
     myReader.readAsDataURL(file);
   }
 
+  cleanPhoto(): void {
+    this.data = {};
+  }
+
   savePhoto(): void {
     let token = this.authService.getToken();
     this.userService.patchCurrentUserProfile(token, {'photo': this.data.image})

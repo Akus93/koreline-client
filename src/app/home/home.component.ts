@@ -17,11 +17,13 @@ export class HomeComponent implements OnInit {
   subjects: string[];
   stages: string[];
   filterForm: FormGroup;
+  isFiltered: boolean;
 
   constructor(private lessonService: LessonService, private subjectService: SubjectService,
               private formBuilder: FormBuilder, private stageService: StageService) {}
 
   ngOnInit() {
+    this.isFiltered = false;
     this.lessonService.getLessonsList({})
                       .subscribe(
                         lessons => this.lessons = lessons,
@@ -62,7 +64,10 @@ export class HomeComponent implements OnInit {
     }
       this.lessonService.getLessonsList(query)
         .subscribe(
-          lessons => this.lessons = lessons,
+          lessons => {
+            this.lessons = lessons;
+            this.isFiltered = true;
+          },
           error => {}
         );
     } else {
@@ -74,7 +79,10 @@ export class HomeComponent implements OnInit {
     this.filterForm.reset();
     this.lessonService.getLessonsList({})
       .subscribe(
-        lessons => this.lessons = lessons,
+        lessons => {
+          this.lessons = lessons;
+          this.isFiltered = false;
+        },
         error => {}
       );
   }

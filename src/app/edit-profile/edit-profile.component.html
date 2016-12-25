@@ -1,4 +1,4 @@
-<div class="container">
+<!--<div class="container">-->
   <md-card>
     <md-toolbar color="primary">Edytuj profil</md-toolbar>
     <md-card-content>
@@ -21,7 +21,7 @@
         </div>
         <div class="form-field">
           <md-input-container>
-            <input md-input formControlName="birthDate" placeholder="Data urodzenia">
+            <input md-input type="date" formControlName="birthDate" placeholder="Data urodzenia">
           </md-input-container>
           <div *ngIf="errorMessages.birthDate.errors" class="form-error-message">
             {{ errorMessages.birthDate.errors[0] }}
@@ -49,6 +49,6 @@
       </form>
     </md-card-content>
   </md-card>
-</div>
+<!--</div>-->
 
-<ng2-toasty></ng2-toasty>
+<!--<ng2-toasty></ng2-toasty>-->
