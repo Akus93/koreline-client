@@ -7,6 +7,9 @@ import {ConversationService} from "../shared/services/conversation/conversation.
 import {Conversation} from "../shared/models/conversation.model";
 import {Router} from "@angular/router";
 import {SharedService} from "../shared/services/shared/shared.service";
+import {isUndefined} from "util";
+import {UserProfile} from "../shared/models/userProfile.model";
+import {DOMAIN_NAME} from '../shared/global';
 
 @Component({
   selector: 'app-teacher-lessons',
@@ -16,12 +19,14 @@ import {SharedService} from "../shared/services/shared/shared.service";
 export class TeacherLessonsComponent implements OnInit {
 
   lessons: Lesson[];
+  domain: string;
 
   constructor(private router: Router, private authService: AuthService, private lessonService: LessonService,
               private conversationService: ConversationService, private toastyService: ToastyService,
               private sharedService: SharedService) { }
 
   ngOnInit() {
+    this.domain = DOMAIN_NAME;
     this.getMyLessons();
   }
 
@@ -86,6 +91,15 @@ export class TeacherLessonsComponent implements OnInit {
           },
           error => {}
         );
+  }
+
+  public getFullNameOrUsername(student?: UserProfile): string {
+    if (isUndefined(student))
+      return '';
+    if (student.user.firstName && student.user.lastName)
+      return student.user.firstName + ' ' + student.user.lastName;
+    else
+      return student.user.username;
   }
 
 }

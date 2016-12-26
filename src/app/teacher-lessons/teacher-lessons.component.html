@@ -1,16 +1,45 @@
 <div class="container">
   <h2>Zajecia prowadzone przez mnie:</h2>
-  <div *ngFor="let lesson of lessons" style="margin:2em; border: 2px solid black">
-    <div>Tytuł: {{lesson?.title}}</div>
-    <button md-raised-button [routerLink]="['/lesson/edit', lesson.slug]" >Edytuj</button>
-    <h3>Uczniowie:</h3>
-    <div *ngFor="let student of lesson.students" style="margin:1em; border: 1px solid darkslateblue">
-      <p><a style="color: #3c3c3c" [routerLink]="['/user', student.user.username]">{{ student.user.username }}</a></p>
-      <button md-raised-button (click)="unsubscribeStudent(lesson, student)">Wypisz ucznia</button>
-      <button md-raised-button (click)="createConversation(lesson, student)">Otwórz konwersacje</button>
-    </div>
-    <button md-raised-button (click)="deleteLesson(lesson)">Usuń lekcje</button>
-  </div>
-</div>
 
-<ng2-toasty></ng2-toasty>
+  <md-card class="my-lesson-card" *ngFor="let lesson of lessons">
+    <md-card-header>
+      <md-card-title>
+        <b><a [routerLink]="['/lesson', lesson.slug]">{{lesson.title}}</a></b>
+      </md-card-title>
+      <md-card-subtitle>{{lesson.subject}} | {{lesson.stage}}</md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+      <md-icon class="lesson-icon" mdTooltip="Edytuj" [routerLink]="['/lesson/edit', lesson.slug]">edit</md-icon>
+      <md-icon class="lesson-icon" mdTooltip="Usuń" (click)="deleteLesson(lesson)">delete</md-icon>
+
+    <hr>
+    <h4>Zapisani uczniowie:</h4>
+
+    <div class="containerX">
+      <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
+        <md-card class="student-card center-block" *ngFor="let student of lesson.students"
+                 fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="50">
+          <md-card-header>
+            <img *ngIf="student.photo" md-card-avatar src="{{domain + student.photo}}">
+            <img *ngIf="!student.photo" md-card-avatar src="assets/profile.png">
+            <md-card-title>
+              <b><a [routerLink]="['/user', student.user.username]">{{getFullNameOrUsername(student)}}</a></b>
+            </md-card-title>
+            <md-card-subtitle>{{student.headline}}</md-card-subtitle>
+          </md-card-header>
+          <md-card-actions>
+            <md-icon mdTooltip="Otwórz konwersacje" (click)="createConversation(lesson, student)">phone</md-icon>
+            <md-icon mdTooltip="Wyślij wiadomość">message</md-icon>
+            <md-icon mdTooltip="Wypisz z lekcji" (click)="unsubscribeStudent(lesson, student)">delete</md-icon>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
+
+    </md-card-content>
+    <!--<md-card-actions>-->
+
+    <!--</md-card-actions>-->
+  </md-card>
+
+</div>

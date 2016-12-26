@@ -1,0 +1,41 @@
+.my-lesson-card {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.my-lesson-card h4 {
+  color: #5589b6;
+}
+
+.my-lesson-card a {
+  cursor: pointer;
+  color: #5589b6;
+}
+
+.my-lesson-card a:hover {
+  color: #3b5376;
+}
+
+.student-card {
+  width: 250px;
+  margin: 15px;
+}
+
+md-icon{
+  color: #5589b6;
+  font-size: 24px;
+  margin-right: 10px;
+  margin-top: 3px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+md-icon:hover {
+  color: #3b5376;
+}
+
+.lesson-icon {
+  font-size: 27px;
+}
+
+
