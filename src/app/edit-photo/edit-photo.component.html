@@ -1,4 +1,9 @@
-<!--<div class="container">-->
+<div class="component-header">
+  <h2>Zdjęcie profilowe</h2>
+  <h3>Dodaj swoje ładne zdjęcie do profilu.</h3>
+</div>
+<hr>
+<div class="center-block form-wrapper">
   <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
   <br>
   <div style="display: inline-block">
@@ -9,8 +14,6 @@
   <span *ngIf="data.image">
     <button md-raised-button (click)="savePhoto()">Zapisz</button>
   </span>
+</div>
 
-<!--</div>-->
-
-<!--<ng2-toasty></ng2-toasty>-->
 

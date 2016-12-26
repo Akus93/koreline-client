@@ -1,0 +1,52 @@
+.content {
+  margin-top: 30px;
+}
+
+.nav {
+  border-top: 1px #cccccc solid;
+  border-bottom: 1px #cccccc solid;
+  border-left: 1px #cccccc solid;
+  padding: 0 !important;
+}
+
+.nav-list {
+  padding: 0;
+  border-top: 1px #cccccc solid;
+}
+
+.nav-link {
+  size: 5px;
+  color: #5589b6;
+  width: 100%;
+  cursor: pointer;
+  padding: 0 !important;
+}
+
+.nav-link:hover {
+  background-color: #3f51b5;;
+  color: #fff;
+}
+
+.active {
+  background-color: #3f51b5;;
+  color: #fff;
+}
+
+.component-wraper {
+  border: 1px #cccccc solid;
+}
+
+.active-component {
+  margin: 10px;
+}
+
+.account-profile-photo {
+  border: 1px solid #cccccc;
+  margin: 10px;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}

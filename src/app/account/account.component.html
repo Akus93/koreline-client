@@ -1,0 +1,26 @@
+<div class="container">
+
+  <div class="row content">
+    <div class="col-md-2 nav">
+      <div class="center-block account-profile-photo">
+        <img *ngIf="!authService.getPhoto()" class="profile-image center-block" src="assets/profile.png">
+        <img *ngIf="authService.getPhoto()" class="profile-image center-block" src="{{authService.getPhoto()}}">
+      </div>
+      <md-list class="nav-list">
+        <md-list-item (click)="changeComponent('info')" class="nav-link {{activeComponent == 'info' ? 'active' : ''}}">
+          Dane osobowe
+        </md-list-item>
+        <md-list-item (click)="changeComponent('photo')" class="nav-link {{activeComponent == 'photo' ? 'active' : ''}}">
+          Zdjęcie profilowe
+        </md-list-item>
+      </md-list>
+    </div>
+    <div class="col-md-10 component-wraper">
+      <div [ngSwitch]="activeComponent" class="active-component">
+        <app-edit-profile *ngSwitchCase="'info'"></app-edit-profile>
+        <app-edit-photo *ngSwitchCase="'photo'"></app-edit-photo>
+        <app-edit-profile *ngSwitchDefault></app-edit-profile>
+      </div>
+    </div>
+  </div>
+</div>

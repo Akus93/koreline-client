@@ -10,3 +10,27 @@
 .input-file + label {
   margin: 2px;
 }
+
+.component-header {
+  text-align: center;
+}
+
+.component-header h2 {
+  color: #555;
+  line-height: 1!important;
+  font-weight: 700!important;
+  font-size: 22px;
+  margin: 20px 0 3px;
+}
+
+.component-header h3 {
+  font-size: 15px;
+  font-weight: 300;
+  color: #555;
+  margin: 0 0 15px;
+  line-height: 25px;
+}
+
+.form-wrapper {
+  width: 500px;
+}

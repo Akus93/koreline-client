@@ -1,54 +1,52 @@
-<!--<div class="container">-->
-  <md-card>
-    <md-toolbar color="primary">Edytuj profil</md-toolbar>
-    <md-card-content>
-      <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
-        <div class="form-field">
-          <md-input-container>
-            <input md-input formControlName="firstName" placeholder="Imię">
-          </md-input-container>
-          <div *ngIf="errorMessages.firstName.errors" class="form-error-message">
-            {{ errorMessages.firstName.errors[0] }}
-          </div>
-        </div>
-        <div class="form-field">
-          <md-input-container>
-            <input md-input formControlName="lastName" placeholder="Nazwisko">
-          </md-input-container>
-          <div *ngIf="errorMessages.lastName.errors" class="form-error-message">
-            {{ errorMessages.lastName.errors[0] }}
-          </div>
-        </div>
-        <div class="form-field">
-          <md-input-container>
-            <input md-input type="date" formControlName="birthDate" placeholder="Data urodzenia">
-          </md-input-container>
-          <div *ngIf="errorMessages.birthDate.errors" class="form-error-message">
-            {{ errorMessages.birthDate.errors[0] }}
-          </div>
-        </div>
-        <div class="form-field">
-          <md-input-container>
-            <input md-input formControlName="headline" placeholder="Nagłówek" maxlength="70" #headline>
-            <md-hint align="end">{{headline.value.length}} / 70</md-hint>
-          </md-input-container>
-          <div *ngIf="errorMessages.headline.errors" class="form-error-message">
-            {{ errorMessages.headline.errors[0] }}
-          </div>
-        </div>
-        <div class="form-field">
-          <md-input-container>
-            <textarea md-input #bio maxlength="2048" formControlName="biography" placeholder="Biografia"></textarea>
-            <md-hint align="end">{{bio.value.length}} / 2048</md-hint>
-          </md-input-container>
-          <div *ngIf="errorMessages.biography.errors" class="form-error-message">
-            {{ errorMessages.biography.errors[0] }}
-          </div>
-        </div>
-        <button md-raised-button type="submit">Zapisz</button>
-      </form>
-    </md-card-content>
-  </md-card>
-<!--</div>-->
-
-<!--<ng2-toasty></ng2-toasty>-->
+<div class="component-header">
+  <h2>Dane osobowe</h2>
+  <h3>Dodaj informację o sobie aby inni Cię poznali.</h3>
+</div>
+<hr>
+<div class="center-block form-wrapper">
+  <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
+    <div class="form-field">
+      <md-input-container>
+        <input md-input formControlName="firstName" placeholder="Imię">
+      </md-input-container>
+      <div *ngIf="errorMessages.firstName.errors" class="form-error-message">
+        {{ errorMessages.firstName.errors[0] }}
+      </div>
+    </div>
+    <div class="form-field">
+      <md-input-container>
+        <input md-input formControlName="lastName" placeholder="Nazwisko">
+      </md-input-container>
+      <div *ngIf="errorMessages.lastName.errors" class="form-error-message">
+        {{ errorMessages.lastName.errors[0] }}
+      </div>
+    </div>
+    <div class="form-field">
+      <md-input-container>
+        <input md-input type="date" formControlName="birthDate" placeholder="Data urodzenia">
+      </md-input-container>
+      <div *ngIf="errorMessages.birthDate.errors" class="form-error-message">
+        {{ errorMessages.birthDate.errors[0] }}
+      </div>
+    </div>
+    <div class="form-field">
+      <md-input-container>
+        <input md-input formControlName="headline" placeholder="Nagłówek" maxlength="70" #headline>
+        <md-hint align="end">{{headline.value.length}} / 70</md-hint>
+      </md-input-container>
+      <div *ngIf="errorMessages.headline.errors" class="form-error-message">
+        {{ errorMessages.headline.errors[0] }}
+      </div>
+    </div>
+    <div class="form-field">
+      <md-input-container>
+        <textarea md-input #bio maxlength="2048" formControlName="biography" placeholder="Biografia"></textarea>
+        <md-hint align="end">{{bio.value.length}} / 2048</md-hint>
+      </md-input-container>
+      <div *ngIf="errorMessages.biography.errors" class="form-error-message">
+        {{ errorMessages.biography.errors[0] }}
+      </div>
+    </div>
+    <button md-raised-button type="submit">Zapisz</button>
+  </form>
+</div>
