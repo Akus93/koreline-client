@@ -14,7 +14,9 @@
 
     <hr>
     <h4>Zapisani uczniowie:</h4>
-
+    <div *ngIf="!lesson.students">
+      <h4>Ta lekcja nie posiada żadnych uczniów.</h4>
+    </div>
     <div class="containerX">
       <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
         <md-card class="student-card center-block" *ngFor="let student of lesson.students"

@@ -1,10 +1,24 @@
 <div class="container">
-  <h2>Moje lekcje:</h2>
-  <div *ngFor="let lesson of myLessons" style="margin:2em; border: 2px solid black">
-      <div>Tytuł: {{lesson?.title}}</div>
-      <div>Nauczyciel: {{lesson?.teacher?.user?.username}}</div>
-      <button md-raised-button (click)="leaveLesson(lesson)">Wypisz się</button>
+  <h3>Moje lekcje:</h3>
+  <div *ngIf="myLessons?.length == 0">
+    <h4>Nie jesteś zapisany/a do żadnej lekcji.</h4>
   </div>
-</div>
+  <div class="containerX">
+    <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
+      <md-card class="lesson-card" *ngFor="let lesson of myLessons"
+               fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="50">
+        <md-card-header>
+          <md-card-title>
+            <b><a [routerLink]="['/lesson', lesson.slug]">{{lesson.title}}</a></b>
+          </md-card-title>
+          <md-card-subtitle>{{lesson.subject}} | {{lesson.stage}}</md-card-subtitle>
+        </md-card-header>
+        <md-card-content>
+          <md-icon class="lesson-icon" mdTooltip="Wyślij wiadomość do nauczyciela">message</md-icon>
+          <md-icon class="lesson-icon" mdTooltip="Wypisz się" (click)="leaveLesson(lesson)">delete</md-icon>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
 
-<ng2-toasty></ng2-toasty>
+</div>
