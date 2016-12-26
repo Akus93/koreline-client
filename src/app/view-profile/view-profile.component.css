@@ -1,6 +1,7 @@
 .header-bar {
   height: 140px;
-  background-color: #d9534f;
+  /*background-color: #d9534f;*/
+  background-color: #5E6FC7;
   width: 100%;
   border-top: 1px solid #265a88;
   position: relative;
@@ -47,4 +48,11 @@
 .profile-lessons {
   margin-top: 30px;
   background-color: #f4f4f4;
+}
+
+.offer-card {
+  width: 350px;
+  height: 250px;
+  margin-bottom: 20px;
+  cursor: pointer;
 }

@@ -4,6 +4,8 @@ import {LessonService} from "../shared/services/lesson/lesson.service";
 import {Lesson} from '../shared/models/lesson.model';
 import {AuthService} from "../shared/services/auth/auth.service";
 import {ToastyService} from "ng2-toasty";
+import {UserProfile} from "../shared/models/userProfile.model";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-view-lesson',
@@ -45,6 +47,15 @@ export class ViewLessonComponent implements OnInit {
                           theme: 'default',
                         })
                       );
+  }
+
+  public getFullNameOrUsername(lesson?: Lesson): string {
+    if (isUndefined(lesson))
+      return '';
+    if (lesson.teacher.user.firstName && lesson.teacher.user.lastName)
+      return lesson.teacher.user.firstName + ' ' + lesson.teacher.user.lastName;
+    else
+      return lesson.teacher.user.username;
   }
 
 }

@@ -27,10 +27,23 @@
 
 <div *ngIf="user?.isTeacher" class="profile-lessons">
   <div class="container">
-    <h2>Lista lekcji</h2>
-    <div *ngFor="let lesson of userLessons" style="border: 1px blue solid; margin: 2em;">
-      <h4>{{lesson.title}}</h4>
-      <a [routerLink]="['/lesson', lesson.slug]">{{lesson.slug}}</a>
+    <h2>Lekcje prowadzone przez tego nauczyciela:</h2>
+    <div class="containerX">
+      <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
+        <md-card class="offer-card center-block" *ngFor="let lesson of userLessons"
+                 fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="50"
+                 [routerLink]="['/lesson', lesson.slug]">
+          <md-card-header>
+            <md-card-title><b>{{lesson.title}}</b></md-card-title>
+            <md-card-subtitle>{{lesson.subject}} | {{lesson.stage}}</md-card-subtitle>
+          </md-card-header>
+          <md-card-content>
+            <div class="offer-card-description">
+              <p>{{lesson.shortDescription}}</p>
+            </div>
+          </md-card-content>
+        </md-card>
+      </div>
     </div>
   </div>
 </div>

@@ -1,14 +1,43 @@
-<div class="container">
-  <h2>Tytuł: {{lesson?.title}}</h2>
-  <h3>Nauczyciel: {{lesson?.teacher.user.username}}</h3>
-  <p>Przedmiot: {{lesson?.subject}}</p>
-  <p>Poziom: {{lesson?.stage}}</p>
-  <p>Cena za 15 min: {{lesson?.price}}</p>
-
-  <div *ngIf="authService.isAuth()">
-    <button md-raised-button (click)="joinLesson()">Zapisz się na lekcję</button>
+<div class="header-bar">
+  <div class="container">
+    <div class="lesson-header-info">
+      <h1>{{lesson?.title}}</h1>
+      <h2>{{lesson?.subject}} | {{lesson?.stage}}</h2>
+    </div>
   </div>
-
 </div>
 
-<ng2-toasty></ng2-toasty>
+<div class="lesson-info">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <div >
+          <div class="teacher-info">
+            <img *ngIf="!lesson?.teacher.photo" class="teacher-photo center-block" src="assets/profile.png">
+            <img *ngIf="lesson?.teacher.photo" class="teacher-photo center-block" src="{{lesson?.teacher.photo}}">
+            <h3 class="user-name" [routerLink]="['/user', lesson?.teacher.user.username]">
+              {{getFullNameOrUsername(lesson)}}
+            </h3>
+          </div>
+          <div class="lesson-details">
+            <p>Przedmiot: {{lesson?.subject}}</p>
+            <p>Poziom: {{lesson?.stage}}</p>
+            <p>Cena/15 min: {{lesson?.price}} żetonów</p>
+          </div>
+        </div>
+
+        <div *ngIf="authService.isAuth()">
+          <button md-raised-button (click)="joinLesson()">Zapisz się na lekcję</button>
+        </div>
+
+      </div>
+      <div class="col-sm-10">
+        <div class="long-descripton">
+          {{lesson?.longDescription}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

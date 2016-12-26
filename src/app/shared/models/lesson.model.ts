@@ -9,5 +9,5 @@ export class Lesson {
   price: number;
   students: UserProfile[];
   shortDescription: string;
-  longDesription: string;
+  longDescription: string;
 }

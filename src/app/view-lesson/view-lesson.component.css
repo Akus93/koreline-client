@@ -1,0 +1,60 @@
+.header-bar {
+  height: 140px;
+  /*background-color: #d9534f;*/
+  background-color: #5E6FC7;
+  width: 100%;
+  border-top: 1px solid #265a88;
+  position: relative;
+  color: #ffffff;
+}
+
+.lesson-header-info {
+  position: absolute;
+  top: 25%;
+}
+
+.lesson-header-info h1 {
+  font-size: 35px;
+  font-weight: 400;
+  margin-bottom: 7px;
+  margin-top: 0;
+}
+
+.lesson-header-info h2 {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: -10px;
+}
+
+.lesson-info {
+  margin-top: 30px;
+}
+
+.long-descripton {
+  font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  line-height: 1.43;
+  color: #333;
+}
+
+.teacher-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.user-name {
+  text-align: center;
+  cursor: pointer;
+  color: #5589b6
+}
+
+.user-name:hover {
+  text-align: center;
+  cursor: pointer;
+  color: #3b5376;
+}
+
+.teacher-info {
+  margin-bottom: 15px;
+}
