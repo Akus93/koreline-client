@@ -3,6 +3,11 @@ import {LessonService} from "../shared/services/lesson/lesson.service";
 import {Lesson} from "../shared/models/lesson.model";
 import {AuthService} from "../shared/services/auth/auth.service";
 import {ToastyService} from "ng2-toasty";
+import {MessageService} from "../shared/services/message/message.service";
+import {MdDialog} from "@angular/material";
+import {SendMessageDialogComponent} from "../send-message-dialog/send-message-dialog.component";
+import {SharedService} from "../shared/services/shared/shared.service";
+import {UserProfile} from "../shared/models/userProfile.model";
 
 @Component({
   selector: 'app-my-lessons',
@@ -13,7 +18,8 @@ export class MyLessonsComponent implements OnInit {
 
   myLessons: Lesson[];
 
-  constructor(private authService: AuthService, private lessonService: LessonService, private toastyService: ToastyService) { }
+  constructor(private authService: AuthService, private lessonService: LessonService,
+              private toastyService: ToastyService, public dialog: MdDialog, private sharedService: SharedService) { }
 
   ngOnInit() {
     this.getMyLessons();
@@ -42,6 +48,11 @@ export class MyLessonsComponent implements OnInit {
                         },
                         error => {}
                       )
+  }
+
+  sendMessage(reciver: UserProfile) {
+    this.sharedService.setMessageReciver(reciver.user.username);
+    let dialogRef = this.dialog.open(SendMessageDialogComponent);
   }
 
 }

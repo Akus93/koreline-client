@@ -5,6 +5,10 @@ import {UserProfile} from "../shared/models/userProfile.model";
 import {LessonService} from "../shared/services/lesson/lesson.service";
 import {Lesson} from "../shared/models/lesson.model";
 import {isUndefined} from "util";
+import {AuthService} from "../shared/services/auth/auth.service";
+import {SendMessageDialogComponent} from "../send-message-dialog/send-message-dialog.component";
+import {MdDialog} from "@angular/material";
+import {SharedService} from "../shared/services/shared/shared.service";
 
 @Component({
   selector: 'app-view-profile',
@@ -16,7 +20,8 @@ export class ViewProfileComponent implements OnInit {
   user: UserProfile;
   userLessons: Lesson[];
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private lessonService: LessonService) {}
+  constructor(private route: ActivatedRoute, private userService: UserService, private lessonService: LessonService,
+              public authService: AuthService, public dialog: MdDialog, private sharedService: SharedService) {}
 
   ngOnInit() {
 
@@ -41,6 +46,11 @@ export class ViewProfileComponent implements OnInit {
       return user.user.firstName + ' ' + user.user.lastName;
     else
       return user.user.username;
+  }
+
+  sendMessage(reciver: UserProfile) {
+    this.sharedService.setMessageReciver(reciver.user.username);
+    let dialogRef = this.dialog.open(SendMessageDialogComponent);
   }
 
 }

@@ -14,7 +14,9 @@
           <img class="user-photo" src="{{ user?.photo }}">
         </div>
         <h5>{{user?.user.email}}</h5>
-        <button md-raised-button>Wyślij wiadomość</button>
+        <div *ngIf="authService.isAuth()">
+          <button md-raised-button (click)="sendMessage(user)">Wyślij wiadomość</button>
+        </div>
       </div>
       <div class="col-sm-10">
         <div class="biography">

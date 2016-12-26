@@ -1,0 +1,10 @@
+<md-input-container>
+  <textarea md-input #messageText maxlength="1024" required placeholder="Tekst wiadomości"></textarea>
+</md-input-container>
+
+<div *ngIf="error" class="form-error-message">
+  <p>{{error}}</p>
+</div>
+
+<br>
+<button md-raised-button (click)="sendMessage(messageText.value)">Wyślij</button>

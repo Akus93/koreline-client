@@ -7,6 +7,7 @@ export class SharedService {
 
   pusherChannel: any;
   currentConversation: string;
+  messageReciver: string;
 
   constructor() { }
 
@@ -24,6 +25,14 @@ export class SharedService {
 
   setPusherChannel(value: any): void {
     this.pusherChannel = value;
+  }
+
+  getMessageReciver(): Observable<string> {
+    return Observable.of(this.messageReciver);
+  }
+
+  setMessageReciver(value: string): void {
+    this.messageReciver = value;
   }
 
 }

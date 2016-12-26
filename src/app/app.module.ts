@@ -34,6 +34,8 @@ import {NotificationService} from "./shared/services/notification/notification.s
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
 import { AccountComponent } from './account/account.component';
+import {MessageService} from "./shared/services/message/message.service";
+import { SendMessageDialogComponent } from './send-message-dialog/send-message-dialog.component';
 
 
 @NgModule({
@@ -53,6 +55,7 @@ import { AccountComponent } from './account/account.component';
     ConversationRoomComponent,
     EditLessonComponent,
     AccountComponent,
+    SendMessageDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,9 +76,13 @@ import { AccountComponent } from './account/account.component';
     ConversationService,
     SharedService,
     NotificationService,
+    MessageService,
     AuthGuard,
     TeacherGuard
     ],
+  entryComponents: [
+    SendMessageDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

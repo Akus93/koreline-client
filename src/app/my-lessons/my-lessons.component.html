@@ -14,7 +14,7 @@
           <md-card-subtitle>{{lesson.subject}} | {{lesson.stage}}</md-card-subtitle>
         </md-card-header>
         <md-card-content>
-          <md-icon class="lesson-icon" mdTooltip="Wyślij wiadomość do nauczyciela">message</md-icon>
+          <md-icon class="lesson-icon" mdTooltip="Wyślij wiadomość do nauczyciela" (click)="sendMessage(lesson.teacher)">message</md-icon>
           <md-icon class="lesson-icon" mdTooltip="Wypisz się" (click)="leaveLesson(lesson)">delete</md-icon>
         </md-card-content>
       </md-card>

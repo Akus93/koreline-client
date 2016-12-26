@@ -10,6 +10,8 @@ import {SharedService} from "../shared/services/shared/shared.service";
 import {isUndefined} from "util";
 import {UserProfile} from "../shared/models/userProfile.model";
 import {DOMAIN_NAME} from '../shared/global';
+import {SendMessageDialogComponent} from "../send-message-dialog/send-message-dialog.component";
+import {MdDialog} from "@angular/material";
 
 @Component({
   selector: 'app-teacher-lessons',
@@ -23,7 +25,7 @@ export class TeacherLessonsComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService, private lessonService: LessonService,
               private conversationService: ConversationService, private toastyService: ToastyService,
-              private sharedService: SharedService) { }
+              private sharedService: SharedService, public dialog: MdDialog) { }
 
   ngOnInit() {
     this.domain = DOMAIN_NAME;
@@ -100,6 +102,11 @@ export class TeacherLessonsComponent implements OnInit {
       return student.user.firstName + ' ' + student.user.lastName;
     else
       return student.user.username;
+  }
+
+  sendMessage(reciver: UserProfile) {
+    this.sharedService.setMessageReciver(reciver.user.username);
+    let dialogRef = this.dialog.open(SendMessageDialogComponent);
   }
 
 }

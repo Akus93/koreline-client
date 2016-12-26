@@ -31,7 +31,7 @@
           </md-card-header>
           <md-card-actions>
             <md-icon mdTooltip="Otwórz konwersacje" (click)="createConversation(lesson, student)">phone</md-icon>
-            <md-icon mdTooltip="Wyślij wiadomość">message</md-icon>
+            <md-icon mdTooltip="Wyślij wiadomość" (click)="sendMessage(student)">message</md-icon>
             <md-icon mdTooltip="Wypisz z lekcji" (click)="unsubscribeStudent(lesson, student)">delete</md-icon>
           </md-card-actions>
         </md-card>

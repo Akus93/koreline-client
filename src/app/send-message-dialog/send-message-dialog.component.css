@@ -1,0 +1,8 @@
+textarea {
+  height: 100px;
+  width: 450px;
+}
+
+.form-error-message {
+  color: orangered;
+}
