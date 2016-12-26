@@ -63,14 +63,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
         .subscribe(
           token => {
-            localStorage.setItem('token', token );
+            sessionStorage.setItem('token', token );
             this.userService.getCurrentUserProfile(token)
                             .subscribe(
                               user => {
-                                localStorage.setItem('isTeacher', user.isTeacher.toString());
-                                localStorage.setItem('username', user.user.username.toString());
+                                sessionStorage.setItem('isTeacher', user.isTeacher.toString());
+                                sessionStorage.setItem('username', user.user.username.toString());
                                 if (user.photo)
-                                  localStorage.setItem('photo', user.photo.toString());
+                                  sessionStorage.setItem('photo', user.photo.toString());
                                 this.sharedService.setPusherChannel(this.pusher.subscribe(user.user.username + '-room-invite-channel'));
                                 this.sharedService.getPusherChannel().subscribe(
                                       channel => channel.bind('room-invite-event', (data) => {

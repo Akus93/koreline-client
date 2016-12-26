@@ -43,7 +43,7 @@ export class RegistrationComponent implements OnInit {
                                   this.registrationForm.get('confirmPassword').value)
                       .subscribe(
                         token => {
-                          localStorage.setItem('token', token );
+                          sessionStorage.setItem('token', token );
                           this.router.navigate(['/']);
                           this.dialogRef.close();
                         },

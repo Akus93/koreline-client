@@ -53,7 +53,7 @@ export class CreateLessonComponent implements OnInit {
         this.lessonCreateForm.get('longDescription').value
       ).subscribe(
           lesson => {
-            localStorage.setItem('isTeacher', true.toString());
+            sessionStorage.setItem('isTeacher', true.toString());
             this.router.navigate(['/lesson', lesson.slug]);
           },
           error => this.showErrorsFromServer(error)

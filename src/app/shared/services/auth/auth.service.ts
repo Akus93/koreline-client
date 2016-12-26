@@ -35,34 +35,34 @@ export class AuthService {
     this.http.post(url, JSON.stringify({}), options)
              .subscribe(
                res => {
-                 localStorage.clear();
+                 sessionStorage.clear();
                  this.router.navigate(['/']);
                }
              );
   }
 
   public isAuth(): boolean {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 
   public isTeacher(): boolean {
-    return localStorage.getItem('isTeacher') == 'true';
+    return sessionStorage.getItem('isTeacher') == 'true';
   }
 
   public getToken(): string {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   public hasPhoto(): boolean {
-    return !!localStorage.getItem('photo');
+    return !!sessionStorage.getItem('photo');
   }
 
   public getPhoto(): string {
-    return localStorage.getItem('photo');
+    return sessionStorage.getItem('photo');
   }
 
   public getUsername(): string {
-    return localStorage.getItem('username');
+    return sessionStorage.getItem('username');
   }
 
   private handleError (error: Response ) {
