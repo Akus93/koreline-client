@@ -40,7 +40,9 @@
             </div>
             <div>
               <!--<span class="notify-link">Zobacz wszystkie</span> TODO strona ze wszystkimi powiadomieniami-->
-              <span class="notify-link" (click)="markAllNotificationsAsRead()">Przeczytaj wszystkie</span>
+              <span class="pull-right notify-bottom-link" (click)="markAllNotificationsAsRead()" mdTooltip="Przeczytaj wszystkie">
+                <md-icon>done_all</md-icon>
+              </span>
             </div>
           </div>
         </md-menu>
@@ -53,7 +55,7 @@
       </span>
 
       <span *ngIf="unreadMessages?.length == 0">
-        <button md-icon-button>
+        <button md-icon-button routerLink="/messages">
           <md-icon>message</md-icon>
         </button>
       </span>
@@ -65,7 +67,7 @@
 
         <md-menu x-position="before" y-position="below" #messagesMenu="mdMenu">
           <div class="menu-content">
-            <div *ngFor="let message of unreadMessages">
+            <div *ngFor="let message of unreadMessages" (click)="showMessage(message)" class="message">
                 <div>
                   <div><b>Od: {{getFullNameOrUsername(message.sender)}}</b></div>
                   <div>{{message.title}}</div>
@@ -79,8 +81,12 @@
               <hr>
             </div>
             <div>
-              <!--<span class="notify-link">Zobacz wszystkie</span> TODO strona ze wszystkimi powiadomieniami-->
-              <span class="notify-link" (click)="markAllMessagesAsRead()">Przeczytaj wszystkie</span>
+              <span class="pull-right notify-bottom-link" routerLink="/messages"  mdTooltip="Zobacz wszystkie">
+                <md-icon>question_answer</md-icon>
+              </span>
+              <span class="pull-right notify-bottom-link" (click)="markAllMessagesAsRead()" mdTooltip="Przeczytaj wszystkie">
+                <md-icon>done_all</md-icon>
+              </span>
             </div>
           </div>
         </md-menu>

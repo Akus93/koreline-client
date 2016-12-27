@@ -36,6 +36,7 @@ import { EditLessonComponent } from './edit-lesson/edit-lesson.component';
 import { AccountComponent } from './account/account.component';
 import {MessageService} from "./shared/services/message/message.service";
 import { SendMessageDialogComponent } from './send-message-dialog/send-message-dialog.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { SendMessageDialogComponent } from './send-message-dialog/send-message-d
     EditLessonComponent,
     AccountComponent,
     SendMessageDialogComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,

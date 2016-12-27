@@ -1,0 +1,43 @@
+.profile-photo {
+  border-radius: 50%;
+  padding: 7px;
+}
+
+.content {
+  margin-top: 30px;
+}
+
+.nav {
+  padding: 0 !important;
+}
+
+.nav-list {
+  padding: 0;
+}
+
+.nav-link {
+  font-size: 14px;
+  height: 46px;
+  color: #5589b6;
+  width: 100%;
+  cursor: pointer;
+  padding: 0 !important;
+  border-bottom: 1px #cccccc solid;
+}
+
+.nav-link:hover {
+  border-bottom: 2px solid #4b6b95;
+  color: #4b6b95;
+}
+
+.active {
+  border-bottom: 2px solid #4b6b95;
+  color: #4b6b95;
+}
+
+.message-box {
+}
+
+.message-box-content {
+  margin-left: 15px;
+}

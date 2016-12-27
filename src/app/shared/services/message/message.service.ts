@@ -43,6 +43,37 @@ export class MessageService {
 
   }
 
+  getInterlocutors(token: string): Observable<any> {
+
+    let url = DOMAIN_NAME + '/api/messages/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.get(url, options)
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+
+  }
+
+  getMessagesWithUser(token: string, username: string): Observable<Message[]> {
+
+    let url = DOMAIN_NAME + '/api/messages/' + username + '/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.get(url, options)
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+  }
+
   markAsRead(token: string, message: Message): Observable<Message> {
 
     let url = DOMAIN_NAME + '/api/messages/';

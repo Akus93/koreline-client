@@ -1,0 +1,32 @@
+<div class="container">
+
+  <div class="row content">
+
+    <div class="col-md-3 nav">
+      <md-list class="nav-list">
+        <md-list-item *ngFor="let user of interlocutors" (click)="changeActiveUser(user.user.username)"
+                      class="nav-link {{activeUser == user.user.username ? 'active' : ''}}">
+          <img *ngIf="user.photo" class="profile-photo" src="{{domain + user.photo}}">
+          <img *ngIf="!user.photo" class="profile-photo" src="assets/profile.png">
+          {{getFullNameOrUsername(user)}}
+        </md-list-item>
+      </md-list>
+    </div>
+
+    <div class="col-md-9 message-box">
+      <div class="message-box-content">
+        <div class="message" *ngFor="let message of activeUserMessages">
+          <div><b>{{message.title}}</b></div>
+          <div><pre>{{message.text}}</pre></div>
+          <div class="pull-right">
+            <i>{{getFullNameOrUsername(message.sender)}}</i>
+            <i>{{message.createDate | date: 'H:m:s d/M/yy'}}</i>
+          </div>
+          <br>
+          <hr>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

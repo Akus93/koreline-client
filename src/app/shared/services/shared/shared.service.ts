@@ -8,6 +8,7 @@ export class SharedService {
   pusherChannel: any;
   currentConversation: string;
   messageReciver: string;
+  activeMessageUser: string;
 
   constructor() { }
 
@@ -33,6 +34,14 @@ export class SharedService {
 
   setMessageReciver(value: string): void {
     this.messageReciver = value;
+  }
+
+  getActiveMessageUser(): Observable<string> {
+    return Observable.of(this.activeMessageUser);
+  }
+
+  setActiveMessageUser(value: string): void {
+    this.activeMessageUser = value;
   }
 
 }

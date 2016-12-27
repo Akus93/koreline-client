@@ -32,6 +32,7 @@ a {
 
 .notify-read {
   cursor: pointer;
+  z-index: 10;
 }
 
 .account-circle-img {
@@ -41,4 +42,17 @@ a {
 .notify-read md-icon {
   font-size: 15px;
   margin-left: 5px;
+}
+
+.notify-bottom-link {
+  cursor: pointer;
+}
+
+.notify-bottom-link md-icon {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.message {
+  cursor: pointer;
 }

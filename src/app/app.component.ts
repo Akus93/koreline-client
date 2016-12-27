@@ -11,6 +11,7 @@ import {Message} from "./shared/models/message.model";
 import {MessageService} from "./shared/services/message/message.service";
 import {UserProfile} from "./shared/models/userProfile.model";
 import {isUndefined} from "util";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit{
 
   constructor(private authService: AuthService, private sharedService: SharedService,
               private notificationService: NotificationService, private messageService: MessageService,
-              private dialog: MdDialog) {}
+              private dialog: MdDialog, private router: Router) {}
 
   ngOnInit(): void {
     this.notifications = Array<Notification>();
@@ -112,6 +113,12 @@ export class AppComponent implements OnInit{
       return user.user.firstName + ' ' + user.user.lastName;
     else
       return user.user.username;
+  }
+
+  showMessage(message: Message) {
+    this.markMessageAsRead(message);
+    this.sharedService.setActiveMessageUser(message.sender.user.username);
+    this.router.navigate(['/messages']);
   }
 
   timeAgo(date: string): string {
