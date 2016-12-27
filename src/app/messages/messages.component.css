@@ -36,6 +36,9 @@
 }
 
 .message-box {
+  white-space: normal;
+  overflow: auto;
+  max-height: 65vh;
 }
 
 .message-box-content {

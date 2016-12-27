@@ -33,3 +33,36 @@ md-icon:hover {
 .lesson-card a:hover {
   color: #3b5376;
 }
+
+@-moz-keyframes shake {
+  0%, 15%, 100% {-moz-transform: rotate(0deg);}
+  5% {-moz-transform: rotate(30deg);}
+  10% {-moz-transform: rotate(-30deg);}
+}
+@-webkit-keyframes shake {
+  0%, 15%, 100% { -webkit-transform: rotate(0deg);}
+  5% { -webkit-transform: rotate(30deg);}
+  10% { -webkit-transform: rotate(-30deg);}
+}
+@keyframes shake {
+  0%, 15%, 100% { -webkit-transform: rotate(0deg); transform: rotate(0deg);}
+  5% { -webkit-transform: rotate(30deg); transform: rotate(30deg);}
+  10% { -webkit-transform: rotate(-30deg); transform: rotate(-30deg);}
+}
+
+.shake {
+  animation-name: shake;
+}
+
+.animated {
+  animation-duration: 4s;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.conversation-icon{
+  font-size: 25px;
+  color: red;
+}
+

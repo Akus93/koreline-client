@@ -72,7 +72,7 @@
                   <div><b>Od: {{getFullNameOrUsername(message.sender)}}</b></div>
                   <div>{{message.title}}</div>
                   <div>
-                    <i>{{message.createDate | date: 'H:m:s d/M/yy'}}</i>
+                    <i>{{message.createDate | date: 'H:mm:ss dd/MM/yy'}}</i>
                     <span class="pull-right notify-read" (click)="markMessageAsRead(message)" mdTooltip="Przeczytane">
                       <md-icon>done</md-icon>
                     </span>

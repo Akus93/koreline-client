@@ -40,6 +40,21 @@ export class ConversationService {
       .catch(this.handleError);
   }
 
+  public getConversationForLesson(token: string, slug: string): Observable<Conversation> {
+
+    let url = 'http://localhost:8000/api/room/lesson/' + slug + '/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.get(url, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
   private handleError (error: Response) {
     return Observable.throw(error.json());
   }

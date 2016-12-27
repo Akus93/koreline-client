@@ -1,4 +1,5 @@
 import {UserProfile} from "./userProfile.model";
+import {Conversation} from "./conversation.model";
 
 export class Lesson {
   teacher: UserProfile;
@@ -8,6 +9,7 @@ export class Lesson {
   stage: string;
   price: number;
   students: UserProfile[];
+  conversation: Conversation;
   shortDescription: string;
   longDescription: string;
 }
