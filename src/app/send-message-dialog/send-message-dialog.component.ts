@@ -21,14 +21,16 @@ export class SendMessageDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  sendMessage(text: string) {
+  sendMessage(title: string, text: string) {
     this.error = '';
     if (text.length == 0)
-      this.error = 'Wiadomość nie może być pusta.';
+      this.error = 'Treść wiadomości nie może być pusta.';
+    else if (title.length == 0)
+      this.error = 'Tytuł wiadomości nie moze być pusty.';
     else {
       this.sharedService.getMessageReciver()
           .subscribe(
-            reciver => this.messageService.sendMessage(this.authService.getToken(), reciver, text)
+            reciver => this.messageService.sendMessage(this.authService.getToken(), reciver, title, text)
               .subscribe(
                 message => {
                   this.toastyService.success({
@@ -40,7 +42,7 @@ export class SendMessageDialogComponent implements OnInit {
                   });
                   this.dialogRef.close();
                 },
-                error => {if (error.hasProperty('text')) this.error = error.text}
+                error => this.error = error.text || error.reciver || error.title
               ),
             error => {}
           );

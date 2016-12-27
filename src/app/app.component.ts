@@ -7,6 +7,10 @@ import {Observable} from "rxjs";
 import {MdDialog} from '@angular/material';
 import {LoginComponent} from "./login/login.component";
 import {RegistrationComponent} from "./registration/registration.component";
+import {Message} from "./shared/models/message.model";
+import {MessageService} from "./shared/services/message/message.service";
+import {UserProfile} from "./shared/models/userProfile.model";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-root',
@@ -16,12 +20,15 @@ import {RegistrationComponent} from "./registration/registration.component";
 export class AppComponent implements OnInit{
 
   notifications: Notification[];
+  unreadMessages: Message[];
 
   constructor(private authService: AuthService, private sharedService: SharedService,
-              private notificationService: NotificationService, private dialog: MdDialog) {}
+              private notificationService: NotificationService, private messageService: MessageService,
+              private dialog: MdDialog) {}
 
   ngOnInit(): void {
-    this.notifications = [];
+    this.notifications = Array<Notification>();
+    this.unreadMessages = Array<Message>();
 
     let notify$ = Observable.interval(30000).flatMap(() => {
         if (this.authService.isAuth())
@@ -32,6 +39,17 @@ export class AppComponent implements OnInit{
     notify$.subscribe(
       notifications => this.notifications = notifications
     );
+
+    let messages$ = Observable.interval(20000).flatMap(() => {
+      if (this.authService.isAuth())
+        return this.messageService.getUnreadMessages(this.authService.getToken());
+      else
+        return Observable.of(null);
+    });
+    messages$.subscribe(
+      messages => this.unreadMessages = messages
+    );
+
   }
 
   logout(): void {
@@ -49,10 +67,10 @@ export class AppComponent implements OnInit{
     this.dialog.open(RegistrationComponent);
   }
 
-  markAsRead(notification: Notification) {
+  markNotificationAsRead(notification: Notification) {
     this.notificationService.markAsRead(this.authService.getToken(), notification)
         .subscribe(
-          notification => {
+          response => {
             let index = this.notifications.indexOf(notification);
             if (index > -1)
               this.notifications.splice(index, 1);
@@ -61,11 +79,39 @@ export class AppComponent implements OnInit{
         );
   }
 
-  markAllAsRead() {
+  markAllNotificationsAsRead() {
     let notifications = this.notifications.slice();
     for (let notification of notifications) {
-      this.markAsRead(notification);
+      this.markNotificationAsRead(notification);
     }
+  }
+
+  markMessageAsRead(message: Message) {
+    this.messageService.markAsRead(this.authService.getToken(), message)
+      .subscribe(
+        response => {
+          let index = this.unreadMessages.indexOf(message);
+          if (index > -1)
+            this.unreadMessages.splice(index, 1);
+        },
+        error => {}
+      );
+  }
+
+  markAllMessagesAsRead() {
+    let messages = this.unreadMessages.slice();
+    for (let message of messages) {
+      this.markMessageAsRead(message);
+    }
+  }
+
+  public getFullNameOrUsername(user?: UserProfile): string {
+    if (isUndefined(user))
+      return '';
+    if (user.user.firstName && user.user.lastName)
+      return user.user.firstName + ' ' + user.user.lastName;
+    else
+      return user.user.username;
   }
 
   timeAgo(date: string): string {

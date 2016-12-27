@@ -31,26 +31,59 @@
                   <div>{{notification.text}}</div>
                   <div>
                     <i>{{timeAgo(notification.createDate)}}</i>
-                    <span class="pull-right notify-read" (click)="markAsRead(notification)" mdTooltip="Przeczytane">
+                    <span class="pull-right notify-read" (click)="markNotificationAsRead(notification)" mdTooltip="Przeczytane">
                       <md-icon>done</md-icon>
                     </span>
                   </div>
                 </div>
+                <hr>
             </div>
-            <hr>
             <div>
               <!--<span class="notify-link">Zobacz wszystkie</span> TODO strona ze wszystkimi powiadomieniami-->
-              <span class="notify-link" (click)="markAllAsRead()">Przeczytaj wszystkie</span>
+              <span class="notify-link" (click)="markAllNotificationsAsRead()">Przeczytaj wszystkie</span>
             </div>
           </div>
         </md-menu>
-
       </span>
 
       <span *ngIf="notifications?.length == 0">
         <button md-icon-button>
           <md-icon>notifications_off</md-icon>
         </button>
+      </span>
+
+      <span *ngIf="unreadMessages?.length == 0">
+        <button md-icon-button>
+          <md-icon>message</md-icon>
+        </button>
+      </span>
+
+      <span *ngIf="unreadMessages?.length">
+        <button md-icon-button [md-menu-trigger-for]="messagesMenu">
+          <md-icon>message</md-icon> {{unreadMessages?.length}}
+        </button>
+
+        <md-menu x-position="before" y-position="below" #messagesMenu="mdMenu">
+          <div class="menu-content">
+            <div *ngFor="let message of unreadMessages">
+                <div>
+                  <div><b>Od: {{getFullNameOrUsername(message.sender)}}</b></div>
+                  <div>{{message.title}}</div>
+                  <div>
+                    <i>{{message.createDate | date: 'H:m:s d/M/yy'}}</i>
+                    <span class="pull-right notify-read" (click)="markMessageAsRead(message)" mdTooltip="Przeczytane">
+                      <md-icon>done</md-icon>
+                    </span>
+                  </div>
+                </div>
+              <hr>
+            </div>
+            <div>
+              <!--<span class="notify-link">Zobacz wszystkie</span> TODO strona ze wszystkimi powiadomieniami-->
+              <span class="notify-link" (click)="markAllMessagesAsRead()">Przeczytaj wszystkie</span>
+            </div>
+          </div>
+        </md-menu>
       </span>
 
       <span *ngIf="!authService.hasPhoto()">

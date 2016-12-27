@@ -7,15 +7,12 @@ import {DOMAIN_NAME} from '../../global';
 @Injectable()
 export class MessageService {
 
-  domain: string;
 
-  constructor(private http: Http) {
-    this.domain = DOMAIN_NAME;
-  }
+  constructor(private http: Http) {}
 
-  sendMessage(token: string, reciver: string, text: string): Observable<Message> {
+  sendMessage(token: string, reciver: string, title: string, text: string): Observable<Message> {
 
-    let url = this.domain + '/api/messages/';
+    let url = DOMAIN_NAME + '/api/messages/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -23,9 +20,43 @@ export class MessageService {
         'Accept': 'application/json'
       })
     };
-    let body = JSON.stringify({ reciver: reciver, text: text });
+    let body = JSON.stringify({ reciver: reciver, title: title, text: text });
 
     return this.http.post(url, body, options)
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+  }
+
+  getUnreadMessages(token: string): Observable<Message[]> {
+
+    let url = DOMAIN_NAME + '/api/messages/unread/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.get(url, options)
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+
+  }
+
+  markAsRead(token: string, message: Message): Observable<Message> {
+
+    let url = DOMAIN_NAME + '/api/messages/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Accept': 'application/json'
+      })
+    };
+    let body = {
+      id: message.id
+    };
+
+    return this.http.put(url, body, options)
       .map((response: Response) => response.json())
       .catch(this.handleError)
   }

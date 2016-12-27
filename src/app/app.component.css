@@ -37,3 +37,8 @@ a {
 .account-circle-img {
   cursor: pointer;
 }
+
+.notify-read md-icon {
+  font-size: 15px;
+  margin-left: 5px;
+}

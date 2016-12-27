@@ -1,8 +1,30 @@
 textarea {
   height: 100px;
-  width: 450px;
+  width: 100%;
+}
+
+md-input {
+  width: 100%;
+}
+
+md-input-container {
+  width: 100%;
 }
 
 .form-error-message {
   color: orangered;
+}
+
+.ng-invalid:not(form).ng-dirty  {
+  color: red;
+}
+
+.form-field {
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.message-form {
+  width: 400px;
 }

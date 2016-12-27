@@ -1,10 +1,21 @@
-<md-input-container>
-  <textarea md-input #messageText maxlength="1024" required placeholder="Tekst wiadomości"></textarea>
-</md-input-container>
+<div class="message-form">
+  <div class="form-field">
+    <md-input-container>
+      <input md-input #messageTitle maxlength="64" required placeholder="Tytuł wiadomości">
+      <md-hint align="end">{{messageTitle.value.length}} / 64</md-hint>
+    </md-input-container>
+  </div>
+  <div class="form-field">
+    <md-input-container>
+      <textarea md-input #messageText maxlength="1024" required placeholder="Tekst wiadomości"></textarea>
+      <md-hint align="end">{{messageText.value.length}} / 1024</md-hint>
+    </md-input-container>
+  </div>
 
-<div *ngIf="error" class="form-error-message">
-  <p>{{error}}</p>
+  <div *ngIf="error" class="form-error-message">
+    <p>{{error}}</p>
+  </div>
+
+  <br>
+  <button md-raised-button (click)="sendMessage(messageTitle.value, messageText.value)">Wyślij</button>
 </div>
-
-<br>
-<button md-raised-button (click)="sendMessage(messageText.value)">Wyślij</button>
