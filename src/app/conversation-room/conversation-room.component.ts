@@ -24,6 +24,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
   showConnectBtn: boolean;
 
   chat: string[];
+  message: string;
 
   constructor(private router: Router, private cdr: ChangeDetectorRef, private sharedService: SharedService,
               private authService: AuthService, private conversationService: ConversationService) {}
@@ -67,12 +68,12 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     easyrtc.hangupAll();
   }
 
-  clearOccupant():void {
+  clearOccupant(): void {
     this.connectedClientsList = [];
     this.cdr.detectChanges();
   }
 
-  performCall(clientEasyrtcId:string):void {
+  performCall(clientEasyrtcId: string): void {
     easyrtc.hangupAll();
     let callSuccessCB = function(easyrtcid, mediaType):void {};
     let callFailureCB = function(errorCode, errMessage):void {};
@@ -108,22 +109,22 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     console.log('Login failed. Reason: '+ message);
   }
 
-  enableCamera() {
+  enableCamera(): void {
     easyrtc.enableCamera(true, undefined);
     this.cameraEnableBtn = !this.cameraEnableBtn;
   }
 
-  disableCamera() {
+  disableCamera(): void {
     easyrtc.enableCamera(false, undefined);
     this.cameraEnableBtn = !this.cameraEnableBtn;
   }
 
-  enableMicrophone() {
+  enableMicrophone(): void {
     easyrtc.enableMicrophone(true, undefined);
     this.audioEnableBtn = !this.audioEnableBtn;
   }
 
-  disableMicrophone() {
+  disableMicrophone(): void {
     easyrtc.enableMicrophone(false, undefined);
     this.audioEnableBtn = !this.audioEnableBtn;
   }
@@ -144,8 +145,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     easyrtc.enableDataChannels(true);
 
     let peerListener = (easyrtcid, msgType, msgData, targeting): void => {
-      console.log('CHAT! peerListener');
-      this.chat.push('From: ' + msgData.text);
+      this.chat.push(msgData.sender + ': ' + msgData.text);
     };
     easyrtc.setPeerListener(peerListener);
 
@@ -158,7 +158,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     };
     easyrtc.setRoomOccupantListener(roomOccupantListener);
 
-    easyrtc.easyApp("koreline.AudioVideo", "myVideo", ["callerVideo"], this.loginSuccess.bind(this), this.loginFailure.bind(this));
+    easyrtc.easyApp("koreline", "myVideo", ["callerVideo"], this.loginSuccess.bind(this), this.loginFailure.bind(this));
 
     let acceptChecker = (easyrtcid, acceptor): void => {
       this.showConnectBtn = false;
@@ -179,56 +179,20 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
 
   }
 
-  //CZAT
-
-  sendMessage(text: string) {
-    //easyrtc.sendPeerMessage(this.chatConnectedClient, 'message', {message: text}, () => {}, () => {});
-    if (this.connectedClientsList.length) {
-      easyrtc.sendDataWS(this.connectedClientsList[0], 'message', {text: text}, (reply) => {
-        if (reply.msgType === "error") {
-          easyrtc.showError(reply.msgData.errorCode, reply.msgData.errorText);
-        }
-      });
-      this.chat.push(text);
+  sendMessage() {
+    let text = this.message;
+    if (text) {
+      if (this.connectedClientsList.length) {
+        easyrtc.sendDataWS(this.connectedClientsList[0], 'message', {sender: this.authService.getUsername(), text: text}, (reply) => {
+          if (reply.msgType === "error") {
+            easyrtc.showError(reply.msgData.errorCode, reply.msgData.errorText);
+          }
+        });
+        this.chat.push('Ja: ' + text);
+        this.message = '';
+      }
     }
+
   };
-
-  // chatSetOccupant (roomName: string, data:Easyrtc_PerRoomData, isPrimary: boolean): void {
-  //   for(let easyrtcid in data) {
-  //     this.chatConnectedClient = easyrtc.idToName(easyrtcid);
-  //   }
-  // }
-
-  // chatLoginSuccess(easyrtcid:string): void {
-  //   this.updateMyEasyRTCId(easyrtc.cleanId(easyrtcid));
-  // }
-  //
-  // chatLoginFailure(errorCode:string, message:string): void {
-  //   console.log('Login failed. Reason: '+ message);
-  // }
-
-  // chatConnect() {
-  //   let peerListener = (easyrtcid, msgType, msgData, targeting): void => {
-  //     console.log('CHAT! peerListener');
-  //     this.chat.push('From: ' + msgData.text);
-  //   };
-  //   easyrtc.setPeerListener(peerListener);
-  //
-  //   let occupantListener = (roomName:string, occupants:Easyrtc_PerRoomData, isOwner:boolean) => {
-  //     this.chatSetOccupant(roomName, occupants, isOwner);
-  //   };
-  //   easyrtc.setRoomOccupantListener(occupantListener);
-  //   //easyrtc.setRoomEntryListener(roomEntryListener);
-  //   easyrtc.setDisconnectListener(function() {
-  //     console.log("disconnect listener fired");
-  //   });
-  //   easyrtc.setCredential({token: this.authService.getToken()});
-  //   easyrtc.joinRoom('chat' + this.conversation.key, null, () => {}, () => {});
-  //   easyrtc.connect("koreline.chat", this.chatLoginSuccess, this.chatLoginFailure);
-  // }
-
-
-
-
 
 }

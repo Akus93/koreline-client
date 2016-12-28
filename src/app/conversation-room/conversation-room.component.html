@@ -22,10 +22,18 @@
               Połącz się
             </button>
             <button md-raised-button *ngIf="displayHangupBtn" (click)="hangup()">Rozłącz</button>
-            <button md-raised-button *ngIf="cameraEnableBtn" (click)="enableCamera()">Włącz obraz</button>
-            <button md-raised-button *ngIf="!cameraEnableBtn" (click)="disableCamera()">Wyłącz obraz</button>
-            <button md-raised-button *ngIf="audioEnableBtn" (click)="enableMicrophone()">Włącz dźwięk</button>
-            <button md-raised-button *ngIf="!audioEnableBtn" (click)="disableMicrophone()">Wyłącz dźwięk</button>
+
+            <!--<button md-raised-button *ngIf="cameraEnableBtn" (click)="enableCamera()">Włącz obraz</button>-->
+            <md-icon md-tooltip="Włącz obraz" *ngIf="cameraEnableBtn" class="control-button" (click)="enableCamera()">videocam</md-icon>
+
+            <!--<button md-raised-button *ngIf="!cameraEnableBtn" (click)="disableCamera()">Wyłącz obraz</button>-->
+            <md-icon md-tooltip="Wyłącz obraz" *ngIf="!cameraEnableBtn" class="control-button" (click)="disableCamera()">videocam_off</md-icon>
+
+            <!--<button md-raised-button *ngIf="audioEnableBtn" (click)="enableMicrophone()">Włącz dźwięk</button>-->
+            <md-icon md-tooltip="Włącz dźwięk" *ngIf="audioEnableBtn" class="control-button" (click)="enableMicrophone()">volume_up</md-icon>
+
+            <!--<button md-raised-button *ngIf="!audioEnableBtn" (click)="disableMicrophone()">Wyłącz dźwięk</button>-->
+            <md-icon md-tooltip="Wyłącz dźwięk" *ngIf="!audioEnableBtn" class="control-button" (click)="disableMicrophone()">volume_off</md-icon>
           </div>
         </div>
       </div>
@@ -34,8 +42,13 @@
         <div *ngFor="let message of chat">
           {{message}}
         </div>
-        <input md-input #msg>
-        <button md-raised-button (click)="sendMessage(msg.value)">Wyślij</button>
+
+        <div class="chat-footer">
+          <md-input-container class="send-text">
+            <input md-input [(ngModel)]="message" placeholder="Tekst">
+          </md-input-container>
+          <md-icon md-tooltip="Wyślij" class="send-button" (click)="sendMessage()">send</md-icon>
+        </div>
       </div>
     </div>
   </div>

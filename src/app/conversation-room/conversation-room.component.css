@@ -1,5 +1,5 @@
 video {
-  border: 1px black solid;
+  border: 1px #ccc solid;
 }
 
 /*.video-self {*/
@@ -15,12 +15,39 @@ video {
   height: 60vh;
 }
 
+.control-button {
+  font-size: 30px;
+  color: red;
+  cursor: pointer;
+}
+
 .chat {
-  border: 1px black solid;
+  border-top: 1px #ccc solid;
+  border-left: 1px #ccc solid;
+  border-right: 1px #ccc solid;
   width: 100%;
   height: 300px;
+  position: relative;
+}
+
+.chat-footer {
+  position: absolute;
+  height: 50px;
+  bottom: 0;
+  width: 100%;
+  background-color: #fcf8e3;
+}
+
+.send-button {
+  color: #5589b6;
+  cursor: pointer;
+  font-size: 27px;
 }
 
 .content {
   margin-top: 30px;
+}
+
+.send-text {
+  width: 80%;
 }
