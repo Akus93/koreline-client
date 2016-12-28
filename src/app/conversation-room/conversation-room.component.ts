@@ -1,25 +1,40 @@
 /// <reference path="../../typings/easyrtc.d.ts" />
 
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, OnDestroy} from '@angular/core';
 import {Conversation} from "../shared/models/conversation.model";
 import {AuthService} from "../shared/services/auth/auth.service";
 import {Router} from "@angular/router";
 import {ConversationService} from "../shared/services/conversation/conversation.service";
 import {SharedService} from "../shared/services/shared/shared.service";
 
+
 @Component({
   selector: 'app-conversation-room',
   templateUrl: './conversation-room.component.html',
   styleUrls: ['./conversation-room.component.css']
 })
-export class ConversationRoomComponent implements OnInit {
+export class ConversationRoomComponent implements OnInit, OnDestroy {
 
   conversation: Conversation;
+  myId: string;
+  connectedClientsList:Array<string> = [];
+  displayHangupBtn: boolean;
+  cameraEnableBtn: boolean;
+  audioEnableBtn: boolean;
+  showConnectBtn: boolean;
+
+  chat: string[];
 
   constructor(private router: Router, private cdr: ChangeDetectorRef, private sharedService: SharedService,
               private authService: AuthService, private conversationService: ConversationService) {}
 
   ngOnInit() {
+    this.showConnectBtn = false;
+    this.displayHangupBtn = false;
+    this.cameraEnableBtn = false;
+    this.audioEnableBtn = false;
+    this.chat = Array<string>();
+
     this.sharedService.getCurrentConversation().subscribe(
       key => {
         if (key) {
@@ -38,67 +53,182 @@ export class ConversationRoomComponent implements OnInit {
     );
   }
 
-  myId:string = '';
-  connectedClientsList:Array<string> = [];
+  ngOnDestroy(): void {
+    easyrtc.leaveRoom(this.conversation.key, () => {}, () => {});
+    easyrtc.disconnect();
+    easyrtc.closeLocalStream('myVideo');
+    easyrtc.setRoomOccupantListener( function(){});
+  }
 
-  clearConnectList():void {
+  hangup(): void {
+    this.displayHangupBtn = false;
+    this.showConnectBtn = true;
+    this.cdr.detectChanges();
+    easyrtc.hangupAll();
+  }
+
+  clearOccupant():void {
     this.connectedClientsList = [];
     this.cdr.detectChanges();
   }
 
   performCall(clientEasyrtcId:string):void {
-    let successCB = function(a: string, b: string):void {};
-    let failureCB = function(a: string, b: string):void {};
-    easyrtc.call(clientEasyrtcId, successCB, failureCB, undefined, undefined);
-  }
-
-  buildCaller(easyrtcid:string):(()=>void) {
-    return ():void => {
-      this.performCall(easyrtcid);
+    easyrtc.hangupAll();
+    let callSuccessCB = function(easyrtcid, mediaType):void {};
+    let callFailureCB = function(errorCode, errMessage):void {};
+    let wasAcceptedCB = function(wasAccepted, easyrtcid): void {
+      if (wasAccepted) {
+        this.displayHangupBtn = true;
+        this.showConnectBtn = false;
+        this.cdr.detectChanges();
+      }
     };
+    easyrtc.call(clientEasyrtcId, callSuccessCB, callFailureCB, wasAcceptedCB.bind(this), undefined);
   }
 
-  convertListToButtons (roomName:string, data:Easyrtc_PerRoomData, isPrimary:boolean):void {
-    console.log('Polaczono z pokojem: '+roomName);
-    this.clearConnectList();
+  setOccupant (roomName: string, data:Easyrtc_PerRoomData, isPrimary: boolean): void {
+    this.clearOccupant();
     for(let easyrtcid in data) {
       this.connectedClientsList.push(easyrtc.idToName(easyrtcid));
+      this.showConnectBtn = true;
     }
     this.cdr.detectChanges();
   }
 
-  updateMyEasyRTCId(myEasyRTCId:string):void {
+  updateMyEasyRTCId(myEasyRTCId:string): void {
     this.myId = myEasyRTCId;
     this.cdr.detectChanges();
   }
 
-  loginSuccess(easyrtcid:string):void {
+  loginSuccess(easyrtcid:string): void {
     this.updateMyEasyRTCId(easyrtc.cleanId(easyrtcid));
   }
 
-  loginFailure(errorCode:string, message:string):void {
-    this.updateMyEasyRTCId('Login failed. Reason: '+ message);
+  loginFailure(errorCode:string, message:string): void {
+    console.log('Login failed. Reason: '+ message);
+  }
+
+  enableCamera() {
+    easyrtc.enableCamera(true, undefined);
+    this.cameraEnableBtn = !this.cameraEnableBtn;
+  }
+
+  disableCamera() {
+    easyrtc.enableCamera(false, undefined);
+    this.cameraEnableBtn = !this.cameraEnableBtn;
+  }
+
+  enableMicrophone() {
+    easyrtc.enableMicrophone(true, undefined);
+    this.audioEnableBtn = !this.audioEnableBtn;
+  }
+
+  disableMicrophone() {
+    easyrtc.enableMicrophone(false, undefined);
+    this.audioEnableBtn = !this.audioEnableBtn;
   }
 
   connect():void {
     easyrtc.setSocketUrl("//localhost:8080", {'connect timeout': 10000,'force new connection': true });
     easyrtc.setVideoDims(320,240,undefined);
 
-    //easyrtc.enableDataChannels(true);
+    easyrtc.setRoomEntryListener(function(entry, roomName){
+             if( entry ){
+                 console.log("Entering room " + roomName);
+             }
+             else{
+                 console.log("Leaving room " + roomName);
+             }
+         });
+
+    easyrtc.enableDataChannels(true);
+
+    let peerListener = (easyrtcid, msgType, msgData, targeting): void => {
+      console.log('CHAT! peerListener');
+      this.chat.push('From: ' + msgData.text);
+    };
+    easyrtc.setPeerListener(peerListener);
 
     easyrtc.setCredential({token: this.authService.getToken()});
     //easyrtc.setUsername(this.authService.getUsername());
-    console.log('Lącze sie z pokojem: '+ this.conversation.key);
     easyrtc.joinRoom(this.conversation.key, null, this.loginSuccess.bind(this), this.loginFailure.bind(this));
 
-    let convertListToButtonShim = (roomName:string, data:Easyrtc_PerRoomData, isPrimary:boolean):void => {
-      this.convertListToButtons(roomName, data, isPrimary);
+    let roomOccupantListener = (roomName: string, data: Easyrtc_PerRoomData, isPrimary: boolean): void => {
+      this.setOccupant(roomName, data, isPrimary);
     };
-    easyrtc.setRoomOccupantListener(convertListToButtonShim);
-    easyrtc.easyApp("koreline.AudioVideo", "videoSelf", ["videoCaller"], this.loginSuccess.bind(this), this.loginFailure.bind(this));
+    easyrtc.setRoomOccupantListener(roomOccupantListener);
+
+    easyrtc.easyApp("koreline.AudioVideo", "myVideo", ["callerVideo"], this.loginSuccess.bind(this), this.loginFailure.bind(this));
+
+    let acceptChecker = (easyrtcid, acceptor): void => {
+      this.showConnectBtn = false;
+      this.displayHangupBtn = true;
+      this.cdr.detectChanges();
+      acceptor(true, undefined);
+    };
+    easyrtc.setAcceptChecker(acceptChecker);
+
+    // let onStreamClosed = (easyrtcid: string, mediaStream: MediaStream, streamName: string): void => {
+    //   let myStream = easyrtc.getLocalStream();
+    //   console.log('ON STREAM CLOSED FIRED! by: '+streamName + ' mediastream: ' + mediaStream.id + ' mystream: '+myStream.id);
+    //   this.showConnectBtn = true;
+    //   this.displayHangupBtn = false;
+    //   this.cdr.detectChanges();
+    // };
+    // easyrtc.setOnStreamClosed(onStreamClosed);
+
   }
 
-  // ngAfterContentChecked() {
-  //   this.connect();
+  //CZAT
+
+  sendMessage(text: string) {
+    //easyrtc.sendPeerMessage(this.chatConnectedClient, 'message', {message: text}, () => {}, () => {});
+    if (this.connectedClientsList.length) {
+      easyrtc.sendDataWS(this.connectedClientsList[0], 'message', {text: text}, (reply) => {
+        if (reply.msgType === "error") {
+          easyrtc.showError(reply.msgData.errorCode, reply.msgData.errorText);
+        }
+      });
+      this.chat.push(text);
+    }
+  };
+
+  // chatSetOccupant (roomName: string, data:Easyrtc_PerRoomData, isPrimary: boolean): void {
+  //   for(let easyrtcid in data) {
+  //     this.chatConnectedClient = easyrtc.idToName(easyrtcid);
+  //   }
   // }
+
+  // chatLoginSuccess(easyrtcid:string): void {
+  //   this.updateMyEasyRTCId(easyrtc.cleanId(easyrtcid));
+  // }
+  //
+  // chatLoginFailure(errorCode:string, message:string): void {
+  //   console.log('Login failed. Reason: '+ message);
+  // }
+
+  // chatConnect() {
+  //   let peerListener = (easyrtcid, msgType, msgData, targeting): void => {
+  //     console.log('CHAT! peerListener');
+  //     this.chat.push('From: ' + msgData.text);
+  //   };
+  //   easyrtc.setPeerListener(peerListener);
+  //
+  //   let occupantListener = (roomName:string, occupants:Easyrtc_PerRoomData, isOwner:boolean) => {
+  //     this.chatSetOccupant(roomName, occupants, isOwner);
+  //   };
+  //   easyrtc.setRoomOccupantListener(occupantListener);
+  //   //easyrtc.setRoomEntryListener(roomEntryListener);
+  //   easyrtc.setDisconnectListener(function() {
+  //     console.log("disconnect listener fired");
+  //   });
+  //   easyrtc.setCredential({token: this.authService.getToken()});
+  //   easyrtc.joinRoom('chat' + this.conversation.key, null, () => {}, () => {});
+  //   easyrtc.connect("koreline.chat", this.chatLoginSuccess, this.chatLoginFailure);
+  // }
+
+
+
+
+
 }

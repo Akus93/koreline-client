@@ -1,18 +1,46 @@
-<div class="container">
-
-  <div class="wrapper-app">
-    <header><h1>EasyRTC TypeScript with Angular 2</h1></header>
-    <div class="wrapper-content">
-      <h2>Simple Audio/Video Demo</h2>
-      <div class="connect-caller-buttons">
-        <div id="otherClients"><button *ngFor="let easyrtcId of (connectedClientsList)" (click)="performCall(easyrtcId)">Połącz się</button></div>
+<div class="container-fluid content">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="video-caller">
+        <video id="callerVideo" controls="true"></video>
       </div>
-      <div class="video-frames">
-        <div class="video-self"><video id="videoSelf"></video></div>
-        <div class="video-caller"><video id="videoCaller"></video></div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="video-self">
+            <video id="myVideo" controls="true"></video>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="controls">
+            <!--<button md-raised-button *ngFor="let easyrtcId of (connectedClientsList)" (click)="performCall(easyrtcId)">-->
+              <!--Połącz się-->
+            <!--</button>-->
+            <button md-raised-button *ngIf="connectedClientsList.length && showConnectBtn" (click)="performCall(connectedClientsList[0])">
+              Połącz się
+            </button>
+            <button md-raised-button *ngIf="displayHangupBtn" (click)="hangup()">Rozłącz</button>
+            <button md-raised-button *ngIf="cameraEnableBtn" (click)="enableCamera()">Włącz obraz</button>
+            <button md-raised-button *ngIf="!cameraEnableBtn" (click)="disableCamera()">Wyłącz obraz</button>
+            <button md-raised-button *ngIf="audioEnableBtn" (click)="enableMicrophone()">Włącz dźwięk</button>
+            <button md-raised-button *ngIf="!audioEnableBtn" (click)="disableMicrophone()">Wyłącz dźwięk</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat">
+        <div *ngFor="let message of chat">
+          {{message}}
+        </div>
+        <input md-input #msg>
+        <button md-raised-button (click)="sendMessage(msg.value)">Wyślij</button>
       </div>
     </div>
   </div>
 
+
 </div>
+
 
