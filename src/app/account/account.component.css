@@ -34,6 +34,7 @@
 
 .component-wraper {
   border: 1px #cccccc solid;
+  min-height: 480px;
 }
 
 .active-component {
@@ -43,6 +44,7 @@
 .account-profile-photo {
   border: 1px solid #cccccc;
   margin: 10px;
+  padding: 5px;
 }
 
 .profile-image {

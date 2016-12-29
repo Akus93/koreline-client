@@ -37,6 +37,7 @@ import { AccountComponent } from './account/account.component';
 import {MessageService} from "./shared/services/message/message.service";
 import { SendMessageDialogComponent } from './send-message-dialog/send-message-dialog.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { MessagesComponent } from './messages/messages.component';
     AccountComponent,
     SendMessageDialogComponent,
     MessagesComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

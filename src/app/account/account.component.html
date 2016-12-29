@@ -13,12 +13,16 @@
         <md-list-item (click)="changeComponent('photo')" class="nav-link {{activeComponent == 'photo' ? 'active' : ''}}">
           Zdjęcie profilowe
         </md-list-item>
+        <md-list-item (click)="changeComponent('password')" class="nav-link {{activeComponent == 'password' ? 'active' : ''}}">
+          Konto
+        </md-list-item>
       </md-list>
     </div>
     <div class="col-md-10 component-wraper">
       <div [ngSwitch]="activeComponent" class="active-component">
         <app-edit-profile *ngSwitchCase="'info'"></app-edit-profile>
         <app-edit-photo *ngSwitchCase="'photo'"></app-edit-photo>
+        <app-change-password *ngSwitchCase="'password'"></app-change-password>
         <app-edit-profile *ngSwitchDefault></app-edit-profile>
       </div>
     </div>

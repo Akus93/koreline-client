@@ -3,6 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 import {Router} from "@angular/router";
+import {DOMAIN_NAME} from '../../global';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,7 @@ export class AuthService {
             })
     };
     let body = JSON.stringify({ email: email, password: password });
-    let url = 'http://localhost:8000/auth/login/';
+    let url = DOMAIN_NAME + '/auth/login/';
 
     return this.http.post(url, body, options)
                     .map((res: Response) => res.json().key)
@@ -26,7 +27,7 @@ export class AuthService {
   }
 
   public logout(): void {
-    let url = 'http://localhost:8000/auth/logout/';
+    let url = DOMAIN_NAME + '/auth/logout/';
     let options = {
         headers: new Headers({
              'Authorization': 'Token '+ this.getToken(),
@@ -39,6 +40,23 @@ export class AuthService {
                  this.router.navigate(['/']);
                }
              );
+  }
+
+  public changePassword(oldPassword: string, newPassword: string): Observable<any> {
+
+    let url = DOMAIN_NAME + '/auth/password/change/';
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ this.getToken(),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+    let body = JSON.stringify({ old_password: oldPassword, new_password1: newPassword, new_password2: newPassword });
+
+    return this.http.post(url, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   public isAuth(): boolean {
