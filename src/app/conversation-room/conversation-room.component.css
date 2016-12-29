@@ -30,6 +30,11 @@ video {
   position: relative;
 }
 
+.chat-content {
+  overflow-y: auto;
+  height: 250px;
+}
+
 .chat-footer {
   position: absolute;
   height: 50px;

@@ -39,8 +39,11 @@
       </div>
 
       <div class="chat">
-        <div *ngFor="let message of chat">
-          {{message}}
+
+        <div #chatContent class="chat-content">
+          <div *ngFor="let message of chat">
+            {{message}}
+          </div>
         </div>
 
         <div class="chat-footer">
@@ -55,5 +58,3 @@
 
 
 </div>
-
-

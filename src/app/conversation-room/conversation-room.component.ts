@@ -1,6 +1,6 @@
 /// <reference path="../../typings/easyrtc.d.ts" />
 
-import {Component, OnInit, ChangeDetectorRef, OnDestroy} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, OnDestroy, ViewChild, ElementRef} from '@angular/core';
 import {Conversation} from "../shared/models/conversation.model";
 import {AuthService} from "../shared/services/auth/auth.service";
 import {Router} from "@angular/router";
@@ -14,6 +14,8 @@ import {SharedService} from "../shared/services/shared/shared.service";
   styleUrls: ['./conversation-room.component.css']
 })
 export class ConversationRoomComponent implements OnInit, OnDestroy {
+
+  @ViewChild('chatContent') private chatContent: ElementRef;
 
   conversation: Conversation;
   myId: string;
@@ -146,6 +148,8 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
 
     let peerListener = (easyrtcid, msgType, msgData, targeting): void => {
       this.chat.push(msgData.sender + ': ' + msgData.text);
+      this.scrollToBottom();
+      this.cdr.detectChanges();
     };
     easyrtc.setPeerListener(peerListener);
 
@@ -179,6 +183,13 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
 
   }
 
+  scrollToBottom(): void{
+    try {
+      this.chatContent.nativeElement.scrollTop = this.chatContent.nativeElement.scrollHeight;
+    } catch (error) {}
+    this.cdr.detectChanges();
+  }
+
   sendMessage() {
     let text = this.message;
     if (text) {
@@ -190,6 +201,8 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
         });
         this.chat.push('Ja: ' + text);
         this.message = '';
+        this.cdr.detectChanges();
+        this.scrollToBottom();
       }
     }
 
