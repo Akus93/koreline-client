@@ -38,6 +38,7 @@ import {MessageService} from "./shared/services/message/message.service";
 import { SendMessageDialogComponent } from './send-message-dialog/send-message-dialog.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { DisqusModule } from 'angular2-disqus';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     ToastyModule.forRoot(),
-    FlexLayoutModule.forRoot()
+    FlexLayoutModule.forRoot(),
+    DisqusModule
   ],
   providers: [
     AuthService,

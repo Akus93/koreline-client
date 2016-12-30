@@ -36,7 +36,9 @@
     }
   ],
   "addons": [],
-  "packages": [],
+  "packages": [
+    "node_modules/angular2-disqus/lib"
+  ],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
