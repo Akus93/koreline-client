@@ -25,7 +25,7 @@
 
         <md-menu x-position="before" y-position="below" #notificationsMenu="mdMenu">
           <div class="menu-content">
-            <div *ngFor="let notification of notifications">
+            <div *ngFor="let notification of notifications" (click)="notificationAction(notification)" class="notification">
                 <div>
                   <div><b>{{notification.title}}</b></div>
                   <div>{{notification.text}}</div>

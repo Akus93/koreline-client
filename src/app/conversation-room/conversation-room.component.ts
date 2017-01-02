@@ -50,6 +50,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
               error => this.router.navigate(['/'])
             );
         } else {
+          console.log('Brak konwersacji');
           this.router.navigate(['/']);
         }
       }

@@ -51,12 +51,12 @@ return {
   "localMediaError": "Error getting local media stream: {0}",
   "miscSignalError": "Miscellaneous error from signalling server. It may be ignorable.",
   "noServer": "Unable to reach the EasyRTC signalling server.",
-  "badsocket": "Socket.io connect event fired with bad websocket.",
+  "badsocket": "Socket.io connect events fired with bad websocket.",
   "icf": "Internal communications failure",
   "statsNotSupported":"call statistics not supported by this browser, try Chrome.",
    "noWebrtcSupport":"Your browser doesn't appear to support WebRTC.",
    "gumFailed":"Failed to get access to local media. Error code was {0}.",
-   "requireAudioOrVideo":"At least one of audio and video must be provided"   
+   "requireAudioOrVideo":"At least one of audio and video must be provided"
 };
 
 }));
@@ -1086,7 +1086,7 @@ module.exports = function() {
     };
   }
 
-  // Dummy devicechange event methods.
+  // Dummy devicechange events methods.
   // TODO(KaptenJansson) remove once implemented in Chrome stable.
   if (typeof navigator.mediaDevices.addEventListener === 'undefined') {
     navigator.mediaDevices.addEventListener = function() {
@@ -1865,7 +1865,7 @@ var edgeShim = {
           }
         };
 
-    // Determine whether to fire the negotiationneeded event.
+    // Determine whether to fire the negotiationneeded events.
     window.RTCPeerConnection.prototype._maybeFireNegotiationNeeded =
         function() {
           // Fire away (for now).
@@ -2866,9 +2866,9 @@ var Easyrtc = function() {
     /**
      * Sets a function that listens on IceConnectionStateChange events.
      *
-     * During ICE negotiation the peer connection fires the iceconnectionstatechange event.
+     * During ICE negotiation the peer connection fires the iceconnectionstatechange events.
      * It is sometimes useful for the application to learn about these changes, especially if the ICE connection fails.
-     * The function should accept three parameters: the easyrtc id of the peer, the iceconnectionstatechange event target and the iceconnectionstate.
+     * The function should accept three parameters: the easyrtc id of the peer, the iceconnectionstatechange events target and the iceconnectionstate.
      * @param {Function} listener
      */
     this.setIceConnectionStateChangeListener = function(listener) {
@@ -2878,8 +2878,8 @@ var Easyrtc = function() {
     /**
      * Sets a function that listens on SignalingStateChange events.
      *
-     * During ICE negotiation the peer connection fires the signalingstatechange event.
-     * The function should accept three parameters: the easyrtc id of the peer, the signalingstatechange event target and the signalingstate.
+     * During ICE negotiation the peer connection fires the signalingstatechange events.
+     * The function should accept three parameters: the easyrtc id of the peer, the signalingstatechange events target and the signalingstate.
      * @param {Function} listener
      */
     this.setSignalingStateChangeListener = function(listener) {
@@ -2955,7 +2955,7 @@ var Easyrtc = function() {
 
     /** @private */
     //
-    // this is a list of the events supported by the generalized event listener.
+    // this is a list of the events supported by the generalized events listener.
     //
     var allowedEvents = {
         roomOccupant: true,  // this receives the list of everybody in any room you belong to
@@ -2964,13 +2964,13 @@ var Easyrtc = function() {
 
     /** @private */
     //
-    // A map of eventListeners. The key is the event type.
+    // A map of eventListeners. The key is the events type.
     //
     var eventListeners = {};
 
     /**
-     * This function checks if an attempt was made to add an event listener or
-     * or emit an unlisted event, since such is typically a typo.
+     * This function checks if an attempt was made to add an events listener or
+     * or emit an unlisted events, since such is typically a typo.
      * @private
      * @param {String} eventName
      * @param {String} callingFunction the name of the calling function.
@@ -2981,17 +2981,17 @@ var Easyrtc = function() {
             throw "developer error";
         }
         if (!allowedEvents[eventName]) {
-            self.showError(self.errCodes.DEVELOPER_ERR, callingFunction + " called with a bad event name = " + eventName);
+            self.showError(self.errCodes.DEVELOPER_ERR, callingFunction + " called with a bad events name = " + eventName);
             throw "developer error";
         }
     }
 
     /**
-     * Adds an event listener for a particular type of event.
+     * Adds an events listener for a particular type of events.
      * Currently the only eventName supported is "roomOccupant".
-     * @param {String} eventName the type of the event
-     * @param {Function} eventListener the function that expects the event.
-     * The eventListener gets called with the eventName as it's first argument, and the event
+     * @param {String} eventName the type of the events
+     * @param {Function} eventListener the function that expects the events.
+     * The eventListener gets called with the eventName as it's first argument, and the events
      * data as it's second argument.
      * @returns {void}
      */
@@ -3002,7 +3002,7 @@ var Easyrtc = function() {
             throw "developer error";
         }
         //
-        // remove the event listener if it's already present so we don't end up with two copies
+        // remove the events listener if it's already present so we don't end up with two copies
         //
         self.removeEventListener(eventName, eventListener);
         if (!eventListeners[eventName]) {
@@ -3012,7 +3012,7 @@ var Easyrtc = function() {
     };
 
     /**
-     * Removes an event listener.
+     * Removes an events listener.
      * @param {String} eventName
      * @param {Function} eventListener
      */
@@ -3033,8 +3033,8 @@ var Easyrtc = function() {
     };
 
     /**
-     * Emits an event, or in other words, calls all the eventListeners for a
-     * particular event.
+     * Emits an events, or in other words, calls all the eventListeners for a
+     * particular events.
      * @param {String} eventName
      * @param {Object} eventData
      */
@@ -3165,7 +3165,7 @@ var Easyrtc = function() {
     }
 
     /**
-     * Sets the audio output device of a Video object. 
+     * Sets the audio output device of a Video object.
      * That is to say, this controls what speakers get the sound.
      * In theory, this works on Chrome but probably doesn't work anywhere else yet.
      * This code was cribbed from https://webrtc.github.io/samples/src/content/devices/multi/.
@@ -3393,7 +3393,7 @@ var Easyrtc = function() {
         }
         else {
 
-            // Tested Firefox 49 and MS Edge require minFrameRate and maxFrameRate 
+            // Tested Firefox 49 and MS Edge require minFrameRate and maxFrameRate
             // instead max,min,ideal that cause GetUserMedia failure.
             // Until confirmed both browser support idea,max and min we need this.
             if (
@@ -3408,7 +3408,7 @@ var Easyrtc = function() {
                     constraints.video.height = self._desiredVideoProperties.height;
                 }
                 if (self._desiredVideoProperties.frameRate) {
-                    constraints.video.frameRate = { 
+                    constraints.video.frameRate = {
                         minFrameRate: self._desiredVideoProperties.frameRate,
                         maxFrameRate: self._desiredVideoProperties.frameRate
                     };
@@ -3418,13 +3418,13 @@ var Easyrtc = function() {
                 }
 
             // chrome and opera
-            } else { 
+            } else {
                 constraints.video = {};
                 if (self._desiredVideoProperties.width) {
-                     constraints.video.width = { 
+                     constraints.video.width = {
                         max: self._desiredVideoProperties.width,
                         min : self._desiredVideoProperties.width,
-                        ideal : self._desiredVideoProperties.width 
+                        ideal : self._desiredVideoProperties.width
                      };
                 }
                 if (self._desiredVideoProperties.height) {
@@ -5320,11 +5320,11 @@ var Easyrtc = function() {
 
     /** @private */
     function getRemoteStreamByName(peerConn, otherUser, streamName) {
-                    
+
         var keyToMatch = null;
         var remoteStreams = peerConn.pc.getRemoteStreams();
 
-        // No streamName lead to default 
+        // No streamName lead to default
         if (!streamName) {
             streamName = "default";
         }
@@ -5350,12 +5350,12 @@ var Easyrtc = function() {
             }
         }
 
-        // 
+        //
         if (!keyToMatch) {
             self.showError(self.errCodes.DEVELOPER_ERR, "remote peer does not have media stream called " + streamName);
         }
 
-        // 
+        //
         for (var i = 0; i < remoteStreams.length; i++) {
             var remoteId;
             if (remoteStreams[i].id) {
@@ -6168,7 +6168,7 @@ var Easyrtc = function() {
         peerConn.trackTimers = peerConn.trackTimers || {};
 
         // easyrtc thinks in terms of streams, not tracks.
-        // so we'll add a timeout when the first track event
+        // so we'll add a timeout when the first track events
         // fires. Firefox produces two events (one of type "video",
         // and one of type "audio".
 
@@ -6237,7 +6237,7 @@ var Easyrtc = function() {
             };
 
             pc.onsignalingstatechange = function () {
-                
+
                 var eventTarget = event.currentTarget || event.target || pc,
                     signalingState = eventTarget.signalingState || 'unknown';
 
@@ -6394,14 +6394,14 @@ var Easyrtc = function() {
         //
         var pendingTransfer = {};
         function dataChannelMessageHandler(event) {
-            logDebug("saw dataChannel.onmessage event: ", event.data);
+            logDebug("saw dataChannel.onmessage events: ", event.data);
 
             if (event.data === "dataChannelPrimed") {
                 self.sendDataWS(otherUser, "dataChannelPrimed", "");
             }
             else {
                 //
-                // Chrome and Firefox Interop is passing a event with a strange data="", perhaps
+                // Chrome and Firefox Interop is passing a events with a strange data="", perhaps
                 // as it's own form of priming message. Comparing the data against "" doesn't
                 // work, so I'm going with parsing and trapping the parse error.
                 //
@@ -6410,7 +6410,7 @@ var Easyrtc = function() {
                 try {
                     msg = JSON.parse(event.data);
                 } catch (err) {
-                    logDebug('Developer error, unable to parse event data');
+                    logDebug('Developer error, unable to parse events data');
                 }
 
                 if (msg) {
@@ -6495,14 +6495,14 @@ var Easyrtc = function() {
             peerConns[otherUser].dataChannelR = dataChannel;
             dataChannel.onmessage = dataChannelMessageHandler;
             dataChannel.onopen = function(event) {
-                logDebug("saw dataChannel.onopen event");
+                logDebug("saw dataChannel.onopen events");
 
                 if (peerConns[otherUser]) {
                     dataChannel.send("dataChannelPrimed");
                 }
             };
             dataChannel.onclose = function(event) {
-                logDebug("saw dataChannelS.onclose event");
+                logDebug("saw dataChannelS.onclose events");
 
                 if (peerConns[otherUser]) {
                     peerConns[otherUser].dataChannelReady = false;
@@ -6529,7 +6529,7 @@ var Easyrtc = function() {
                 peerConns[otherUser].dataChannelReady = true;
                 dataChannel.onmessage = dataChannelMessageHandler;
                 dataChannel.onclose = function(event) {
-                    logDebug("saw dataChannelR.onclose event");
+                    logDebug("saw dataChannelR.onclose events");
 
                     if (peerConns[otherUser]) {
                         peerConns[otherUser].dataChannelReady = false;
@@ -6542,7 +6542,7 @@ var Easyrtc = function() {
                     updateConfigurationInfo();
                 };
                 dataChannel.onopen = function(event) {
-                    logDebug("saw dataChannel.onopen event");
+                    logDebug("saw dataChannel.onopen events");
 
                     if (peerConns[otherUser]) {
                         dataChannel.send("dataChannelPrimed");
@@ -6931,7 +6931,7 @@ var Easyrtc = function() {
 
     /** @private */
     function hangupBody(otherUser) {
-        
+
         logDebug("Hanging up on " + otherUser);
         clearQueuedMessages(otherUser);
 
@@ -6939,14 +6939,14 @@ var Easyrtc = function() {
 
             if (peerConns[otherUser].pc) {
                 closePeer(otherUser);
-            } 
+            }
 
             if (peerConns[otherUser]) {
                 delete peerConns[otherUser];
             }
 
             updateConfigurationInfo();
-            
+
             if (self.webSocket) {
                 sendSignalling(otherUser, "hangup", null, function() {
                     logDebug("hangup succeeds");
@@ -6958,7 +6958,7 @@ var Easyrtc = function() {
         }
     }
 
-    
+
 
     /**
      * Hang up on a particular user or all users.
@@ -7203,7 +7203,7 @@ var Easyrtc = function() {
     /** @private */
     function onRemoteHangup(otherUser) {
 
-        logDebug("Saw onRemote hangup event");
+        logDebug("Saw onRemote hangup events");
         clearQueuedMessages(otherUser);
 
         if (peerConns[otherUser]) {
@@ -7297,7 +7297,7 @@ var Easyrtc = function() {
     /**
      * The idea of aggregating timers is that there are events that convey state and these can fire more frequently
      * than desired. Aggregating timers allow a bunch of events to be collapsed into one by only firing the last
-     * event.
+     * events.
      * @private
      */
     var aggregatingTimers = {};
@@ -8222,7 +8222,7 @@ var Easyrtc = function() {
                         self.showError(self.errCodes.SIGNAL_ERR, self.getConstantString("miscSignalError"));
                     }
                     else {
-                        /* socket server went down. this will generate a 'disconnect' event as well, so skip this event */
+                        /* socket server went down. this will generate a 'disconnect' events as well, so skip this events */
                         errorCallback(self.errCodes.CONNECT_ERR, self.getConstantString("noServer"));
                     }
                 }
@@ -8239,7 +8239,7 @@ var Easyrtc = function() {
                 self.showError(self.errCodes.CONNECT_ERR, self.getConstantString("badsocket"));
             }
 
-            logDebug("saw socket-server onconnect event");
+            logDebug("saw socket-server onconnect events");
 
             if (self.webSocketConnected) {
                 sendAuthenticate(successCallback, errorCallback);
@@ -8328,7 +8328,7 @@ var Easyrtc = function() {
 
 return new Easyrtc();
 
-})); 
+}));
 
 /* global define, module, require, console */
 /*!
@@ -8382,7 +8382,7 @@ return new Easyrtc();
     "use strict";
 
     /**
-     * This file adds additional methods to Easyrtc for simplifying the 
+     * This file adds additional methods to Easyrtc for simplifying the
      * management of video-mediastream assignment.
      * @class Easyrtc_App
      */
@@ -8413,7 +8413,7 @@ return new Easyrtc();
         var videoIdsP = videoIds || [],
             numPEOPLE = videoIds.length,
             videoIdToCallerMap = {},
-            onCall = null, 
+            onCall = null,
             onHangup = null;
 
         /**
@@ -8430,7 +8430,7 @@ return new Easyrtc();
                 easyrtc.showError(easyrtc.errCodes.DEVELOPER_ERR, "The monitor video id passed to easyApp was bad, saw " + monitorVideoId);
                 return false;
             }
-    
+
             for (i in videoIds) {
                 if (!videoIds.hasOwnProperty(i)) {
                     continue;
@@ -8487,7 +8487,7 @@ return new Easyrtc();
             document.getElementById(monitorVideoId).muted = "muted";
         }
 
-        easyrtc.addEventListener("roomOccupants", 
+        easyrtc.addEventListener("roomOccupants",
             function(eventName, eventData) {
                 var i;
                 for (i = 0; i < numPEOPLE; i++) {
@@ -8504,7 +8504,7 @@ return new Easyrtc();
             }
         );
 
-        /** Sets an event handler that gets called when an incoming MediaStream is assigned 
+        /** Sets an events handler that gets called when an incoming MediaStream is assigned
          * to a video object. The name is poorly chosen and reflects a simpler era when you could
          * only have one media stream per peer connection.
          * @function
@@ -8519,7 +8519,7 @@ return new Easyrtc();
             onCall = cb;
         };
 
-        /** Sets an event handler that gets called when a call is ended.
+        /** Sets an events handler that gets called when a call is ended.
          * it's only purpose (so far) is to support transitions on video elements.
          x     * this function is only defined after easyrtc.easyApp is called.
          * The slot is parameter is the index into the array of video ids.
@@ -8537,7 +8537,7 @@ return new Easyrtc();
             onHangup = cb;
         };
 
-        /** 
+        /**
           * Get the easyrtcid of the ith caller, starting at 0.
           * @function
           * @memberOf Easyrtc_App
@@ -8552,12 +8552,12 @@ return new Easyrtc();
             return getCallerOfVideo(vid);
         };
 
-        /** 
+        /**
           * This is the complement of getIthCaller. Given an easyrtcid,
           * it determines which slot the easyrtc is in.
           * @function
           * @memberOf Easyrtc_App
-          * @param {string} easyrtcid 
+          * @param {string} easyrtcid
           * @returns {number} or -1 if the easyrtcid is not a caller.
           */
         easyrtc.getSlotOfCaller = function(easyrtcid) {
@@ -8704,7 +8704,7 @@ return new Easyrtc();
      *              });
      */
     easyrtc.easyApp = function(applicationName, monitorVideoId, videoIds, onReady, onFailure) {
-        
+
         var gotMediaCallback = null,
             gotConnectionCallback = null;
 
@@ -8725,7 +8725,7 @@ return new Easyrtc();
            }, 1000);
         });
 
-        /** Sets an event handler that gets called when a connection to the signaling
+        /** Sets an events handler that gets called when a connection to the signaling
          * server has or has not been made. Can only be called after calling easyrtc.easyApp.
          * @function
          * @memberOf Easyrtc_App
@@ -8743,7 +8743,7 @@ return new Easyrtc();
         easyrtc.setGotConnection = function(gotConnectionCB) {
             gotConnectionCallback = gotConnectionCB;
         };
-        
+
         function nextInitializationStep(/* token */) {
             if (gotConnectionCallback) {
                 gotConnectionCallback(true, "");

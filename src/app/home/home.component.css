@@ -35,3 +35,8 @@ img {
   overflow: hidden;
   max-height: 150px;
 }
+
+.pagination {
+  text-align: center;
+}
+

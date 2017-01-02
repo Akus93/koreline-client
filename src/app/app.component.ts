@@ -12,6 +12,7 @@ import {MessageService} from "./shared/services/message/message.service";
 import {UserProfile} from "./shared/models/userProfile.model";
 import {isUndefined} from "util";
 import {Router} from "@angular/router";
+import {EventsService} from "./shared/services/events/events.service";
 
 @Component({
   selector: 'app-root',
@@ -25,12 +26,13 @@ export class AppComponent implements OnInit{
 
   constructor(private authService: AuthService, private sharedService: SharedService,
               private notificationService: NotificationService, private messageService: MessageService,
-              private dialog: MdDialog, private router: Router) {}
-
-  ngOnInit(): void {
+              private dialog: MdDialog, private router: Router, private eventService: EventsService) {
     this.notifications = Array<Notification>();
     this.unreadMessages = Array<Message>();
+  }
 
+  ngOnInit(): void {
+    this.eventService.onLoggedIn$.subscribe(isLoggedIn => this.onLoggedIn());
     let notify$ = Observable.interval(30000).flatMap(() => {
         if (this.authService.isAuth())
           return this.notificationService.getNotifications(this.authService.getToken());
@@ -53,11 +55,40 @@ export class AppComponent implements OnInit{
 
   }
 
+  onLoggedIn() {
+    this.notificationService.getNotifications(this.authService.getToken())
+        .subscribe(notifications => this.notifications = notifications);
+    this.messageService.getUnreadMessages(this.authService.getToken())
+        .subscribe(messages => this.unreadMessages = messages);
+  }
+
+  notificationAction(notification: Notification): void {
+    this.markNotificationAsRead(notification);
+    switch (notification.type) {
+      case 'INVITE':
+        this.sharedService.setCurrentConversation(notification.data);
+        this.router.navigate(['/conversation']);
+        break;
+      case 'TEACHER_UNSUBSCRIBE':
+        this.router.navigate(['/teacher/my-lessons']);
+        break;
+      case 'STUDENT_UNSUBSCRIBE':
+        this.router.navigate(['/user/my-lessons']);
+        break;
+      case 'SUBSCRIBE':
+        this.router.navigate(['/teacher/my-lessons']);
+        break;
+      default:
+        break;
+    }
+  }
+
   logout(): void {
     this.authService.logout();
     this.sharedService.getPusherChannel().subscribe(
       channel => {if(channel) channel.unbind_all()},
     );
+    // this.sharedService.getPusherChannel().disconnect();
   }
 
   openLoginDialog() {

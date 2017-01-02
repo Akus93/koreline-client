@@ -38,7 +38,8 @@ import {MessageService} from "./shared/services/message/message.service";
 import { SendMessageDialogComponent } from './send-message-dialog/send-message-dialog.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { DisqusModule } from 'angular2-disqus';
+import {Ng2PaginationModule} from 'ng2-pagination';
+import {EventsService} from "./shared/services/events/events.service";
 
 
 @NgModule({
@@ -71,7 +72,7 @@ import { DisqusModule } from 'angular2-disqus';
     ReactiveFormsModule,
     ToastyModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    DisqusModule
+    Ng2PaginationModule
   ],
   providers: [
     AuthService,
@@ -83,6 +84,7 @@ import { DisqusModule } from 'angular2-disqus';
     SharedService,
     NotificationService,
     MessageService,
+    EventsService,
     AuthGuard,
     TeacherGuard
     ],

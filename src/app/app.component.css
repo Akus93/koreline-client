@@ -35,6 +35,10 @@ a {
   z-index: 10;
 }
 
+.notification {
+  cursor: pointer;
+}
+
 .account-circle-img {
   cursor: pointer;
 }

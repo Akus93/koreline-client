@@ -101,9 +101,9 @@ declare class Easyrtc {
     /**
      * Sets a function that listens on IceConnectionStateChange events.
      *
-     * During ICE negotiation the peer connection fires the iceconnectionstatechange event.
+     * During ICE negotiation the peer connection fires the iceconnectionstatechange events.
      * It is sometimes useful for the application to learn about these changes, especially if the ICE connection fails.
-     * The function should accept three parameters: the easyrtc id of the peer, the iceconnectionstatechange event target,
+     * The function should accept three parameters: the easyrtc id of the peer, the iceconnectionstatechange events target,
      * and the ice connection state itself.
      * @param {Function} listener
      */
@@ -112,8 +112,8 @@ declare class Easyrtc {
     /**
      * Sets a function that listens on SignalingStateChange events.
      *
-     * During ICE negotiation the peer connection fires the signalingstatechange event.
-     * The function should accept three parameters: the easyrtc id of the peer, the signalingstatechange event target and the signalingstate.
+     * During ICE negotiation the peer connection fires the signalingstatechange events.
+     * The function should accept three parameters: the easyrtc id of the peer, the signalingstatechange events target and the signalingstate.
      * @param {Function} listener
      */
     setSignalingStateChangeListener:(listener:(easyrtcid:string, eventTarget:Event, signalingState:string) => void) => void;
@@ -165,26 +165,26 @@ declare class Easyrtc {
     format:(formatStr:string, ...args:any[]) => string;
 
     /**
-     * Adds an event listener for a particular type of event.
+     * Adds an events listener for a particular type of events.
      * Currently the only eventName supported is "roomOccupant".
-     * @param {String} eventName the type of the event
-     * @param {Function} eventListener the function that expects the event.
-     * The eventListener gets called with the eventName as it's first argument, and the event
+     * @param {String} eventName the type of the events
+     * @param {Function} eventListener the function that expects the events.
+     * The eventListener gets called with the eventName as it's first argument, and the events
      * data as it's second argument.
      * @returns {void}
      */
     addEventListener(eventName:string, eventListener:(eventName:string, eventData:any) => void):void;
 
     /**
-     * Removes an event listener.
+     * Removes an events listener.
      * @param {String} eventName
      * @param {Function} eventListener
      */
     removeEventListener:(eventName:string, eventListener:(eventName:string, eventData:any) => void) => void;
 
     /**
-     * Emits an event, or in other words, calls all the eventListeners for a
-     * particular event.
+     * Emits an events, or in other words, calls all the eventListeners for a
+     * particular events.
      * @param {String} eventName
      * @param {Object} eventData
      */
@@ -1348,7 +1348,7 @@ declare class Easyrtc {
      */
     setGotMedia(gotMediaCB:(gotMedia:boolean, errorText:string)=>void);
 
-    /** Sets an event handler that gets called when a connection to the signaling
+    /** Sets an events handler that gets called when a connection to the signaling
      * server has or has not been made. Can only be called after calling easyrtc.easyApp.
      * @function
      * @memberOf Easyrtc_App

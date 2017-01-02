@@ -10,6 +10,7 @@ import * as Pusher from 'pusher-js';
 import {SharedService} from "../shared/services/shared/shared.service";
 
 import {MdSnackBar, MdDialogRef} from '@angular/material';
+import {EventsService} from "../shared/services/events/events.service";
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder,
               private userService: UserService, private sharedService: SharedService, private snackBar: MdSnackBar,
-              public dialogRef: MdDialogRef<LoginComponent>) {}
+              public dialogRef: MdDialogRef<LoginComponent>, private eventService: EventsService) {}
 
   ngOnInit(): void {
     this.pusher = new Pusher('15b5a30c14857f14b7a3',{
@@ -71,9 +72,10 @@ export class LoginComponent implements OnInit {
                                 sessionStorage.setItem('username', user.user.username.toString());
                                 if (user.photo)
                                   sessionStorage.setItem('photo', user.photo.toString());
+                                this.pusher.unsubscribe(user.user.username + '-room-invite-channel');
                                 this.sharedService.setPusherChannel(this.pusher.subscribe(user.user.username + '-room-invite-channel'));
                                 this.sharedService.getPusherChannel().subscribe(
-                                      channel => channel.bind('room-invite-event', (data) => {
+                                      channel => channel.bind('room-invite-events', (data) => {
                                         console.log('Jest: ' + data.message);
                                         let snackBarRef = this.snackBar.open(data.message, 'Wejdz do rozmowy', {
                                           duration: 15000,
@@ -84,9 +86,9 @@ export class LoginComponent implements OnInit {
                                             this.router.navigate(['/conversation']);
                                           }
                                         );
-
                                       })
                                     );
+                                this.eventService.onLoggedIn$.emit(true);
                               }
                             );
             this.dialogRef.close();

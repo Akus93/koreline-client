@@ -51,12 +51,12 @@ return {
   "localMediaError": "Error getting local media stream: {0}",
   "miscSignalError": "Miscellaneous error from signalling server. It may be ignorable.",
   "noServer": "Unable to reach the EasyRTC signalling server.",
-  "badsocket": "Socket.io connect event fired with bad websocket.",
+  "badsocket": "Socket.io connect events fired with bad websocket.",
   "icf": "Internal communications failure",
   "statsNotSupported":"call statistics not supported by this browser, try Chrome.",
    "noWebrtcSupport":"Your browser doesn't appear to support WebRTC.",
    "gumFailed":"Failed to get access to local media. Error code was {0}.",
-   "requireAudioOrVideo":"At least one of audio and video must be provided"   
+   "requireAudioOrVideo":"At least one of audio and video must be provided"
 };
 
 }));

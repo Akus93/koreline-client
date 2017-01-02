@@ -66,3 +66,8 @@ a:hover, a:focus {
 /*.profile-photo:hover {*/
   /*border: 1px solid rgba(225, 250, 255, 0.3);*/
 /*}*/
+
+
+.ng2-pagination li {
+  cursor: pointer;
+}
