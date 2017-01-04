@@ -71,3 +71,9 @@ a:hover, a:focus {
 .ng2-pagination li {
   cursor: pointer;
 }
+
+@media (min-width: 1800px) {
+  .container {
+    width: 1600px;
+  }
+}

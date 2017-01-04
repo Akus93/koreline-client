@@ -40,6 +40,8 @@ import { MessagesComponent } from './messages/messages.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import {Ng2PaginationModule} from 'ng2-pagination';
 import {EventsService} from "./shared/services/events/events.service";
+import { WriteCommentDialogComponent } from './write-comment-dialog/write-comment-dialog.component';
+import {CommentService} from "./shared/services/comment/comment.service";
 
 
 @NgModule({
@@ -62,6 +64,7 @@ import {EventsService} from "./shared/services/events/events.service";
     SendMessageDialogComponent,
     MessagesComponent,
     ChangePasswordComponent,
+    WriteCommentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,11 +88,13 @@ import {EventsService} from "./shared/services/events/events.service";
     NotificationService,
     MessageService,
     EventsService,
+    CommentService,
     AuthGuard,
     TeacherGuard
     ],
   entryComponents: [
-    SendMessageDialogComponent
+    SendMessageDialogComponent,
+    WriteCommentDialogComponent
   ],
   bootstrap: [AppComponent]
 })

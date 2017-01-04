@@ -1,0 +1,21 @@
+.ng-invalid:not(form).ng-dirty  {
+  color: red;
+}
+
+.form-field {
+  margin: 1.5em;
+  width: 400px;
+}
+
+md-input-container, md-input, md-select{
+  width: 100%;
+}
+
+.form-error-message {
+  color: orangered;
+}
+
+.form-content {
+  margin-top: 30px;
+  width: 100%;
+}

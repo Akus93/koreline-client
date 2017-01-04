@@ -31,7 +31,8 @@
                [routerLink]="['/lesson', lesson.slug]">
         <md-card-header>
           <div class="card-avatar" md-card-avatar md-tooltip="{{getTeacherFullName(lesson)}}" [routerLink]="['/user', lesson.teacher.user.username]">
-            <img style="border-radius: 50%;" src="{{lesson.teacher.photo}}">
+            <img *ngIf="lesson.teacher.photo" style="border-radius: 50%;" src="{{lesson.teacher.photo}}">
+            <img  *ngIf="!lesson.teacher.photo" style="border-radius: 50%;" src="assets/profile.png">
           </div>
           <md-card-title><b>{{lesson.title}}</b></md-card-title>
           <md-card-subtitle>{{lesson.subject}} | {{lesson.stage}}</md-card-subtitle>

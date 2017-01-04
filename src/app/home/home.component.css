@@ -19,11 +19,6 @@ img {
   cursor: pointer;
 }
 
-.example-header-image {
-  background-image: url('assets/sowa2.jpg');
-  background-size: cover;
-}
-
 .card-avatar {
   cursor: pointer;
   z-index: 10;

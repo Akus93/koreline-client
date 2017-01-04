@@ -9,6 +9,7 @@ export class SharedService {
   currentConversation: string;
   messageReciver: string;
   activeMessageUser: string;
+  usernameForComment: string;
 
   constructor() { }
 
@@ -42,6 +43,14 @@ export class SharedService {
 
   setActiveMessageUser(value: string): void {
     this.activeMessageUser = value;
+  }
+
+  getUsernameForComment(): Observable<string> {
+    return Observable.of(this.usernameForComment);
+  }
+
+  setUsernameForComment(value: string): void {
+    this.usernameForComment = value;
   }
 
 }

@@ -93,9 +93,7 @@
       </span>
 
       <span *ngIf="!authService.hasPhoto()">
-        <button md-icon-button [md-menu-trigger-for]="menu">
-          <span class="account-circle-img"><img src="assets/profile.png"></span>
-        </button>
+        <img class="profile-photo account-circle-img" src="assets/profile.png" [md-menu-trigger-for]="menu">
       </span>
 
       <span *ngIf="authService.hasPhoto()">
@@ -124,7 +122,7 @@
         <li><a href="#">Third</a></li>
       </ul>
       <div class="author-info">
-        Copyright © 2016 Dawid Rdzanek
+        Copyright © 2017 Dawid Rdzanek
       </div>
     </div>
   </div>

@@ -13,6 +13,9 @@
         <div *ngIf="user?.photo">
           <img class="user-photo" src="{{ user?.photo }}">
         </div>
+        <div *ngIf="!user?.photo">
+          <img class="user-photo" src="assets/profile.png">
+        </div>
         <h5>{{user?.user.email}}</h5>
         <div *ngIf="authService.isAuth()">
           <button md-raised-button (click)="sendMessage(user)">Wyślij wiadomość</button>
@@ -27,25 +30,59 @@
   </div>
 </div>
 
-<div *ngIf="user?.isTeacher" class="profile-lessons">
+<div *ngIf="user?.isTeacher">
+  <div class="profile-lessons">
+    <div class="container">
+      <h2>Lekcje prowadzone przez tego nauczyciela:</h2>
+      <div class="containerX">
+        <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
+          <md-card class="offer-card center-block" *ngFor="let lesson of userLessons"
+                   fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="50"
+                   [routerLink]="['/lesson', lesson.slug]">
+            <md-card-header>
+              <md-card-title><b>{{lesson.title}}</b></md-card-title>
+              <md-card-subtitle>{{lesson.subject}} | {{lesson.stage}}</md-card-subtitle>
+            </md-card-header>
+            <md-card-content>
+              <div class="offer-card-description">
+                <p>{{lesson.shortDescription}}</p>
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container">
-    <h2>Lekcje prowadzone przez tego nauczyciela:</h2>
-    <div class="containerX">
-      <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
-        <md-card class="offer-card center-block" *ngFor="let lesson of userLessons"
-                 fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="50"
-                 [routerLink]="['/lesson', lesson.slug]">
+    <div class="add-comment">
+      <button md-fab *ngIf="authService.isAuth()" (click)="writeComment()" md-tooltip="Dodaj komentarz"><md-icon>comment</md-icon></button>
+    </div>
+  </div>
+  <div *ngIf="comments?.length" class="profile-comments">
+    <div class="container">
+      <h2>Komentarze:</h2>
+        <md-card *ngFor="let comment of comments" class="comment">
           <md-card-header>
-            <md-card-title><b>{{lesson.title}}</b></md-card-title>
-            <md-card-subtitle>{{lesson.subject}} | {{lesson.stage}}</md-card-subtitle>
+            <div class="card-avatar" md-card-avatar md-tooltip="{{getFullNameOrUsername(comment.author)}}" [routerLink]="['/user', comment.author.user.username]">
+              <img *ngIf="comment.author.photo" class="comment-author-photo" src="{{comment.author.photo}}">
+              <img *ngIf="!comment.author.photo" class="comment-author-photo" src="assets/profile.png">
+            </div>
+            <md-card-title><b>{{getFullNameOrUsername(comment.author)}}</b></md-card-title>
+            <md-card-subtitle>
+              <span *ngFor="let rate of buildRate(comment.rate)">
+                <md-icon>{{rate}}</md-icon>
+              </span>
+            </md-card-subtitle>
+            <div class="report-btn pull-right"  md-tooltip="Zgłoś komentarz">
+              <md-icon>report</md-icon>
+            </div>
           </md-card-header>
           <md-card-content>
-            <div class="offer-card-description">
-              <p>{{lesson.shortDescription}}</p>
-            </div>
+            <pre>
+              {{comment.text}}
+            </pre>
           </md-card-content>
         </md-card>
-      </div>
     </div>
   </div>
 </div>

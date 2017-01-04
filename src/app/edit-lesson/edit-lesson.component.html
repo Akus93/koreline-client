@@ -1,7 +1,8 @@
 <div class="container">
-  <md-card>
-    <md-toolbar color="primary">Dodaj ofertę nauczania</md-toolbar>
-    <md-card-content>
+  <div class="form-content">
+  <!--<md-card>-->
+    <md-toolbar color="primary">Edytuj ofertę nauczania</md-toolbar>
+    <!--<md-card-content>-->
       <form [formGroup]="editLessonForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate>
         <div class="form-field">
           <md-input formControlName="title" placeholder="Tytuł"></md-input>
@@ -29,6 +30,7 @@
         </div>
         <button md-raised-button type="submit">Zapisz zmiany</button>
       </form>
-    </md-card-content>
-  </md-card>
+  </div>
+    <!--</md-card-content>-->
+  <!--</md-card>-->
 </div>

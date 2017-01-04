@@ -9,6 +9,9 @@ import {AuthService} from "../shared/services/auth/auth.service";
 import {SendMessageDialogComponent} from "../send-message-dialog/send-message-dialog.component";
 import {MdDialog} from "@angular/material";
 import {SharedService} from "../shared/services/shared/shared.service";
+import {Comment} from "../shared/models/comment.model";
+import {WriteCommentDialogComponent} from "../write-comment-dialog/write-comment-dialog.component";
+import {CommentService} from "../shared/services/comment/comment.service";
 
 @Component({
   selector: 'app-view-profile',
@@ -19,9 +22,10 @@ export class ViewProfileComponent implements OnInit {
 
   user: UserProfile;
   userLessons: Lesson[];
+  comments: Comment[];
 
   constructor(private route: ActivatedRoute, private userService: UserService, private lessonService: LessonService,
-              public authService: AuthService, public dialog: MdDialog, private sharedService: SharedService) {}
+              public authService: AuthService, public dialog: MdDialog, private sharedService: SharedService, private commentService: CommentService) {}
 
   ngOnInit() {
 
@@ -34,12 +38,17 @@ export class ViewProfileComponent implements OnInit {
           lessons => this.userLessons = lessons,
           error => {}
         );
+        this.commentService.getTeacherComments(user.user.username).subscribe(
+          comments => this.comments = comments,
+          error => {}
+        )
       },
       error => {}
     );
+
   }
 
-  public getFullNameOrUsername(user?: UserProfile): string {
+  public getFullNameOrUsername(user: UserProfile): string {
     if (isUndefined(user))
       return '';
     if (user.user.firstName && user.user.lastName)
@@ -51,6 +60,22 @@ export class ViewProfileComponent implements OnInit {
   sendMessage(reciver: UserProfile) {
     this.sharedService.setMessageReciver(reciver.user.username);
     let dialogRef = this.dialog.open(SendMessageDialogComponent);
+  }
+
+  writeComment() {
+    this.sharedService.setUsernameForComment(this.user.user.username);
+    let dialogRef = this.dialog.open(WriteCommentDialogComponent);
+  }
+
+  buildRate(rate: number): Array<string> {
+    let rating: Array<string> = [];
+    for (let i = 0; i < rate; ++i) {
+      rating.push('star');
+    }
+    for (let i = rating.length; i < 5; ++i ) {
+      rating.push('star_border');
+    }
+    return rating;
   }
 
 }

@@ -1,0 +1,19 @@
+<div class="comment-form">
+  <div class="form-field">
+    Ocena:
+      <md-slider #rate thumbLabel tickInterval="1" [max]="5" [min]="1"></md-slider>
+  </div>
+  <div class="form-field">
+    <md-input-container>
+      <textarea md-input #commentText maxlength="255" required placeholder="Tekst komentarza"></textarea>
+      <md-hint align="end">{{commentText.value.length}} / 255</md-hint>
+    </md-input-container>
+  </div>
+
+  <div *ngIf="error" class="form-error-message">
+    <p>{{error}}</p>
+  </div>
+
+  <br>
+  <button md-raised-button (click)="createComment(rate.value, commentText.value)">Opublikuj</button>
+</div>
