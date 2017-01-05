@@ -40,9 +40,9 @@ export class WriteCommentDialogComponent implements OnInit {
                 timeout: 7000,
                 theme: 'default',
               });
-              this.dialogRef.close();
+              this.dialogRef.close(true);
             },
-            error => this.error = error.text || error.rating
+            error => this.error = error.text || error.rating || error.teacher
           );
         }
       );

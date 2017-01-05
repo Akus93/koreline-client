@@ -44,6 +44,23 @@ export class CommentService {
       .catch(this.handleError);
   }
 
+  public reportComment(token: string, comment: number, text: string): Observable<any> {
+
+    let url = DOMAIN_NAME + '/api/comments/report/';
+    let body = JSON.stringify({ comment: comment, text: text });
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.post(url, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
   private handleError (error: Response) {
     return Observable.throw(error.json());
   }

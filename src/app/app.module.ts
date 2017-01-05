@@ -42,6 +42,7 @@ import {Ng2PaginationModule} from 'ng2-pagination';
 import {EventsService} from "./shared/services/events/events.service";
 import { WriteCommentDialogComponent } from './write-comment-dialog/write-comment-dialog.component';
 import {CommentService} from "./shared/services/comment/comment.service";
+import { ReportCommentDialogComponent } from './report-comment-dialog/report-comment-dialog.component';
 
 
 @NgModule({
@@ -65,6 +66,7 @@ import {CommentService} from "./shared/services/comment/comment.service";
     MessagesComponent,
     ChangePasswordComponent,
     WriteCommentDialogComponent,
+    ReportCommentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,8 @@ import {CommentService} from "./shared/services/comment/comment.service";
     ],
   entryComponents: [
     SendMessageDialogComponent,
-    WriteCommentDialogComponent
+    WriteCommentDialogComponent,
+    ReportCommentDialogComponent
   ],
   bootstrap: [AppComponent]
 })

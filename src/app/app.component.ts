@@ -78,6 +78,9 @@ export class AppComponent implements OnInit{
       case 'SUBSCRIBE':
         this.router.navigate(['/teacher/my-lessons']);
         break;
+      case 'COMMENT':
+        this.router.navigate(['/user', this.authService.getUsername()]);
+        break;
       default:
         break;
     }

@@ -12,6 +12,8 @@ import {SharedService} from "../shared/services/shared/shared.service";
 import {Comment} from "../shared/models/comment.model";
 import {WriteCommentDialogComponent} from "../write-comment-dialog/write-comment-dialog.component";
 import {CommentService} from "../shared/services/comment/comment.service";
+import {DOMAIN_NAME} from '../shared/global';
+import {ReportCommentDialogComponent} from "../report-comment-dialog/report-comment-dialog.component";
 
 @Component({
   selector: 'app-view-profile',
@@ -20,12 +22,15 @@ import {CommentService} from "../shared/services/comment/comment.service";
 })
 export class ViewProfileComponent implements OnInit {
 
+  domain: string;
   user: UserProfile;
   userLessons: Lesson[];
   comments: Comment[];
 
   constructor(private route: ActivatedRoute, private userService: UserService, private lessonService: LessonService,
-              public authService: AuthService, public dialog: MdDialog, private sharedService: SharedService, private commentService: CommentService) {}
+              public authService: AuthService, public dialog: MdDialog, private sharedService: SharedService, private commentService: CommentService) {
+    this.domain = DOMAIN_NAME;
+  }
 
   ngOnInit() {
 
@@ -38,14 +43,18 @@ export class ViewProfileComponent implements OnInit {
           lessons => this.userLessons = lessons,
           error => {}
         );
-        this.commentService.getTeacherComments(user.user.username).subscribe(
-          comments => this.comments = comments,
-          error => {}
-        )
+        this.getComments();
       },
       error => {}
     );
 
+  }
+
+  getComments() {
+    this.commentService.getTeacherComments(this.user.user.username).subscribe(
+      comments => this.comments = comments,
+      error => {}
+    )
   }
 
   public getFullNameOrUsername(user: UserProfile): string {
@@ -65,6 +74,17 @@ export class ViewProfileComponent implements OnInit {
   writeComment() {
     this.sharedService.setUsernameForComment(this.user.user.username);
     let dialogRef = this.dialog.open(WriteCommentDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      success => {
+        if (success)
+          this.getComments();
+      }
+    );
+  }
+
+  reportComment(id: number) {
+    this.sharedService.setReportCommentID(id);
+    let dialogRef = this.dialog.open(ReportCommentDialogComponent);
   }
 
   buildRate(rate: number): Array<string> {

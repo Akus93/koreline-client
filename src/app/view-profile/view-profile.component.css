@@ -35,6 +35,7 @@
   font-size: 15px;
   line-height: 1.43;
   color: #333;
+  white-space: pre-line;
 }
 
 .user-photo {
@@ -71,6 +72,10 @@
   margin-top: 30px;
 }
 
+.comment-text {
+  white-space: pre-line;
+}
+
 .add-comment {
   margin-top: 30px;
   color: white;
@@ -80,3 +85,4 @@
   color: orangered;
   cursor: pointer;
 }
+

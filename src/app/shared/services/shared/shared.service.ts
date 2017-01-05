@@ -10,6 +10,7 @@ export class SharedService {
   messageReciver: string;
   activeMessageUser: string;
   usernameForComment: string;
+  reportCommentID: number;
 
   constructor() { }
 
@@ -51,6 +52,14 @@ export class SharedService {
 
   setUsernameForComment(value: string): void {
     this.usernameForComment = value;
+  }
+
+  getReportCommentID(): Observable<number> {
+    return Observable.of(this.reportCommentID);
+  }
+
+  setReportCommentID(value: number): void {
+    this.reportCommentID = value;
   }
 
 }
