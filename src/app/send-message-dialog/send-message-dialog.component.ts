@@ -35,12 +35,12 @@ export class SendMessageDialogComponent implements OnInit {
                 message => {
                   this.toastyService.success({
                     title: "Sukces",
-                    msg: "Wiadomość zostałą wysłana",
+                    msg: "Wiadomość została wysłana",
                     showClose: true,
                     timeout: 7000,
                     theme: 'default',
                   });
-                  this.dialogRef.close();
+                  this.dialogRef.close(true);
                 },
                 error => this.error = error.text || error.reciver || error.title
               ),

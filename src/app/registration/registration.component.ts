@@ -6,6 +6,8 @@ import {validateConfirmPassword} from '../shared/validators/validateConfirmPassw
 import {UserService} from '../shared/services/user/user.service';
 import {Router} from "@angular/router";
 import {MdDialogRef} from '@angular/material';
+import {EventsService} from "../shared/services/events/events.service";
+import {ToastyService} from "ng2-toasty";
 
 @Component({
   selector: 'app-registration',
@@ -17,7 +19,8 @@ export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService,
-              public dialogRef: MdDialogRef<RegistrationComponent>) { }
+              public dialogRef: MdDialogRef<RegistrationComponent>, private eventsService: EventsService,
+              private toastyService: ToastyService) { }
 
   ngOnInit(): void {
 
@@ -44,8 +47,16 @@ export class RegistrationComponent implements OnInit {
                       .subscribe(
                         token => {
                           sessionStorage.setItem('token', token );
-                          this.router.navigate(['/']);
+                          this.eventsService.onLoggedIn$.emit(true);
+                          this.toastyService.success({
+                            title: "Sukces",
+                            msg: "Utworzyłeś/aś nowe konto",
+                            showClose: true,
+                            timeout: 7000,
+                            theme: 'default',
+                          });
                           this.dialogRef.close();
+                          this.router.navigate(['/account']);
                         },
                         error => this.showErrorsFromServer(error)
                       );

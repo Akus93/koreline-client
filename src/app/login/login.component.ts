@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder,
               private userService: UserService, private sharedService: SharedService, private snackBar: MdSnackBar,
-              public dialogRef: MdDialogRef<LoginComponent>, private eventService: EventsService) {}
+              public dialogRef: MdDialogRef<LoginComponent>, private eventsService: EventsService) {}
 
   ngOnInit(): void {
     this.pusher = new Pusher('15b5a30c14857f14b7a3',{
@@ -76,7 +76,6 @@ export class LoginComponent implements OnInit {
                                 this.sharedService.setPusherChannel(this.pusher.subscribe(user.user.username + '-room-invite-channel'));
                                 this.sharedService.getPusherChannel().subscribe(
                                       channel => channel.bind('room-invite-events', (data) => {
-                                        console.log('Jest: ' + data.message);
                                         let snackBarRef = this.snackBar.open(data.message, 'Wejdz do rozmowy', {
                                           duration: 15000,
                                         });
@@ -88,7 +87,7 @@ export class LoginComponent implements OnInit {
                                         );
                                       })
                                     );
-                                this.eventService.onLoggedIn$.emit(true);
+                                this.eventsService.onLoggedIn$.emit(true);
                               }
                             );
             this.dialogRef.close();

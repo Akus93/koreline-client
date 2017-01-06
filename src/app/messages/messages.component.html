@@ -3,6 +3,12 @@
   <div class="row content">
 
     <div class="col-md-3 nav">
+      <h3>Twoi rozmówcy:</h3>
+      <div *ngIf="!interlocutors?.length">
+        <p>
+          Nie prowadzisz żadnych konwersacji.
+        </p>
+      </div>
       <md-list class="nav-list">
         <md-list-item *ngFor="let user of interlocutors" (click)="changeActiveUser(user.user.username)"
                       class="nav-link {{activeUser == user.user.username ? 'active' : ''}}">
@@ -13,19 +19,26 @@
       </md-list>
     </div>
 
-    <div class="col-md-9 message-box">
-      <div class="message-box-content">
-        <div class="message" *ngFor="let message of activeUserMessages">
-          <div><b>{{message.title}}</b></div>
-          <div><pre>{{message.text}}</pre></div>
-          <div class="pull-right">
-            <i>{{getFullNameOrUsername(message.sender)}}</i>
-            <i>{{message.createDate | date: 'H:mm:ss dd/MM/yy'}}</i>
+    <div class="col-md-9">
+      <div class="message-box">
+        <div class="message-box-content">
+          <div class="message" *ngFor="let message of activeUserMessages">
+            <div><b>{{message.title}}</b></div>
+            <div><pre>{{message.text}}</pre></div>
+            <div class="pull-right">
+              <i>{{getFullNameOrUsername(message.sender)}}</i>
+              <i>{{message.createDate | date: 'H:mm:ss dd/MM/yy'}}</i>
+            </div>
+            <br>
+            <hr>
           </div>
-          <br>
-          <hr>
         </div>
       </div>
+
+      <div>
+        <button class="send-message-button pull-right" md-fab *ngIf="activeUser" (click)="sendMessage()" md-tooltip="Nowa wiadomość"><md-icon>send</md-icon></button>
+      </div>
+
     </div>
 
   </div>

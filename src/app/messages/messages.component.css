@@ -44,3 +44,19 @@
 .message-box-content {
   margin-left: 15px;
 }
+
+.send-message-button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+  background-color: #e01919;
+}
+
+.nav h3 {
+  color: #555;
+  line-height: 1!important;
+  font-weight: 700!important;
+  font-size: 22px;
+  margin: 0 0 20px;
+}
+

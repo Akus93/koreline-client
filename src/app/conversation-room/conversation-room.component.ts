@@ -6,6 +6,7 @@ import {AuthService} from "../shared/services/auth/auth.service";
 import {Router} from "@angular/router";
 import {ConversationService} from "../shared/services/conversation/conversation.service";
 import {SharedService} from "../shared/services/shared/shared.service";
+import {isNullOrUndefined} from "util";
 
 
 @Component({
@@ -47,20 +48,28 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
                 this.conversation = conversation;
                 this.connect();
               },
-              error => this.router.navigate(['/'])
+              error => {
+                this.router.navigate(['/'])
+              }
             );
         } else {
-          console.log('Brak konwersacji');
           this.router.navigate(['/']);
         }
-      }
+      },
+      error => this.router.navigate(['/'])
     );
   }
 
   ngOnDestroy(): void {
-    easyrtc.leaveRoom(this.conversation.key, () => {}, () => {});
+    if (!isNullOrUndefined(this.conversation)) {
+      this.conversationService.closeConversation(this.authService.getToken(), this.conversation.student.user.username)
+        .subscribe();
+      easyrtc.leaveRoom(this.conversation.key, () => {
+      }, () => {
+      });
+    }
     easyrtc.disconnect();
-    easyrtc.closeLocalStream('myVideo');
+    //easyrtc.closeLocalStream('myVideo');
     easyrtc.setRoomOccupantListener( function(){});
   }
 

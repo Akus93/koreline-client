@@ -73,7 +73,7 @@
                 <md-icon>{{rate}}</md-icon>
               </span>
             </md-card-subtitle>
-            <div class="report-btn pull-right"  md-tooltip="Zgłoś komentarz" (click)="reportComment(comment.id)">
+            <div *ngIf="authService.isAuth()" class="report-btn pull-right"  md-tooltip="Zgłoś komentarz" (click)="reportComment(comment.id)">
               <md-icon>report</md-icon>
             </div>
           </md-card-header>

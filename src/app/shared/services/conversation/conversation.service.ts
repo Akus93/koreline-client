@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {Conversation} from "../../models/conversation.model";
+import {DOMAIN_NAME} from '../../global';
 
 @Injectable()
 export class ConversationService {
@@ -10,7 +11,7 @@ export class ConversationService {
 
   public createConversation(token: string, lesson: string, student: string): Observable<Conversation> {
 
-    let url = 'http://localhost:8000/api/room/open/';
+    let url = DOMAIN_NAME + '/api/room/open/';
     let body = JSON.stringify({ lesson: lesson, student: student});
     let options = {
       headers: new Headers({
@@ -27,7 +28,7 @@ export class ConversationService {
 
   public getConversation(token: string, key: string): Observable<Conversation> {
 
-    let url = 'http://localhost:8000/api/room/' + key + '/';
+    let url = DOMAIN_NAME + '/api/room/' + key + '/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -42,7 +43,7 @@ export class ConversationService {
 
   public getConversationForLesson(token: string, slug: string): Observable<Conversation> {
 
-    let url = 'http://localhost:8000/api/room/lesson/' + slug + '/';
+    let url = DOMAIN_NAME + '/api/room/lesson/' + slug + '/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -55,8 +56,25 @@ export class ConversationService {
       .catch(this.handleError);
   }
 
+  public closeConversation(token: string, student: string): Observable<any> {
+
+    let url = DOMAIN_NAME + '/api/room/close/';
+    let body = JSON.stringify({ student: student });
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.post(url, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
   private handleError (error: Response) {
-    return Observable.throw(error.json());
+    return Observable.throw(error);
   }
 
 }
