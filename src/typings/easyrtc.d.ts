@@ -795,6 +795,7 @@ declare class Easyrtc {
      *         ("The Server sent the following message " + JSON.stringify(msgData));
      *     });
      */
+    setServerListener(listener:Easyrtc_ReceiveServerCallback):void;
     /**
      * Sets the url of the Socket server.
      * The node.js server is great as a socket server, but it doesn't have

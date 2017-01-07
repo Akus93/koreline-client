@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {ConversationService} from "../shared/services/conversation/conversation.service";
 import {SharedService} from "../shared/services/shared/shared.service";
 import {isNullOrUndefined} from "util";
+import {ToastyService} from "ng2-toasty";
 
 
 @Component({
@@ -25,12 +26,14 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
   cameraEnableBtn: boolean;
   audioEnableBtn: boolean;
   showConnectBtn: boolean;
+  isTeacher: boolean;
 
   chat: string[];
   message: string;
 
   constructor(private router: Router, private cdr: ChangeDetectorRef, private sharedService: SharedService,
-              private authService: AuthService, private conversationService: ConversationService) {}
+              private authService: AuthService, private conversationService: ConversationService,
+              private toastyService: ToastyService) {}
 
   ngOnInit() {
     this.showConnectBtn = false;
@@ -38,6 +41,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     this.cameraEnableBtn = false;
     this.audioEnableBtn = false;
     this.chat = Array<string>();
+    this.isTeacher = false;
 
     this.sharedService.getCurrentConversation().subscribe(
       key => {
@@ -46,9 +50,18 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
             .subscribe(
               conversation => {
                 this.conversation = conversation;
+                if (conversation.lesson.teacher.user.username == this.authService.getUsername())
+                  this.isTeacher = true;
                 this.connect();
               },
               error => {
+                this.toastyService.warning({
+                  title: "",
+                  msg: "Ta konwersacja już nie istnieje!",
+                  showClose: true,
+                  timeout: 7000,
+                  theme: 'default',
+                });
                 this.router.navigate(['/'])
               }
             );
@@ -56,7 +69,9 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
           this.router.navigate(['/']);
         }
       },
-      error => this.router.navigate(['/'])
+      error => {
+        this.router.navigate(['/'])
+      }
     );
   }
 
@@ -64,9 +79,9 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     if (!isNullOrUndefined(this.conversation)) {
       this.conversationService.closeConversation(this.authService.getToken(), this.conversation.student.user.username)
         .subscribe();
-      easyrtc.leaveRoom(this.conversation.key, () => {
-      }, () => {
-      });
+      // easyrtc.leaveRoom(this.conversation.key, () => {
+      // }, () => {
+      // });
     }
     easyrtc.disconnect();
     //easyrtc.closeLocalStream('myVideo');
@@ -163,7 +178,10 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     };
     easyrtc.setPeerListener(peerListener);
 
-    easyrtc.setCredential({token: this.authService.getToken()});
+    easyrtc.setCredential({
+      token: this.authService.getToken(),
+      room: this.conversation.key
+      });
     //easyrtc.setUsername(this.authService.getUsername());
     easyrtc.joinRoom(this.conversation.key, null, this.loginSuccess.bind(this), this.loginFailure.bind(this));
 
@@ -182,14 +200,43 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     };
     easyrtc.setAcceptChecker(acceptChecker);
 
-    // let onStreamClosed = (easyrtcid: string, mediaStream: MediaStream, streamName: string): void => {
-    //   let myStream = easyrtc.getLocalStream();
-    //   console.log('ON STREAM CLOSED FIRED! by: '+streamName + ' mediastream: ' + mediaStream.id + ' mystream: '+myStream.id);
-    //   this.showConnectBtn = true;
-    //   this.displayHangupBtn = false;
-    //   this.cdr.detectChanges();
-    // };
-    // easyrtc.setOnStreamClosed(onStreamClosed);
+    let disconnectListener = (): void => {
+      this.toastyService.info({
+        title: "",
+        msg: "Opuszczono konwersację",
+        showClose: true,
+        timeout: 7000,
+        theme: 'default',
+      });
+    };
+    easyrtc.setDisconnectListener(disconnectListener);
+
+
+    let serverListener = (msgType:string, msgData:any, targeting:Easyrtc_MessageTargeting) => {
+      if (msgType == 'roomLeave') {
+        if (this.isTeacher) {
+          this.toastyService.info({
+            title: "",
+            msg: "Twój uczeń opuścił konwersację",
+            showClose: true,
+            timeout: 7000,
+            theme: 'default',
+          });
+        }
+        else {
+          this.toastyService.info({
+            title: "",
+            msg: "Nauczyciel zamknął konwersajcę",
+            showClose: true,
+            timeout: 10000,
+            theme: 'default',
+          });
+          this.router.navigate(['/']);
+        }
+      }
+      // console.log("The Server sent the following message " + JSON.stringify(msgData));
+    };
+    easyrtc.setServerListener(serverListener)
 
   }
 
