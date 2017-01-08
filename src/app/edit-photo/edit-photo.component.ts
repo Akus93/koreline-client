@@ -62,7 +62,7 @@ export class EditPhotoComponent implements OnInit {
 
   savePhoto(): void {
     let token = this.authService.getToken();
-    this.userService.patchCurrentUserProfile(token, {'photo': this.data.image})
+    this.userService.patchCurrentUserProfile(token, this.authService.getUsername(), {'photo': this.data.image})
       .subscribe(
         res => {
           sessionStorage.setItem('photo', this.data.image.toString());

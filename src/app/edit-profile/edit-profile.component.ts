@@ -49,7 +49,7 @@ export class EditProfileComponent implements OnInit {
           lastName: this.editProfileForm.get('lastName').value
         }
       };
-      this.userService.patchCurrentUserProfile(this.authService.getToken(), body)
+      this.userService.patchCurrentUserProfile(this.authService.getToken(), this.authService.getUsername(), body)
         .subscribe(
           user => {
             this.editProfileForm.patchValue(user);
