@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ViewLessonComponent } from './view-lesson.component';
+import {MaterialModule} from "@angular/material";
 
 describe('ViewLessonComponent', () => {
   let component: ViewLessonComponent;
@@ -11,7 +12,8 @@ describe('ViewLessonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewLessonComponent ]
+      declarations: [ ViewLessonComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

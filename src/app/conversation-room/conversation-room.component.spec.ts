@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ConversationRoomComponent } from './conversation-room.component';
+import {MaterialModule} from "@angular/material";
 
 describe('ConversationRoomComponent', () => {
   let component: ConversationRoomComponent;
@@ -11,7 +12,8 @@ describe('ConversationRoomComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConversationRoomComponent ]
+      declarations: [ ConversationRoomComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

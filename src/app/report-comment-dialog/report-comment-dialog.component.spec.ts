@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ReportCommentDialogComponent } from './report-comment-dialog.component';
+import {MaterialModule} from "@angular/material";
 
 describe('ReportCommentDialogComponent', () => {
   let component: ReportCommentDialogComponent;
@@ -11,7 +12,8 @@ describe('ReportCommentDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportCommentDialogComponent ]
+      declarations: [ ReportCommentDialogComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { EditPhotoComponent } from './edit-photo.component';
+import {MaterialModule} from "@angular/material";
 
 describe('EditPhotoComponent', () => {
   let component: EditPhotoComponent;
@@ -11,7 +12,8 @@ describe('EditPhotoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditPhotoComponent ]
+      declarations: [ EditPhotoComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

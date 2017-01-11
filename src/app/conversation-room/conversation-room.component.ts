@@ -8,6 +8,7 @@ import {ConversationService} from "../shared/services/conversation/conversation.
 import {SharedService} from "../shared/services/shared/shared.service";
 import {isNullOrUndefined} from "util";
 import {ToastyService} from "ng2-toasty";
+import {UserProfile} from "../shared/models/userProfile.model";
 
 
 @Component({
@@ -27,8 +28,10 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
   audioEnableBtn: boolean;
   showConnectBtn: boolean;
   isTeacher: boolean;
+  occupantName: string;
 
   chat: string[];
+  chatt: any;
   message: string;
 
   constructor(private router: Router, private cdr: ChangeDetectorRef, private sharedService: SharedService,
@@ -41,6 +44,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     this.cameraEnableBtn = false;
     this.audioEnableBtn = false;
     this.chat = Array<string>();
+    this.chatt = Array<{}>();
     this.isTeacher = false;
 
     this.sharedService.getCurrentConversation().subscribe(
@@ -50,8 +54,12 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
             .subscribe(
               conversation => {
                 this.conversation = conversation;
-                if (conversation.lesson.teacher.user.username == this.authService.getUsername())
+                if (conversation.lesson.teacher.user.username == this.authService.getUsername()) {
                   this.isTeacher = true;
+                  this.occupantName = this.getFullNameOrUsername(conversation.student);
+                }
+                else
+                  this.occupantName = this.getFullNameOrUsername(conversation.lesson.teacher);
                 this.connect();
               },
               error => {
@@ -86,6 +94,13 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     easyrtc.disconnect();
     //easyrtc.closeLocalStream('myVideo');
     easyrtc.setRoomOccupantListener( function(){});
+  }
+
+  public getFullNameOrUsername(user: UserProfile): string {
+    if (user.user.firstName && user.user.lastName)
+      return user.user.firstName + ' ' + user.user.lastName;
+    else
+      return user.user.username;
   }
 
   hangup(): void {
@@ -158,7 +173,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
 
   connect():void {
     easyrtc.setSocketUrl("//localhost:8080", {'connect timeout': 10000,'force new connection': true });
-    easyrtc.setVideoDims(320,240,undefined);
+    easyrtc.setVideoDims(640, 480, undefined);
 
     easyrtc.setRoomEntryListener(function(entry, roomName){
              if( entry ){
@@ -173,6 +188,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
 
     let peerListener = (easyrtcid, msgType, msgData, targeting): void => {
       this.chat.push(msgData.sender + ': ' + msgData.text);
+      this.chatt.push({text: msgData.text, isMe: false});
       this.scrollToBottom();
       this.cdr.detectChanges();
     };
@@ -257,6 +273,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
           }
         });
         this.chat.push('Ja: ' + text);
+        this.chatt.push({text: text, isMe: true});
         this.message = '';
         this.cdr.detectChanges();
         this.scrollToBottom();

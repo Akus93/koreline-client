@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { EditProfileComponent } from './edit-profile.component';
+import {MaterialModule} from "@angular/material";
 
 describe('EditProfileComponent', () => {
   let component: EditProfileComponent;
@@ -11,7 +12,8 @@ describe('EditProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditProfileComponent ]
+      declarations: [ EditProfileComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

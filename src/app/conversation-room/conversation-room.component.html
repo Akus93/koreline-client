@@ -18,22 +18,24 @@
             <!--<button md-raised-button *ngFor="let easyrtcId of (connectedClientsList)" (click)="performCall(easyrtcId)">-->
               <!--Połącz się-->
             <!--</button>-->
-            <button md-raised-button *ngIf="connectedClientsList.length && showConnectBtn" (click)="performCall(connectedClientsList[0])">
-              Połącz się
-            </button>
-            <button md-raised-button *ngIf="displayHangupBtn" (click)="hangup()">Rozłącz</button>
+            <!--<button md-raised-button *ngIf="connectedClientsList.length && showConnectBtn" (click)="performCall(connectedClientsList[0])">-->
+              <!--Połącz się-->
+            <!--</button>-->
+            <md-icon class="control-button red" md-tooltip="Połącz się" *ngIf="connectedClientsList.length && showConnectBtn" (click)="performCall(connectedClientsList[0])">call</md-icon>
+            <!--<button md-raised-button *ngIf="displayHangupBtn" (click)="hangup()">Rozłącz</button>-->
+            <md-icon class="control-button red" md-tooltip="Rozłącz się" *ngIf="displayHangupBtn" (click)="hangup()">call_end</md-icon>
 
             <!--<button md-raised-button *ngIf="cameraEnableBtn" (click)="enableCamera()">Włącz obraz</button>-->
-            <md-icon md-tooltip="Włącz obraz" *ngIf="cameraEnableBtn" class="control-button" (click)="enableCamera()">videocam</md-icon>
+            <md-icon md-tooltip="Włącz obraz" *ngIf="cameraEnableBtn" class="control-button" (click)="enableCamera()">videocam_off</md-icon>
 
             <!--<button md-raised-button *ngIf="!cameraEnableBtn" (click)="disableCamera()">Wyłącz obraz</button>-->
-            <md-icon md-tooltip="Wyłącz obraz" *ngIf="!cameraEnableBtn" class="control-button" (click)="disableCamera()">videocam_off</md-icon>
+            <md-icon md-tooltip="Wyłącz obraz" *ngIf="!cameraEnableBtn" class="control-button" (click)="disableCamera()">videocam</md-icon>
 
             <!--<button md-raised-button *ngIf="audioEnableBtn" (click)="enableMicrophone()">Włącz dźwięk</button>-->
-            <md-icon md-tooltip="Włącz dźwięk" *ngIf="audioEnableBtn" class="control-button" (click)="enableMicrophone()">volume_up</md-icon>
+            <md-icon md-tooltip="Włącz dźwięk" *ngIf="audioEnableBtn" class="control-button" (click)="enableMicrophone()">volume_off</md-icon>
 
             <!--<button md-raised-button *ngIf="!audioEnableBtn" (click)="disableMicrophone()">Wyłącz dźwięk</button>-->
-            <md-icon md-tooltip="Wyłącz dźwięk" *ngIf="!audioEnableBtn" class="control-button" (click)="disableMicrophone()">volume_off</md-icon>
+            <md-icon md-tooltip="Wyłącz dźwięk" *ngIf="!audioEnableBtn" class="control-button" (click)="disableMicrophone()">volume_up</md-icon>
           </div>
         </div>
       </div>
@@ -41,12 +43,13 @@
       <div class="chat">
 
         <div #chatContent class="chat-content">
-          <div *ngFor="let message of chat">
-            {{message}}
+          <div *ngFor="let message of chatt">
+            <div *ngIf="message.isMe" class="chat-message chat-message-me">{{message.text}}</div>
+            <div *ngIf="!message.isMe" class="chat-message chat-message-occupant">{{occupantName}}: {{message.text}}</div>
           </div>
         </div>
 
-        <div class="chat-footer">
+        <div class="chat-footer" (keyup.enter)="sendMessage()">
           <md-input-container class="send-text">
             <input md-input [(ngModel)]="message" placeholder="Tekst">
           </md-input-container>

@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { MessagesComponent } from './messages.component';
+import {MaterialModule} from "@angular/material";
 
 describe('MessagesComponent', () => {
   let component: MessagesComponent;
@@ -11,7 +12,8 @@ describe('MessagesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessagesComponent ]
+      declarations: [ MessagesComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

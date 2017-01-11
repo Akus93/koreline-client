@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { SendMessageDialogComponent } from './send-message-dialog.component';
+import {MaterialModule} from "@angular/material";
 
 describe('SendMessageDialogComponent', () => {
   let component: SendMessageDialogComponent;
@@ -11,7 +12,8 @@ describe('SendMessageDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SendMessageDialogComponent ]
+      declarations: [ SendMessageDialogComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

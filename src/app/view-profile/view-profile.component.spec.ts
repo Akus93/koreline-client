@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ViewProfileComponent } from './view-profile.component';
+import {MaterialModule} from "@angular/material";
 
 describe('ViewProfileComponent', () => {
   let component: ViewProfileComponent;
@@ -11,7 +12,8 @@ describe('ViewProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewProfileComponent ]
+      declarations: [ ViewProfileComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

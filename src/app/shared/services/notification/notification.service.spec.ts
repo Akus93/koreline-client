@@ -2,6 +2,7 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { NotificationService } from './notification.service';
+import {Http} from "@angular/http";
 
 describe('Service: Notification', () => {
   beforeEach(() => {

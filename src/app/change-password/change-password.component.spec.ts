@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { ChangePasswordComponent } from './change-password.component';
+import {MaterialModule} from "@angular/material";
 
 describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent;
@@ -11,7 +12,8 @@ describe('ChangePasswordComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangePasswordComponent ]
+      declarations: [ ChangePasswordComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

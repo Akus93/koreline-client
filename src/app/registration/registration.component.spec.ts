@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { RegistrationComponent } from './registration.component';
+import {MaterialModule} from "@angular/material";
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
@@ -11,7 +12,8 @@ describe('RegistrationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegistrationComponent ]
+      declarations: [ RegistrationComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));

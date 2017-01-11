@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CreateLessonComponent } from './create-lesson.component';
+import {MaterialModule} from "@angular/material";
 
 describe('CreateLessonComponent', () => {
   let component: CreateLessonComponent;
@@ -11,7 +12,8 @@ describe('CreateLessonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateLessonComponent ]
+      declarations: [ CreateLessonComponent ],
+      imports: [MaterialModule]
     })
     .compileComponents();
   }));
