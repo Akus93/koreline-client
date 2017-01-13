@@ -56,6 +56,40 @@ export class UserService {
                     .catch(this.handleError);
   }
 
+  public buyTokens(token: string, amount: number): Observable<UserProfile> {
+
+    let url = 'http://localhost:8000/api/user/tokens/buy/';
+    let body = JSON.stringify({ amount: amount });
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.post(url, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
+  public sellTokens(token: string, amount: number): Observable<UserProfile> {
+
+    let url = 'http://localhost:8000/api/user/tokens/sell/';
+    let body = JSON.stringify({ amount: amount });
+    let options = {
+      headers: new Headers({
+        'Authorization': 'Token '+ token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+
+    return this.http.post(url, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
   public createUser(email: string, password: string, confirmPassword: string): Observable<string> {
 
     let url = 'http://localhost:8000/auth/registration/';

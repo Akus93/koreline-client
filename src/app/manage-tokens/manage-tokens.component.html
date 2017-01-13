@@ -1,0 +1,32 @@
+<div class="component-header">
+  <h2>Zarządzaj żetonami</h2>
+  <h3>Kupuj i sprzedawaj żetony za prawdziwą gotówkę.</h3>
+</div>
+<hr>
+<div class="tokens-info"><p>Obecne posiadasz <b>{{tokens}}</b> żetonów na koncie.</p></div>
+<hr>
+<div class="center-block form-wrapper">
+  <form (ngSubmit)="onBuySubmit()" autocomplete="off" novalidate>
+    <div class="form-field">
+      <md-input-container>
+        <input md-input [(ngModel)]="buyAmount" [ngModelOptions]="{standalone: true}" type="number" placeholder="Liczba żetonów do kupna">
+      </md-input-container>
+      <div *ngIf="buyError" class="form-error-message">
+        {{ buyError }}
+      </div>
+    </div>
+    <button md-raised-button type="submit">Kup żetony</button>
+  </form>
+  <hr>
+  <form (ngSubmit)="onSellSubmit()" autocomplete="off" novalidate>
+    <div class="form-field">
+      <md-input-container>
+        <input md-input [(ngModel)]="sellAmount" [ngModelOptions]="{standalone: true}" type="number" placeholder="Liczba żetonów do sprzedania">
+      </md-input-container>
+      <div *ngIf="sellError" class="form-error-message">
+        {{ sellError }}
+      </div>
+    </div>
+    <button md-raised-button type="submit">Sprzedaj żetony</button>
+  </form>
+</div>

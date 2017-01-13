@@ -43,6 +43,7 @@ import {EventsService} from "./shared/services/events/events.service";
 import { WriteCommentDialogComponent } from './write-comment-dialog/write-comment-dialog.component';
 import {CommentService} from "./shared/services/comment/comment.service";
 import { ReportCommentDialogComponent } from './report-comment-dialog/report-comment-dialog.component';
+import { ManageTokensComponent } from './manage-tokens/manage-tokens.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { ReportCommentDialogComponent } from './report-comment-dialog/report-com
     ChangePasswordComponent,
     WriteCommentDialogComponent,
     ReportCommentDialogComponent,
+    ManageTokensComponent,
   ],
   imports: [
     BrowserModule,

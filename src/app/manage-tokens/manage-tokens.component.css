@@ -1,0 +1,52 @@
+.ng-invalid:not(form).ng-dirty  {
+  color: red;
+}
+
+.form-field {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.form-error-message {
+  color: orangered;
+}
+
+md-input-container {
+  width: 20em;
+}
+
+.component-header {
+  text-align: center;
+}
+
+.component-header h2 {
+  color: #555;
+  line-height: 1!important;
+  font-weight: 700!important;
+  font-size: 22px;
+  margin: 20px 0 3px;
+}
+
+.component-header h3 {
+  font-size: 15px;
+  font-weight: 300;
+  color: #555;
+  margin: 0 0 15px;
+  line-height: 25px;
+}
+
+md-input-container {
+  width: 100%;
+}
+
+textarea {
+  height: 70px;
+}
+
+.form-wrapper {
+  width: 500px;
+}
+
+.tokens-info {
+  text-align: center;
+}

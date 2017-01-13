@@ -16,6 +16,9 @@
         <md-list-item (click)="changeComponent('password')" class="nav-link {{activeComponent == 'password' ? 'active' : ''}}">
           Konto
         </md-list-item>
+        <md-list-item (click)="changeComponent('tokens')" class="nav-link {{activeComponent == 'tokens' ? 'active' : ''}}">
+          Żetony
+        </md-list-item>
       </md-list>
     </div>
     <div class="col-md-10 component-wraper">
@@ -23,6 +26,7 @@
         <app-edit-profile *ngSwitchCase="'info'"></app-edit-profile>
         <app-edit-photo *ngSwitchCase="'photo'"></app-edit-photo>
         <app-change-password *ngSwitchCase="'password'"></app-change-password>
+        <app-manage-tokens *ngSwitchCase="'tokens'"></app-manage-tokens>
         <app-edit-profile *ngSwitchDefault></app-edit-profile>
       </div>
     </div>
