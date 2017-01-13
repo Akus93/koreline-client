@@ -44,6 +44,9 @@ import { WriteCommentDialogComponent } from './write-comment-dialog/write-commen
 import {CommentService} from "./shared/services/comment/comment.service";
 import { ReportCommentDialogComponent } from './report-comment-dialog/report-comment-dialog.component';
 import { ManageTokensComponent } from './manage-tokens/manage-tokens.component';
+import {BillService} from "./shared/services/bill/bill.service";
+import { MyBillsComponent } from './my-bills/my-bills.component';
+import { TeacherBillsComponent } from './teacher-bills/teacher-bills.component';
 
 
 @NgModule({
@@ -69,6 +72,8 @@ import { ManageTokensComponent } from './manage-tokens/manage-tokens.component';
     WriteCommentDialogComponent,
     ReportCommentDialogComponent,
     ManageTokensComponent,
+    MyBillsComponent,
+    TeacherBillsComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +98,7 @@ import { ManageTokensComponent } from './manage-tokens/manage-tokens.component';
     MessageService,
     EventsService,
     CommentService,
+    BillService,
     AuthGuard,
     TeacherGuard
     ],

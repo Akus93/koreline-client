@@ -81,6 +81,15 @@ export class AppComponent implements OnInit{
       case 'COMMENT':
         this.router.navigate(['/user', this.authService.getUsername()]);
         break;
+      case 'NEW_BILL':
+        // TODO
+        break;
+      case 'PAID_BILL':
+       // TODO
+        break;
+      case 'DELETE_BILL':
+        // TODO
+        break;
       default:
         break;
     }
