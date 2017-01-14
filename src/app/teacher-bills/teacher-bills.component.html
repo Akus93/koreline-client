@@ -1,15 +1,29 @@
 <div class="container">
-  <div class="teacher-bills-container">
-    <div *ngFor="let bill of bills" style="border: 1px solid black;">
-      <h4>Rachunek</h4>
-      <p>Za lekcje {{bill.lesson.title}}</p>
-      <p>Dla {{getFullNameOrUsername(bill.user)}}</p>
-      <p>W wysokosci {{bill.amount}} żetonów.</p>
-      <div *ngIf="bill.isPaid">
-        <p>Oplacony {{bill.paidDate | date: 'H:mm:ss dd/MM/yy'}}</p>
-      </div>
-      <md-icon class="lesson-icon" mdTooltip="Usuń rachunek" (click)="deleteBill(bill)">delete</md-icon>
+  <div *ngIf="bills?.length == 0">
+    <h3>Nie masz żadnych wystawionych rachunków.</h3>
+  </div>
+
+  <div class="containerX">
+    <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
+      <md-card class="bill-card" *ngFor="let bill of bills"
+               fxFlex.lg="20" fxFlex.md="30" fxFlex.sm="40" fxFlex.xs="50">
+        <md-card-header>
+          <div md-card-avatar *ngIf="bill.isPaid" mdTooltip="Opłacony"><md-icon class="paid-icon">check_box</md-icon></div>
+          <div md-card-avatar *ngIf="!bill.isPaid" mdTooltip="Nieopłacony"><md-icon class="unpaid-icon">indeterminate_check_box</md-icon></div>
+          <md-card-title>
+            <b>Rachunek za lekcję <a [routerLink]="['/lesson', bill.lesson.slug]">{{bill.lesson.title}}</a></b>
+          </md-card-title>
+          <md-card-subtitle>Odbiorca <a [routerLink]="['/user', bill.user.user.username]">{{getFullNameOrUsername(bill.user)}}</a></md-card-subtitle>
+        </md-card-header>
+        <md-card-content>
+          <p>Kwota: <b>{{bill.amount}}</b> żetonów</p>
+          <md-icon *ngIf="bill.isPaid" mdTooltip="Usuń rachunek" (click)="deleteBill(bill)">delete</md-icon>
+          <p *ngIf="bill.isPaid"><b>Opłacono <i>{{bill.paidDate | date: 'H:mm:ss dd/MM/yy'}}</i></b></p>
+          <p>Wystawiono <i>{{bill.createDate | date: 'H:mm:ss dd/MM/yy'}}</i></p>
+        </md-card-content>
+      </md-card>
     </div>
   </div>
+
 </div>
 
