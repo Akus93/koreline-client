@@ -1,3 +1,15 @@
-<p>
-  teacher-bills works!
-</p>
+<div class="container">
+  <div class="teacher-bills-container">
+    <div *ngFor="let bill of bills" style="border: 1px solid black;">
+      <h4>Rachunek</h4>
+      <p>Za lekcje {{bill.lesson.title}}</p>
+      <p>Dla {{getFullNameOrUsername(bill.user)}}</p>
+      <p>W wysokosci {{bill.amount}} żetonów.</p>
+      <div *ngIf="bill.isPaid">
+        <p>Oplacony {{bill.paidDate | date: 'H:mm:ss dd/MM/yy'}}</p>
+      </div>
+      <md-icon class="lesson-icon" mdTooltip="Usuń rachunek" (click)="deleteBill(bill)">delete</md-icon>
+    </div>
+  </div>
+</div>
+

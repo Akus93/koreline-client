@@ -17,6 +17,7 @@ import {EditLessonComponent} from "./edit-lesson/edit-lesson.component";
 import {AccountComponent} from "./account/account.component";
 import {MessagesComponent} from "./messages/messages.component";
 import {TeacherBillsComponent} from "./teacher-bills/teacher-bills.component";
+import {MyBillsComponent} from "./my-bills/my-bills.component";
 
 
 export const routes: Routes = [
@@ -51,6 +52,11 @@ export const routes: Routes = [
     {
       path: 'user/my-lessons',
       component: MyLessonsComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'user/my-bills',
+      component: MyBillsComponent,
       canActivate: [AuthGuard]
     },
     {

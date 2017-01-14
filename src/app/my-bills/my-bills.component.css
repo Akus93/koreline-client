@@ -1,0 +1,46 @@
+.bill-card {
+  width: 450px;
+  margin: 15px;
+}
+
+md-icon{
+  color: #5589b6;
+  font-size: 24px;
+  margin-right: 10px;
+  margin-top: 3px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+md-icon:hover {
+  color: #3b5376;
+}
+
+.bill-card h4 {
+  color: #5589b6;
+}
+
+.bill-card a {
+  cursor: pointer;
+  color: #5589b6;
+}
+
+.bill-card a:hover {
+  color: #3b5376;
+}
+
+.paid-icon {
+  color: forestgreen;
+}
+
+.unpaid-icon {
+  color: orangered;
+}
+
+.paid-icon:hover {
+  color: green;
+}
+
+.unpaid-icon:hover {
+  color: red;
+}

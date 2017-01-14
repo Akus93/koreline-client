@@ -1,6 +1,6 @@
 <header>
   <md-toolbar color="primary">
-    <img routerLink="/" src="/assets/logo2.png" height="85%"/>
+    <img style="cursor: pointer" routerLink="/" src="/assets/logo2.png" height="85%"/>
 
     <span class="fill-remaining-space"></span>
     <div *ngIf="!authService.isAuth()">
@@ -14,9 +14,11 @@
       <span *ngIf="authService.isTeacher()">
         <button md-button routerLink="/lesson/create" >Dodaj nową ofertę</button>
         <button md-button routerLink="/teacher/my-lessons" >Prowadzone lekcje</button>
+        <button md-button routerLink="/teacher/my-bills" >Wystawione rachunki</button>
       </span>
 
       <button md-button routerLink="/user/my-lessons" >Moje lekcje</button>
+      <button md-button routerLink="/user/my-bills" >Moje rachunki</button>
 
       <span *ngIf="notifications?.length">
         <button md-icon-button [md-menu-trigger-for]="notificationsMenu">
@@ -39,7 +41,6 @@
                 <hr>
             </div>
             <div>
-              <!--<span class="notify-link">Zobacz wszystkie</span> TODO strona ze wszystkimi powiadomieniami-->
               <span class="pull-right notify-bottom-link" (click)="markAllNotificationsAsRead()" mdTooltip="Przeczytaj wszystkie">
                 <md-icon>done_all</md-icon>
               </span>

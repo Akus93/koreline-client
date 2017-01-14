@@ -41,7 +41,7 @@ export class ManageTokensComponent implements OnInit {
             this.tokens = user.tokens;
             this.toastyService.success({
               title: "Sukces",
-              msg: "Zakupiono " + this.buyAmount.toString() + " żetonów",
+              msg: "Zakupiono " + this.buyAmount.toString() + " żetony",
               showClose: true,
               timeout: 7000,
               theme: 'default',
