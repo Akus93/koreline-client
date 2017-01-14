@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
-
 import { UserProfile } from '../../models/userProfile.model';
+import {DOMAIN_NAME} from '../../global';
 
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UserService {
 
   public getCurrentUserProfile(token: string): Observable<UserProfile> {
 
-    let url = 'http://localhost:8000/api/user/my-profile/';
+    let url = DOMAIN_NAME + '/api/user/my-profile/';
     let options = {
         headers: new Headers({
              'Authorization': 'Token '+ token,
@@ -28,7 +28,7 @@ export class UserService {
 
   public patchCurrentUserProfile(token: string, username: string, body: any): Observable<UserProfile> {
 
-    let url = 'http://localhost:8000/api/users/' + username + '/';
+    let url = DOMAIN_NAME + '/api/users/' + username + '/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -44,7 +44,7 @@ export class UserService {
 
   public getUserProfile(username: string): Observable<UserProfile> {
 
-    let url = 'http://localhost:8000/api/users/' + username +'/';
+    let url = DOMAIN_NAME + '/api/users/' + username +'/';
     let options = {
       headers: new Headers({
         'Accept': 'application/json'
@@ -58,7 +58,7 @@ export class UserService {
 
   public buyTokens(token: string, amount: number): Observable<UserProfile> {
 
-    let url = 'http://localhost:8000/api/user/tokens/buy/';
+    let url = DOMAIN_NAME + '/api/user/tokens/buy/';
     let body = JSON.stringify({ amount: amount });
     let options = {
       headers: new Headers({
@@ -75,7 +75,7 @@ export class UserService {
 
   public sellTokens(token: string, amount: number): Observable<UserProfile> {
 
-    let url = 'http://localhost:8000/api/user/tokens/sell/';
+    let url = DOMAIN_NAME + '/api/user/tokens/sell/';
     let body = JSON.stringify({ amount: amount });
     let options = {
       headers: new Headers({
@@ -92,7 +92,7 @@ export class UserService {
 
   public createUser(email: string, password: string, confirmPassword: string): Observable<string> {
 
-    let url = 'http://localhost:8000/auth/registration/';
+    let url = DOMAIN_NAME + '/auth/registration/';
     let body = JSON.stringify({ email: email, password1: password, password2: confirmPassword });
     let options = {
       headers: new Headers({

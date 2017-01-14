@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {Notification} from "../../models/notification.model";
+import {DOMAIN_NAME} from '../../global';
 
 @Injectable()
 export class NotificationService {
@@ -10,7 +11,7 @@ export class NotificationService {
 
   getNotifications(token: string): Observable<Notification[]> {
 
-    let url = 'http://localhost:8000/api/notifications/';
+    let url = DOMAIN_NAME + '/api/notifications/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -25,7 +26,7 @@ export class NotificationService {
 
   markAsRead(token: string, notification: Notification): Observable<Notification> {
 
-    let url = 'http://localhost:8000/api/notifications/';
+    let url = DOMAIN_NAME + '/api/notifications/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,

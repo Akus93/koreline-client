@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers} from "@angular/http";
 import {Observable} from "rxjs";
+import {DOMAIN_NAME} from '../../global';
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class SubjectService {
     if (this.cachedSubjects) {
       return Observable.of(this.cachedSubjects);
     } else {
-      let url = 'http://localhost:8000/api/subjects/';
+      let url = DOMAIN_NAME + '/api/subjects/';
       let options = {
         headers: new Headers({
           'Accept': 'application/json'

@@ -3,6 +3,7 @@ import {Http, Response, Headers} from "@angular/http";
 import {Observable} from "rxjs";
 import {Lesson} from "../../models/lesson.model";
 import {UserProfile} from "../../models/userProfile.model";
+import {DOMAIN_NAME} from '../../global';
 
 
 @Injectable()
@@ -21,7 +22,7 @@ export class LessonService {
       query = query.slice(0, -1);
     }
 
-    let url = 'http://localhost:8000/api/lessons/' + query;
+    let url = DOMAIN_NAME + '/api/lessons/' + query;
     let options = {
       headers: new Headers({
         'Accept': 'application/json'
@@ -35,7 +36,7 @@ export class LessonService {
 
   getLesson(slug: string): Observable<Lesson> {
 
-    let url = 'http://localhost:8000/api/lessons/' + slug + '/';
+    let url = DOMAIN_NAME + '/api/lessons/' + slug + '/';
     let options = {
       headers: new Headers({
         'Accept': 'application/json'
@@ -49,7 +50,7 @@ export class LessonService {
 
   getLessonMembers(token: string, slug: string): Observable<UserProfile[]> {
 
-    let url = 'http://localhost:8000/api/lessons/' + slug + '/members/';
+    let url = DOMAIN_NAME + '/api/lessons/' + slug + '/members/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -64,7 +65,7 @@ export class LessonService {
 
   deleteLesson(token: string, slug: string): Observable<Lesson> {
 
-    let url = 'http://localhost:8000/api/lessons/' + slug + '/';
+    let url = DOMAIN_NAME + '/api/lessons/' + slug + '/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -78,7 +79,7 @@ export class LessonService {
 
   getCurrentUserLessons(token: string): Observable<Lesson[]> {
 
-    let url = 'http://localhost:8000/api/user/my-lessons/';
+    let url = DOMAIN_NAME + '/api/user/my-lessons/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -95,7 +96,7 @@ export class LessonService {
   public createLesson(token: string, title: string, subject: string, stage: string, price: number,
                       shortDescription: string, longDescription: string): Observable<Lesson> {
 
-    let url = 'http://localhost:8000/api/lessons/';
+    let url = DOMAIN_NAME + '/api/lessons/';
     let body = JSON.stringify({ title: title, subject: subject, stage: stage, price: price,
                                 shortDescription: shortDescription, longDescription: longDescription });
     let options = {
@@ -113,7 +114,7 @@ export class LessonService {
 
   public patchLesson(token: string, slug: string, body): Observable<Lesson> {
 
-    let url = 'http://localhost:8000/api/lessons/' + slug + '/';
+    let url = DOMAIN_NAME + '/api/lessons/' + slug + '/';
     let options = {
       headers: new Headers({
         'Authorization': 'Token '+ token,
@@ -130,7 +131,7 @@ export class LessonService {
 
   public joinLesson(token: string, slug: string): Observable<Lesson> {
 
-    let url = 'http://localhost:8000/api/lessons/join/';
+    let url = DOMAIN_NAME + '/api/lessons/join/';
     let body = JSON.stringify({ lesson: slug });
     let options = {
       headers: new Headers({
@@ -147,7 +148,7 @@ export class LessonService {
 
   public leaveLesson(token: string, slug: string): Observable<Response> {
 
-    let url = 'http://localhost:8000/api/lessons/leave/';
+    let url = DOMAIN_NAME + '/api/lessons/leave/';
     let body = JSON.stringify({ lesson: slug });
     let options = {
       headers: new Headers({
@@ -163,7 +164,7 @@ export class LessonService {
 
   public unsubscribeStudent(token: string, slug: string, username: string): Observable<Response> {
 
-    let url = 'http://localhost:8000/api/teacher/lessons/unsubscribe/';
+    let url = DOMAIN_NAME + '/api/teacher/lessons/unsubscribe/';
     let body = JSON.stringify({ lesson: slug, username: username });
     let options = {
       headers: new Headers({

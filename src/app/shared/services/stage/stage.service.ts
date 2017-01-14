@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers} from "@angular/http";
 import {Observable} from "rxjs";
+import {DOMAIN_NAME} from '../../global';
 
 
 @Injectable()
@@ -16,7 +17,7 @@ export class StageService {
     if (this.cachedStages) {
       return Observable.of(this.cachedStages);
     } else {
-      let url = 'http://localhost:8000/api/stages/';
+      let url = DOMAIN_NAME + '/api/stages/';
       let options = {
         headers: new Headers({
           'Accept': 'application/json'
