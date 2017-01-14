@@ -2,7 +2,6 @@
    <div *ngIf="myBills?.length == 0">
      <h3>Nie posiadasz żadnych rachunków.</h3>
    </div>
-
    <div class="containerX">
      <div fxLayoutWrap="wrap" fxLayout="row" fxFlex >
        <md-card class="bill-card" *ngFor="let bill of myBills"
