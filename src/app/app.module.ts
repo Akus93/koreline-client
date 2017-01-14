@@ -45,8 +45,9 @@ import {CommentService} from "./shared/services/comment/comment.service";
 import { ReportCommentDialogComponent } from './report-comment-dialog/report-comment-dialog.component';
 import { ManageTokensComponent } from './manage-tokens/manage-tokens.component';
 import {BillService} from "./shared/services/bill/bill.service";
-import { MyBillsComponent } from './my-bills/my-bills.component';
 import { TeacherBillsComponent } from './teacher-bills/teacher-bills.component';
+import { MyBillsComponent } from './my-bills/my-bills.component';
+import { CreateBillDialogComponent } from './create-bill-dialog/create-bill-dialog.component';
 
 
 @NgModule({
@@ -72,8 +73,9 @@ import { TeacherBillsComponent } from './teacher-bills/teacher-bills.component';
     WriteCommentDialogComponent,
     ReportCommentDialogComponent,
     ManageTokensComponent,
-    MyBillsComponent,
     TeacherBillsComponent,
+    MyBillsComponent,
+    CreateBillDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,7 +107,8 @@ import { TeacherBillsComponent } from './teacher-bills/teacher-bills.component';
   entryComponents: [
     SendMessageDialogComponent,
     WriteCommentDialogComponent,
-    ReportCommentDialogComponent
+    ReportCommentDialogComponent,
+    CreateBillDialogComponent
   ],
   bootstrap: [AppComponent]
 })

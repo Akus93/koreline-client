@@ -16,6 +16,7 @@ import {ConversationRoomComponent} from "./conversation-room/conversation-room.c
 import {EditLessonComponent} from "./edit-lesson/edit-lesson.component";
 import {AccountComponent} from "./account/account.component";
 import {MessagesComponent} from "./messages/messages.component";
+import {TeacherBillsComponent} from "./teacher-bills/teacher-bills.component";
 
 
 export const routes: Routes = [
@@ -55,6 +56,11 @@ export const routes: Routes = [
     {
       path: 'teacher/my-lessons',
       component: TeacherLessonsComponent,
+      canActivate: [AuthGuard, TeacherGuard]
+    },
+    {
+      path: 'teacher/my-bills',
+      component: TeacherBillsComponent,
       canActivate: [AuthGuard, TeacherGuard]
     },
     {

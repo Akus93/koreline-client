@@ -1,0 +1,12 @@
+<div class="bill-form">
+  <div class="form-field">
+    <md-input-container>
+      <input md-input [(ngModel)]="billAmount" [ngModelOptions]="{standalone: true}"  type="number" required placeholder="Kwota do zapłaty">
+    </md-input-container>
+  </div>
+  <div *ngIf="error" class="form-error-message">
+    <p>{{error}}</p>
+  </div>
+  <br>
+  <button md-raised-button (click)="createBill()">Wystaw rachunek</button>
+</div>

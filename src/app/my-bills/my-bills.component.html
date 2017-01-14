@@ -1,3 +1,5 @@
-<p>
-  my-bills works!
-</p>
+<div *ngFor="let bill of myBills" style="border: 1px black solid">
+  <p>Rachunek za lekcję: {{bill.lesson.title}}</p>
+  <p>Cena: {{bill.amount}}</p>
+  <button md-raised-button (click)="payBill(bill)">Opłać</button>
+</div>

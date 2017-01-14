@@ -12,6 +12,8 @@ import {UserProfile} from "../shared/models/userProfile.model";
 import {DOMAIN_NAME} from '../shared/global';
 import {SendMessageDialogComponent} from "../send-message-dialog/send-message-dialog.component";
 import {MdDialog} from "@angular/material";
+import {BillService} from "../shared/services/bill/bill.service";
+import {CreateBillDialogComponent} from "../create-bill-dialog/create-bill-dialog.component";
 
 @Component({
   selector: 'app-teacher-lessons',
@@ -25,7 +27,7 @@ export class TeacherLessonsComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService, private lessonService: LessonService,
               private conversationService: ConversationService, private toastyService: ToastyService,
-              private sharedService: SharedService, public dialog: MdDialog) { }
+              private sharedService: SharedService, public dialog: MdDialog, private billService: BillService) { }
 
   ngOnInit() {
     this.domain = DOMAIN_NAME;
@@ -83,6 +85,40 @@ export class TeacherLessonsComponent implements OnInit {
                       );
 
   }
+
+  createBill(lesson: Lesson, student: UserProfile) {
+    let dialogRef = this.dialog.open(CreateBillDialogComponent);
+    dialogRef.afterClosed().subscribe(
+      billAmount => {
+        if (billAmount) {
+          this.billService.createBill(this.authService.getToken(), lesson.slug, student.user.username, billAmount)
+            .subscribe(
+              bill => {
+                this.toastyService.success({
+                  title: "Sukces",
+                  msg: "Pomyślnie wystawiono rachunek",
+                  showClose: true,
+                  timeout: 7000,
+                  theme: 'default',
+                });
+                this.router.navigate(['/teacher/my-bills']);
+              },
+              error => {
+                this.toastyService.error({
+                  title: "Błąd",
+                  msg: error.amount || 'Wystąpił błąd przy wystawianiu rachunku!',
+                  showClose: true,
+                  timeout: 7000,
+                  theme: 'default',
+                });
+              }
+            );
+        }
+      }
+    );
+  }
+
+
 
   createConversation(lesson, student) {
     this.conversationService.createConversation(this.authService.getToken(), lesson.slug, student.user.username)
