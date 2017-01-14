@@ -173,7 +173,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
 
   connect():void {
     //easyrtc.setSocketUrl("//localhost:8080", {'connect timeout': 10000,'force new connection': true });
-    easyrtc.setSocketUrl("https://koreline-webrtc.herokuapp.com:6841", {'connect timeout': 10000,'force new connection': true });
+    easyrtc.setSocketUrl("https://koreline-webrtc.herokuapp.com:80", {'connect timeout': 10000,'force new connection': true });
     easyrtc.setVideoDims(640, 480, undefined);
 
     easyrtc.setRoomEntryListener(function(entry, roomName){
