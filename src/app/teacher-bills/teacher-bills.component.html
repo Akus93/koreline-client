@@ -17,9 +17,9 @@
         </md-card-header>
         <md-card-content>
           <p>Kwota: <b>{{bill.amount}}</b> żetonów</p>
-          <md-icon *ngIf="bill.isPaid" mdTooltip="Usuń rachunek" (click)="deleteBill(bill)">delete</md-icon>
           <p *ngIf="bill.isPaid"><b>Opłacono <i>{{bill.paidDate | date: 'H:mm:ss dd/MM/yy'}}</i></b></p>
           <p>Wystawiono <i>{{bill.createDate | date: 'H:mm:ss dd/MM/yy'}}</i></p>
+          <md-icon *ngIf="!bill.isPaid" mdTooltip="Usuń rachunek" (click)="deleteBill(bill)">delete</md-icon>
         </md-card-content>
       </md-card>
     </div>
