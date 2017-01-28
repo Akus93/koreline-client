@@ -43,8 +43,8 @@
       <div class="chat">
 
         <div #chatContent class="chat-content">
-          <div *ngFor="let message of chatt">
-            <div *ngIf="message.isMe" class="chat-message chat-message-me">{{message.text}}</div>
+          <div *ngFor="let message of chat">
+            <div *ngIf="message.isMe" class="chat-message chat-message-me">Ja: {{message.text}}</div>
             <div *ngIf="!message.isMe" class="chat-message chat-message-occupant">{{occupantName}}: {{message.text}}</div>
           </div>
         </div>

@@ -40,7 +40,7 @@ video {
 }
 
 .chat-message-me {
-  text-align: right;
+  /*background-color: rgba(247, 247, 247, 0.64)*/
 }
 
 .chat-message-occupant {

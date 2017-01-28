@@ -30,8 +30,8 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
   isTeacher: boolean;
   occupantName: string;
 
-  chat: string[];
-  chatt: any;
+  //chat: string[];
+  chat: any;
   message: string;
 
   constructor(private router: Router, private cdr: ChangeDetectorRef, private sharedService: SharedService,
@@ -43,8 +43,8 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     this.displayHangupBtn = false;
     this.cameraEnableBtn = false;
     this.audioEnableBtn = false;
-    this.chat = Array<string>();
-    this.chatt = Array<{}>();
+    //this.chat = Array<string>();
+    this.chat = Array<{}>();
     this.isTeacher = false;
 
     this.sharedService.getCurrentConversation().subscribe(
@@ -87,9 +87,6 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     if (!isNullOrUndefined(this.conversation)) {
       this.conversationService.closeConversation(this.authService.getToken(), this.conversation.student.user.username)
         .subscribe();
-      // easyrtc.leaveRoom(this.conversation.key, () => {
-      // }, () => {
-      // });
     }
     easyrtc.disconnect();
     //easyrtc.closeLocalStream('myVideo');
@@ -172,8 +169,7 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
   }
 
   connect():void {
-    //easyrtc.setSocketUrl("//localhost:8080", {'connect timeout': 10000,'force new connection': true });
-    easyrtc.setSocketUrl("https://koreline-webrtc.herokuapp.com:80", {'connect timeout': 10000,'force new connection': true });
+    easyrtc.setSocketUrl("//localhost:8080", {'connect timeout': 10000,'force new connection': true });
     easyrtc.setVideoDims(640, 480, undefined);
 
     easyrtc.setRoomEntryListener(function(entry, roomName){
@@ -188,8 +184,8 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
     easyrtc.enableDataChannels(true);
 
     let peerListener = (easyrtcid, msgType, msgData, targeting): void => {
-      this.chat.push(msgData.sender + ': ' + msgData.text);
-      this.chatt.push({text: msgData.text, isMe: false});
+      //this.chat.push(msgData.sender + ': ' + msgData.text);
+      this.chat.push({text: msgData.text, isMe: false});
       this.scrollToBottom();
       this.cdr.detectChanges();
     };
@@ -201,6 +197,19 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
       });
     //easyrtc.setUsername(this.authService.getUsername());
     easyrtc.joinRoom(this.conversation.key, null, this.loginSuccess.bind(this), this.loginFailure.bind(this));
+
+    let onError = (errorObject): void => {
+      this.toastyService.error({
+        title: "Błąd konwersacji!",
+        msg: errorObject.errorText,
+        showClose: true,
+        timeout: 7000,
+        theme: 'default',
+      });
+      console.error(errorObject.errorText);
+      this.router.navigate(['/']);
+    };
+    easyrtc.setOnError(onError);
 
     let roomOccupantListener = (roomName: string, data: Easyrtc_PerRoomData, isPrimary: boolean): void => {
       this.setOccupant(roomName, data, isPrimary);
@@ -251,7 +260,6 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
           this.router.navigate(['/']);
         }
       }
-      // console.log("The Server sent the following message " + JSON.stringify(msgData));
     };
     easyrtc.setServerListener(serverListener)
 
@@ -273,8 +281,8 @@ export class ConversationRoomComponent implements OnInit, OnDestroy {
             easyrtc.showError(reply.msgData.errorCode, reply.msgData.errorText);
           }
         });
-        this.chat.push('Ja: ' + text);
-        this.chatt.push({text: text, isMe: true});
+        //this.chat.push('Ja: ' + text);
+        this.chat.push({text: text, isMe: true});
         this.message = '';
         this.cdr.detectChanges();
         this.scrollToBottom();
