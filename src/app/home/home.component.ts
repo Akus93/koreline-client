@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   constructor(private lessonService: LessonService, private subjectService: SubjectService,
               private formBuilder: FormBuilder, private stageService: StageService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isFiltered = false;
     this.lessonService.getLessonsList({})
                       .subscribe(
@@ -47,21 +47,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  private getTeacherFullName(lesson: Lesson): string {
-      if (lesson.teacher.user.firstName && lesson.teacher.user.lastName)
-        return lesson.teacher.user.firstName + ' ' + lesson.teacher.user.lastName;
-      else
-        return lesson.teacher.user.username;
-  }
-
-  filtration() {
+  filtration(): void {
     if (this.filterForm.valid) {
-    let query = {};
-    for (let control in this.filterForm.controls) {
-      let ctrl = this.filterForm.get(control.toString());
-      if (ctrl.value)
-        query[control.toString()] = ctrl.value;
-    }
+      let query = {};
+      for (let control in this.filterForm.controls) {
+        let ctrl = this.filterForm.get(control.toString());
+        if (ctrl.value)
+          query[control.toString()] = ctrl.value;
+      }
       this.lessonService.getLessonsList(query)
         .subscribe(
           lessons => {
@@ -74,6 +67,15 @@ export class HomeComponent implements OnInit {
       console.log('Błąd filtrowania...');
     }
   }
+
+  private getTeacherFullName(lesson: Lesson): string {
+      if (lesson.teacher.user.firstName && lesson.teacher.user.lastName)
+        return lesson.teacher.user.firstName + ' ' + lesson.teacher.user.lastName;
+      else
+        return lesson.teacher.user.username;
+  }
+
+
 
   resetFiltration() {
     this.filterForm.reset();

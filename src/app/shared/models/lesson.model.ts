@@ -13,3 +13,4 @@ export class Lesson {
   shortDescription: string;
   longDescription: string;
 }
+
